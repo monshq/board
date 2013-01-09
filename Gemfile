@@ -11,5 +11,6 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'haml-rails'
 gem 'bcrypt-ruby'
 gem 'devise'

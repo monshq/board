@@ -11,10 +11,10 @@
 .flash.notice {
   color: darkgreen;
   border-color: darkgreen;
-  background-color: #ffeeff;
+  background-color: #f0fff0;
 }
 .flash.warning {
   color: darkred;
   border-color: darkred;
-  background-color: #eeffff;
+  background-color: #fff0f0;
 }

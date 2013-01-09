@@ -10,6 +10,11 @@ group :assets do
   gem 'therubyracer'
 end
 
+group :development do
+  gem 'mailcatcher'
+  gem 'foreman'
+end
+
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'bcrypt-ruby'

@@ -1,0 +1,20 @@
+#flashing {
+  clear: both;
+}
+.flash {
+  float: left;
+  clear: left;
+  margin: 10px;
+  border: thin dashed;
+  padding: 10px;
+}
+.flash.notice {
+  color: darkgreen;
+  border-color: darkgreen;
+  background-color: #ffeeff;
+}
+.flash.warning {
+  color: darkred;
+  border-color: darkred;
+  background-color: #eeffff;
+}

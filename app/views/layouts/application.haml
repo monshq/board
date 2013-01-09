@@ -17,4 +17,8 @@
         |
         = link_to 'Зарегистрироваться', new_user_registration_path
 
+    #flashing
+      - for type, message in flash
+        .flash(class="#{type}")= message
+
     = yield

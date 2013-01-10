@@ -15,6 +15,11 @@ group :development do
   gem 'foreman'
 end
 
+group :test do
+  gem 'rspec-rails'
+  gem 'capybara'
+end
+
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'bcrypt-ruby'

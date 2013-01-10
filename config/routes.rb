@@ -1,4 +1,4 @@
 Board::Application.routes.draw do
-  root to: 'home#home'
+  root to: 'home#index'
   devise_for :users
 end

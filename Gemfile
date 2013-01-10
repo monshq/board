@@ -20,6 +20,11 @@ group :test do
   gem 'capybara'
 end
 
+group :development, :test do
+  gem 'factory_girl_rails'
+  gem 'ffaker'
+end
+
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'bcrypt-ruby'

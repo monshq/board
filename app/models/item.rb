@@ -6,4 +6,13 @@ class Item < ActiveRecord::Base
   has_many :messages
 
   attr_accessible :description
+
+  def set_tags *tags
+    tags.flatten.each do |tag|
+      tag.split(',').each do |tag|
+        tag.strip!
+        self.tags.create name: tag unless Tag.find_by_name tag
+      end
+    end
+  end
 end

@@ -15,14 +15,14 @@ group :development do
   gem 'foreman'
 end
 
-group :test do
+group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'
-end
-
-group :development, :test do
   gem 'factory_girl_rails'
   gem 'ffaker'
+  gem 'guard-rspec'
+  gem 'rb-inotify'
+  gem 'pry'
 end
 
 gem 'jquery-rails'

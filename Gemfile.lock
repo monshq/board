@@ -233,7 +233,7 @@ DEPENDENCIES
   mailcatcher
   pg
   pry
-  rails
+  rails (~> 3.2.11)
   rb-inotify
   rspec-rails
   sass-rails

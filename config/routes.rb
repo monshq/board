@@ -6,4 +6,7 @@ Board::Application.routes.draw do
     resources :photos
     resources :messages
   end
+  namespace :dashboard do
+    resources :items
+  end
 end

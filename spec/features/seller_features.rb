@@ -5,7 +5,23 @@ require 'spec_helper'
 # Продавец
 
 feature 'Чтобы управлять своими объявлениями, я регистрируюсь на сайте'
-feature 'Чтобы продать что либо, я подаю объявление с описанием товара и контактными данными'
+
+feature 'Чтобы продать что либо, я подаю объявление с описанием товара и контактными данными' do
+  background do
+    @user = FactoryGirl.create :user
+    login_as @user, scope: :user, run_callbacks: false
+  end
+
+  scenario 'Я вижу свои объявления' do
+    d = Faker::Lorem.sentence
+    @user.items.create description: d
+    visit '/dashboard/items'
+    page.should have_content d
+  end
+
+  after(:each) {Warden.test_reset!}
+end
+
 feature 'Чтобы меня не беспокоили после продажи, я хочу возможность снять товар с продажи'
 feature 'Чтобы лучше представить товар, я хочу загружать несколько фотографий'
 feature 'Чтобы мой товар выделялся в списках, я хочу выбрать заглавную фотографию'

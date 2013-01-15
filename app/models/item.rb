@@ -6,6 +6,7 @@ class Item < ActiveRecord::Base
   has_many :messages
 
   attr_accessible :description
+  attr_accessible :contact_info
 
   def set_tags tags
     tags = tags.split(',') unless tags.is_a? Array

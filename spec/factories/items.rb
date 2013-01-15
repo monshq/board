@@ -3,5 +3,6 @@ FactoryGirl.define do
     seller
 
     description Faker::Lorem.sentences
+    contact_info Faker::Lorem.words
   end
 end

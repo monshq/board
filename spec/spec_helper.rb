@@ -6,7 +6,11 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
+
 require 'capybara/rspec'
+Capybara.default_driver = :webkit
+
+require 'capybara-screenshot/rspec'
 
 include Warden::Test::Helpers
 Warden.test_mode!

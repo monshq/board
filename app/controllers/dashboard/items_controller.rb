@@ -4,7 +4,7 @@ class Dashboard::ItemsController < Dashboard::ApplicationController
   end
 
   def new
-    @item = current_user.items.new
+    @item = current_user.items.build
   end
 
   def create

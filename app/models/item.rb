@@ -6,9 +6,8 @@ class Item < ActiveRecord::Base
   has_many :photos
   has_many :messages
 
-  def tags_s=(tags_s)
-    save
 
+  def set_tags(tags_s)
     tags_s.split(',').each do |t|
       self.tags << Tag.where(name: t).first_or_create
     end

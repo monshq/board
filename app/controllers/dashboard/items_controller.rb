@@ -8,7 +8,10 @@ class Dashboard::ItemsController < Dashboard::ApplicationController
   end
 
   def create
-    if current_user.items.create params[:item]
+    @item = current_user.items.build description:  params[:item][:description],
+                                     contact_info: params[:item][:contact_info]
+    if @item.save
+      @item.set_tags params[:item][:tags_s]
       flash[:notice] = t :item_created
       redirect_to dashboard_items_path
     end

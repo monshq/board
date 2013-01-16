@@ -1,4 +1,5 @@
 = form_for @item, url: dashboard_items_path do |f|
+  = f.error_messages
   .field
     .label= f.label      :description
     .input= f.text_area  :description

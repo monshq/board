@@ -11,8 +11,4 @@ class User < ActiveRecord::Base
 
   has_many :items
   has_many :messages
-
-  def to_s
-    email
-  end
 end

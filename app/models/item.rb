@@ -6,7 +6,8 @@ class Item < ActiveRecord::Base
   has_many :photos
   has_many :messages
 
-  validates :contact_info, presence: true
+  validates :contact_info, presence: true,
+                           length: {minimum: 11} # FIXME: Take from config
 
   def set_tags(tags_s)
     tags_s.split(',').each do |t|

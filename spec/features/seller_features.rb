@@ -4,22 +4,40 @@ require 'spec_helper'
 
 # Продавец
 
+def sign_in_user(user)
+    visit root_path
+    click_link 'Войти'
+    fill_in 'Email',    with: user.email
+    fill_in 'Password', with: user.password
+    click_button 'Sign in'
+    page.should have_text 'Вы успешно вошли в свою панель управления.'
+end
+
 feature 'Чтобы управлять своими объявлениями, я регистрируюсь на сайте'
 
 feature 'Чтобы продать что либо, я подаю объявление с описанием товара и контактными данными' do
   background do
     @user = FactoryGirl.create :user
-    login_as @user, scope: :user, run_callbacks: false
+    sign_in_user @user
   end
 
-  scenario 'Я вижу свои объявления' do
-    d = Faker::Lorem.sentence
-    @user.items.create description: d
-    visit '/dashboard/items'
-    page.should have_content d
-  end
+  scenario 'Я нажимаю на ссылку "Новое объявление", заполняю форму создания объявления, и вижу его в списке' do
+    visit dashboard_items_path
+    click_link 'Новое объявление'
 
-  after(:each) {Warden.test_reset!}
+    @item = FactoryGirl.attributes_for :item
+    @tags = ['Электроника', 'Компьютеры']
+
+    fill_in 'Текст объявления',      with: @item[:description]
+    fill_in 'Категории',             with: @tags.join(', ')
+    fill_in 'Контактная информация', with: @item[:contact_info]
+    click_button 'Подать это объявление'
+
+    page.should have_text 'Объявление успешно размещено.'
+    page.should have_text @item[:description]
+    @tags.each {|t| page.should have_text t}
+    page.should have_text @item[:contact_info]
+  end
 end
 
 feature 'Чтобы меня не беспокоили после продажи, я хочу возможность снять товар с продажи'

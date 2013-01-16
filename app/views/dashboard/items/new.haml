@@ -1,0 +1,12 @@
+= form_for @item, url: dashboard_items_path do |f|
+  .field
+    .label= f.label      :description
+    .input= f.text_area  :description
+  .field
+    .label= f.label      :tags_s
+    .input= f.text_field :tags_s
+  .field
+    .label= f.label      :contact_info
+    .input= f.text_field :contact_info
+  .field
+    .input= f.submit

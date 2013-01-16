@@ -5,11 +5,19 @@ class Item < ActiveRecord::Base
   has_many :photos
   has_many :messages
 
-  attr_accessible :description
-  attr_accessible :contact_info
+  attr_accessible :description, :contact_info, :tags_s
 
-  def set_tags tags
-    tags = tags.split(',') unless tags.is_a? Array
-    tags.each {|t| self.tags << Tag.where(name: t).first_or_create}
+  def tags_s=(tags_s)
+    save
+
+    tags_s.split(',').each do |t|
+      self.tags << Tag.where(name: t).first_or_create
+    end
+  end
+
+  def tags_s
+    tags.collect do |t|
+      t.name
+    end.join ', '
   end
 end

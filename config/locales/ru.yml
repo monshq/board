@@ -4,3 +4,18 @@ ru:
   sign_in: 'Войти'
   sign_out: 'Выйти'
   new_item: 'Новое объявление'
+  item_created: 'Объявление успешно размещено.'
+  activerecord:
+    attributes:
+      item:
+        description: 'Текст объявления'
+        tags_s: 'Категории'
+        contact_info: 'Контактная информация'
+  helpers:
+    submit:
+      item:
+        create: 'Подать это объявление'
+  devise:
+    sessions:
+      user:
+        signed_in: 'Вы успешно вошли в свою панель управления.'

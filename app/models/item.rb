@@ -1,11 +1,10 @@
 class Item < ActiveRecord::Base
-  belongs_to :seller, class_name: 'User', dependent: :destroy
+  attr_accessible :description, :contact_info, :tags_s
 
+  belongs_to :seller, class_name: 'User', dependent: :destroy
   has_and_belongs_to_many :tags, uniq: true
   has_many :photos
   has_many :messages
-
-  attr_accessible :description, :contact_info, :tags_s
 
   def tags_s=(tags_s)
     save

@@ -11,6 +11,15 @@ ru:
         description: 'Текст объявления'
         tags_s: 'Категории'
         contact_info: 'Контактная информация'
+    errors:
+      template:
+        header: 'Ошибка при сохранении'
+        body: 'К сожалению, при сохранении информации возникла ошибка.'
+      models:
+        item:
+          attributes:
+            contact_info:
+              blank: 'Пожалуйста, укажите также контактную информацию.'
   helpers:
     submit:
       item:

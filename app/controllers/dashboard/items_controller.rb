@@ -14,6 +14,8 @@ class Dashboard::ItemsController < Dashboard::ApplicationController
       @item.set_tags params[:item][:tags_s]
       flash[:notice] = t :item_created
       redirect_to dashboard_items_path
+    else
+      render action: 'new'
     end
   end
 end

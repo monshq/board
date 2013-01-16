@@ -19,15 +19,13 @@ feature 'Чтобы продать что либо, я подаю объявле
   background do
     @user = FactoryGirl.create :user
     sign_in_user @user
-  end
-
-  scenario 'Я нажимаю на ссылку "Новое объявление", заполняю форму создания объявления, и вижу его в списке' do
     visit dashboard_items_path
     click_link 'Новое объявление'
-
     @item = FactoryGirl.attributes_for :item
     @tags = ['Электроника', 'Компьютеры']
+  end
 
+  scenario 'Я заполняю форму создания объявления правильно и вижу его в списке' do
     fill_in 'Текст объявления',      with: @item[:description]
     fill_in 'Категории',             with: @tags.join(', ')
     fill_in 'Контактная информация', with: @item[:contact_info]
@@ -37,6 +35,16 @@ feature 'Чтобы продать что либо, я подаю объявле
     page.should have_text @item[:description]
     @tags.each {|t| page.should have_text t}
     page.should have_text @item[:contact_info]
+  end
+
+  context 'Когда форма заполнена неправильно' do
+    scenario 'Я не указываю контактную информацию и получаю сообщение об ошибке' do
+      fill_in 'Текст объявления',      with: @item[:description]
+      fill_in 'Категории',             with: @tags.join(', ')
+      click_button 'Подать это объявление'
+
+      page.should have_text 'Пожалуйста, укажите также контактную информацию.'
+    end
   end
 end
 

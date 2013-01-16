@@ -6,6 +6,7 @@ class Item < ActiveRecord::Base
   has_many :photos
   has_many :messages
 
+  validates :contact_info, presence: true
 
   def set_tags(tags_s)
     tags_s.split(',').each do |t|

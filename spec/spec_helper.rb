@@ -7,6 +7,9 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 
+require 'database_cleaner'
+DatabaseCleaner.strategy = :truncation
+
 require 'capybara/rspec'
 Capybara.default_driver = :webkit
 
@@ -46,4 +49,12 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
 end

@@ -11,8 +11,6 @@ require 'database_cleaner'
 DatabaseCleaner.strategy = :truncation
 
 require 'capybara/rspec'
-Capybara.default_driver = :webkit
-
 require 'capybara-screenshot/rspec'
 
 # Requires supporting ruby files with custom matchers and macros, etc,

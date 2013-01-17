@@ -1,0 +1,3 @@
+%p= t 'devise.mailer.confirmation_instructions.message'
+%p= link_to t('devise.mailer.confirmation_instructions.activate'),
+            confirmation_url(@resource, confirmation_token: @resource.confirmation_token)

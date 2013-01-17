@@ -39,6 +39,9 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 1.0.0)
+    capybara-email (2.0.2)
+      capybara (~> 2.0.0)
+      mail
     capybara-screenshot (0.3.4)
       capybara (>= 1.0, < 3)
     capybara-webkit (0.14.1)
@@ -229,6 +232,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt-ruby
   capybara
+  capybara-email
   capybara-screenshot
   capybara-webkit
   coffee-rails

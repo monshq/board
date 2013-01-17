@@ -11,6 +11,7 @@ require 'database_cleaner'
 DatabaseCleaner.strategy = :truncation
 
 require 'capybara/rspec'
+require 'capybara/email/rspec'
 require 'capybara-screenshot/rspec'
 
 # Requires supporting ruby files with custom matchers and macros, etc,

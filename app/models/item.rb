@@ -1,5 +1,5 @@
 class Item < ActiveRecord::Base
-  attr_accessible :description, :contact_info, :tags_s
+  attr_accessible :description, :contact_info
 
   belongs_to :seller, class_name: 'User'
   has_and_belongs_to_many :tags, uniq: true

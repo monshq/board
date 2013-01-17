@@ -7,13 +7,32 @@ require 'spec_helper'
 def sign_in_user(user)
     visit root_path
     click_link 'Войти'
-    fill_in 'Email',    with: user.email
-    fill_in 'Password', with: user.password
+
+    fill_in 'Адрес электронной почты', with: user.email
+    fill_in 'Пароль',                  with: user.password
     click_button 'Sign in'
+
     page.should have_text 'Вы успешно вошли в свою панель управления.'
 end
 
-feature 'Чтобы управлять своими объявлениями, я регистрируюсь на сайте'
+feature 'Чтобы управлять своими объявлениями, я регистрируюсь на сайте' do
+  background do
+    @user = FactoryGirl.attributes_for :user
+  end
+
+  scenario 'Я ввожу свои данные и получаю сообщение об активационном письме', focus: true do
+    visit root_path
+    click_link 'Зарегистрироваться'
+
+    fill_in 'Адрес электронной почты', with: @user[:email]
+    fill_in 'Пароль',                  with: @user[:password]
+    fill_in 'Подтверждение пароля',    with: @user[:password]
+    click_button 'Sign up' # FIXME: Перевести
+
+    page.should have_text 'Спасибо'
+    page.should have_text 'На ваш адрес электронной почты только что было отправлено письмо со ссылкой для активации вашей учётной записи. Пожалуйста, откройте это письмо и нажмите на ссылку.'
+  end
+end
 
 feature 'Чтобы продать что либо, я подаю объявление с описанием товара и контактными данными' do
   background do

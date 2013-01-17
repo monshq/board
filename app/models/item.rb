@@ -1,10 +1,10 @@
 class Item < ActiveRecord::Base
   attr_accessible :description, :contact_info, :tags_s
 
-  belongs_to :seller, class_name: 'User', dependent: :destroy
+  belongs_to :seller, class_name: 'User'
   has_and_belongs_to_many :tags, uniq: true
-  has_many :photos
-  has_many :messages
+  has_many :photos,   dependent: :destroy
+  has_many :messages, dependent: :destroy
 
   validates :contact_info, presence: true,
                            length: {minimum: 11, maximum: 255} # FIXME: Take from config

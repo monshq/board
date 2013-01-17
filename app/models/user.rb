@@ -9,6 +9,6 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
-  has_many :items
-  has_many :messages
+  has_many :items,    dependent: :destroy
+  has_many :messages, dependent: :destroy
 end

@@ -41,8 +41,10 @@ feature 'Чтобы продать что либо, я подаю объявле
   background do
     @user = FactoryGirl.create :user
     sign_in_user @user
+
     visit dashboard_items_path
     click_link 'Новое объявление'
+
     @item = FactoryGirl.attributes_for :item
     @tags = ['Электроника', 'Компьютеры']
   end

@@ -18,4 +18,11 @@ class Dashboard::ItemsController < Dashboard::ApplicationController
       render action: 'new'
     end
   end
+
+  def destroy
+    current_user.items.find(params[:id]).destroy
+
+    flash[:notice] = t :item_destroyed
+    redirect_to dashboard_items_path
+  end
 end

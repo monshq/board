@@ -5,6 +5,8 @@ ru:
   sign_out: 'Выйти'
   new_item: 'Новое объявление'
   item_created: 'Объявление успешно размещено.'
+  delete: 'Удалить'
+  item_destroyed: 'Объявление успешно удалено.'
   activerecord:
     attributes:
       user:

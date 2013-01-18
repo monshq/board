@@ -3,3 +3,5 @@
     .description=item.description
     .tags=item.tags_s
     .contact_info=item.contact_info
+    .controls
+      = link_to t(:delete), dashboard_item_path(item), method: :delete

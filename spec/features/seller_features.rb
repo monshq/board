@@ -106,7 +106,23 @@ feature 'Чтобы продать что либо, я подаю объявле
   end
 end
 
-feature 'Чтобы меня не беспокоили после продажи, я хочу возможность снять товар с продажи'
+feature 'Чтобы меня не беспокоили после продажи, я хочу возможность снять товар с продажи' do
+  scenario 'Я нажимаю на ссылку "Удалить" рядом с ненужным объявлением и оно пропадает' do
+    @user = FactoryGirl.create :user
+    @item = FactoryGirl.attributes_for :item
+    @user.items.create @item
+
+    sign_in_user @user
+    click_link 'Удалить'
+
+    page.should have_text 'Объявление успешно удалено.'
+    page.should_not have_text @item[:description]
+    page.should_not have_link 'Удалить'
+
+    @user.should have(0).items
+  end
+end
+
 feature 'Чтобы лучше представить товар, я хочу загружать несколько фотографий'
 feature 'Чтобы мой товар выделялся в списках, я хочу выбрать заглавную фотографию'
 feature 'Чтобы покупателю было проще найти мой товар, я хочу указать теги категорий, которым он принадлежит'

@@ -1,6 +1,11 @@
-= inside_layout do
-  #dashboard
-    #controls
-      = link_to t(:new_item), new_dashboard_item_path
+!!!
+%html
+  %head
+    %title Панель управления
+    = render 'head'
+  %body
+    = render 'auth'
+    = render 'dashboard'
+    = render 'flashes'
 
     = yield

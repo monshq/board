@@ -1,7 +1,12 @@
 - for item in @items
   .item
     .description=item.description
+    .photos
+      - for photo in item.photos
+        .photo
+          = image_tag photo.file, alt: nil
     .tags=item.tags_s
     .contact_info=item.contact_info
     .controls
       = link_to t(:delete), dashboard_item_path(item), method: :delete
+      = link_to t(:add_photo), new_dashboard_item_photo_path(item)

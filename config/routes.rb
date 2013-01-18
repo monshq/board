@@ -3,10 +3,11 @@ Board::Application.routes.draw do
   devise_for :users
   resources :tags
   resources :items do
-    resources :photos
     resources :messages
   end
   namespace :dashboard do
-    resources :items
+    resources :items do
+      resources :photos
+    end
   end
 end

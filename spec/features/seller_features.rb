@@ -123,7 +123,27 @@ feature 'Чтобы меня не беспокоили после продажи
   end
 end
 
-feature 'Чтобы лучше представить товар, я хочу загружать несколько фотографий'
+feature 'Чтобы лучше представить товар, я хочу загружать несколько фотографий' do
+  scenario 'Я нажимаю на ссылку "Добавить изображение", указываю картинку, и вижу её на странице' do
+    @user = FactoryGirl.create :user
+    @item = FactoryGirl.attributes_for :item
+    @user.items.create @item
+
+    sign_in_user @user
+
+    click_link 'Добавить изображение'
+
+    attach_file 'Изображение', Rails.root.join('spec', 'support', 'test_image.jpg')
+    click_button 'Добавить это изображение'
+
+    current_path.should == dashboard_items_path
+    page.should have_text 'Изображение успешно добавлено.'
+    page.should have_css "img[src$='test_image.jpg']"
+
+    @user.items.first.should have(1).photos
+  end
+end
+
 feature 'Чтобы мой товар выделялся в списках, я хочу выбрать заглавную фотографию'
 feature 'Чтобы покупателю было проще найти мой товар, я хочу указать теги категорий, которым он принадлежит'
 feature 'Чтобы иметь больше шансов продать товар, мне нужна обратная связь с покупателями - возможность переписки'

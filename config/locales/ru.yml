@@ -7,6 +7,8 @@ ru:
   item_created: 'Объявление успешно размещено.'
   delete: 'Удалить'
   item_destroyed: 'Объявление успешно удалено.'
+  add_photo: 'Добавить изображение'
+  photo_added: 'Изображение успешно добавлено.'
   activerecord:
     attributes:
       user:
@@ -17,6 +19,8 @@ ru:
         description: 'Текст объявления'
         tags_s: 'Категории'
         contact_info: 'Контактная информация'
+      photo:
+        file: 'Изображение'
     errors:
       template:
         header: 'Ошибка при сохранении'
@@ -32,6 +36,8 @@ ru:
     submit:
       item:
         create: 'Подать это объявление'
+      photo:
+        create: 'Добавить это изображение'
   devise:
     registrations:
       user:

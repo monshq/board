@@ -1,0 +1,7 @@
+= form_for @photo, url: dashboard_item_photos_path(@item_id) do |f|
+  = f.error_messages
+  .field
+    .label= f.label      :file
+    .input= f.file_field :file
+  .field
+    .input= f.submit

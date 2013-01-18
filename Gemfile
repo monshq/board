@@ -22,6 +22,7 @@ group :development, :test do
   gem 'capybara-email'
   gem 'capybara-webkit'
   gem 'capybara-screenshot'
+  gem 'launchy'
   gem 'factory_girl_rails'
   gem 'ffaker'
   gem 'simplecov'

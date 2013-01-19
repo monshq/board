@@ -4,8 +4,8 @@
     .label= f.label      :description
     .input= f.text_area  :description
   .field
-    .label= f.label      :tags_s
-    .input= f.text_field :tags_s
+    .label= label_tag      'tags', t(:tags)
+    .input= text_field_tag 'tags', k(@item).tags
   .field
     .label= f.label      :contact_info
     .input= f.text_field :contact_info

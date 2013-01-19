@@ -4,6 +4,7 @@ ru:
   sign_in: 'Войти'
   sign_out: 'Выйти'
   new_item: 'Новое объявление'
+  tags: 'Категории'
   item_created: 'Объявление успешно размещено.'
   delete: 'Удалить'
   item_destroyed: 'Объявление успешно удалено.'
@@ -17,7 +18,6 @@ ru:
         password_confirmation: 'Подтверждение пароля'
       item:
         description: 'Текст объявления'
-        tags_s: 'Категории'
         contact_info: 'Контактная информация'
       photo:
         file: 'Изображение'

@@ -5,7 +5,7 @@
       - for photo in item.photos
         .photo
           = image_tag photo.file, alt: nil
-    .tags=item.tags_s
+    .tags=k(item).tags
     .contact_info=item.contact_info
     .controls
       = link_to t(:delete), dashboard_item_path(item), method: :delete

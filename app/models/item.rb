@@ -14,10 +14,4 @@ class Item < ActiveRecord::Base
       self.tags << Tag.where(name: t).first_or_create
     end
   end
-
-  def tags_s
-    tags.collect do |t|
-      t.name
-    end.join ', '
-  end
 end

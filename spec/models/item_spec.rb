@@ -12,18 +12,13 @@ describe Item do
       @i = FactoryGirl.create :item
     end
 
-    it 'Принимает массив строк' do
-      @i.set_tags @tags
-      @i.tags.collect(&:name).sort.should == @tags
-    end
-
     it 'Принимает строку с тэгами, разделенными запятыми' do
       @i.set_tags @tags.join(', ')
       @i.tags.collect(&:name).sort.should == @tags
     end
 
     it 'Не создаёт дубликаты имеющихся тэгов' do
-      @i.set_tags ['Баден', 'Баден']
+      @i.set_tags 'Баден, Баден'
       @i.tags.collect(&:name).should == ['Баден']
     end
 

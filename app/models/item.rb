@@ -11,7 +11,7 @@ class Item < ActiveRecord::Base
 
   def set_tags(tags_s)
     tags_s.split(',').each do |t|
-      self.tags << Tag.where(name: t).first_or_create
+      self.tags << Tag.where(name: t.strip).first_or_create
     end
   end
 end

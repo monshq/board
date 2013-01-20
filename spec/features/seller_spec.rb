@@ -108,15 +108,15 @@ end
 
 feature 'Чтобы меня не беспокоили после продажи, я хочу возможность снять товар с продажи' do
   scenario 'Я нажимаю на ссылку "Удалить" рядом с ненужным объявлением и оно пропадает' do
-    @user = FactoryGirl.create :user
-    @item = FactoryGirl.attributes_for :item
-    @user.items.create @item
+    @item = FactoryGirl.create :item
+    @user = @item.seller
+    @descr = @item.description
 
     sign_in_user @user
     click_link 'Удалить'
 
     page.should have_text 'Объявление успешно удалено.'
-    page.should_not have_text @item[:description]
+    page.should_not have_text @descr
     page.should_not have_link 'Удалить'
 
     @user.should have(0).items
@@ -125,11 +125,9 @@ end
 
 feature 'Чтобы лучше представить товар, я хочу загружать несколько фотографий' do
   scenario 'Я нажимаю на ссылку "Добавить изображение", указываю картинку, и вижу её на странице' do
-    @user = FactoryGirl.create :user
-    @item = FactoryGirl.attributes_for :item
-    @user.items.create @item
+    @item = FactoryGirl.create :item
 
-    sign_in_user @user
+    sign_in_user @item.seller
 
     click_link 'Добавить изображение'
 
@@ -140,7 +138,7 @@ feature 'Чтобы лучше представить товар, я хочу з
     page.should have_text 'Изображение успешно добавлено.'
     page.should have_css "img[src$='test_image.jpg']"
 
-    @user.items.first.should have(1).photos
+    @item.should have(1).photos
   end
 end
 

@@ -7,7 +7,7 @@ class Item < ActiveRecord::Base
   has_many :messages, dependent: :destroy
 
   validates :contact_info, presence: true,
-                           length: {minimum: 11, maximum: 255} # FIXME: Take from config
+                           length: {in: 11..255}
 
   def set_tags(tags_s)
     tags_s.split(',').each do |t|

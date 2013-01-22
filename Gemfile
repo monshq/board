@@ -13,6 +13,7 @@ end
 group :development do
   gem 'mailcatcher'
   gem 'foreman'
+  gem 'meta_request'
 end
 
 group :development, :test do

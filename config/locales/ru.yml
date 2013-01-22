@@ -9,6 +9,7 @@ ru:
   delete: 'Удалить'
   item_destroyed: 'Объявление успешно удалено.'
   add_photo: 'Добавить изображение'
+  photo_label: 'Изображение %{i}'
   photo_added: 'Изображение успешно добавлено.'
   activerecord:
     attributes:
@@ -19,8 +20,6 @@ ru:
       item:
         description: 'Текст объявления'
         contact_info: 'Контактная информация'
-      photo:
-        file: 'Изображение'
     errors:
       template:
         header: 'Ошибка при сохранении'

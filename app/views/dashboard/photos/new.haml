@@ -1,7 +1,7 @@
-= form_for @photo, url: dashboard_item_photos_path(@item_id) do |f|
-  = f.error_messages
+= form_tag dashboard_item_photos_path(@item), multipart: true do
+  - for i in 1..3
+    .field
+      .label= label_tag                           "photo_#{i}", t(:photo_label, i: i)
+      .input= file_field_tag 'photo[][file]', id: "photo_#{i}"
   .field
-    .label= f.label      :file
-    .input= f.file_field :file
-  .field
-    .input= f.submit
+    .input= submit_tag

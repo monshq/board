@@ -1,9 +1,6 @@
 common: &common
   adapter:  postgresql
-  host:     localhost
-  port:     5433
-  username: rails
-  password: rails
+  username: postgres
   encoding: unicode
   pool:     5
 

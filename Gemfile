@@ -27,6 +27,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'ffaker'
   gem 'simplecov'
+  gem 'coveralls', require: false
   gem 'guard-rspec'
   gem 'rb-inotify'
   gem 'pry'

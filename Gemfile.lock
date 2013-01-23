@@ -103,6 +103,7 @@ GEM
       activesupport (>= 3.1, < 4.1)
       haml (~> 3.1)
       railties (>= 3.1, < 4.1)
+    headless (0.3.1)
     hike (1.2.1)
     i18n (0.6.1)
     journey (1.0.4)
@@ -267,6 +268,7 @@ DEPENDENCIES
   foreman
   guard-rspec
   haml-rails
+  headless
   jquery-rails
   keynote
   launchy

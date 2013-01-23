@@ -19,6 +19,22 @@ class Dashboard::ItemsController < Dashboard::ApplicationController
     end
   end
 
+  def edit
+    @item = current_user.items.find(params[:id])
+  end
+
+  def update
+    @item = current_user.items.find(params[:id])
+
+    if @item.update_attributes(params[:item])
+      @item.set_tags(params[:tags])
+
+      redirect_to dashboard_items_path, notice: t('item.notice.updated')
+    else
+      render action: "edit"
+    end
+  end
+
   def destroy
     current_user.items.find(params[:id]).destroy
 

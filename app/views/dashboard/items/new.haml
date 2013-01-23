@@ -1,13 +1,3 @@
-= form_for @item, url: dashboard_items_path do |f|
-  = f.error_messages
-  .field
-    .label= f.label      :description
-    .input= f.text_area  :description
-  .field
-    .label= label_tag      'tags', t(:tags)
-    .input= text_field_tag 'tags', k(@item).tags
-  .field
-    .label= f.label      :contact_info
-    .input= f.text_field :contact_info
-  .field
-    .input= f.submit
+%h1= t :new_item
+
+= render 'form'

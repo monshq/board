@@ -107,19 +107,23 @@ feature 'Чтобы продать что либо, я подаю объявле
 end
 
 feature 'Чтобы меня не беспокоили после продажи, я хочу возможность снять товар с продажи' do
-  scenario 'Я нажимаю на ссылку "Удалить" рядом с ненужным объявлением и оно пропадает' do
+  scenario 'Я кликаю на ссылку редактировать, попадаю на страницу с формой редатирования и меняю статус на Продано', js: true do
     @item = FactoryGirl.create :item
     @user = @item.seller
     @descr = @item.description
 
     sign_in_user @user
-    click_link 'Удалить'
+    visit dashboard_items_path
+    click_link I18n.t :edit
 
-    page.should have_text 'Объявление успешно удалено.'
-    page.should_not have_text @descr
-    page.should_not have_link 'Удалить'
+    page.should have_text I18n.t :edit_item
+    page.should have_field('item[description]', text: @descr)
+    page.should have_select('item[state]', selected: 'hidden')
 
-    @user.should have(0).items
+    select('sold', from: 'item[state]')
+    click_button I18n.t  'helpers.submit.item.update'
+
+    page.should have_text 'sold'  #I18n.t :sold
   end
 end
 

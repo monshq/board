@@ -175,14 +175,14 @@ feature 'Чтобы меня не беспокоили после продажи
   scenario 'Я кликаю на ссылку редактировать, попадаю на страницу с формой редатирования и меняю статус на Продано', js: true do
     add_item
 
-    click_link I18n.t :edit_item
+    click_link I18n.t(:edit_item)
 
-    page.should have_text I18n.t :edit_item
+    page.should have_text I18n.t(:edit_item)
     page.should have_field('item[description]', text: @descr)
     page.should have_select('item[state]', selected: 'hidden')
 
     select('sold', from: 'item[state]')
-    click_button I18n.t 'helpers.submit.item.update'
+    click_button I18n.t('helpers.submit.item.update')
 
     page.should have_text 'sold'  #I18n.t :sold
   end

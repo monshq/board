@@ -1,4 +1,8 @@
 #auth_status
+  = link_to 'RU', url_for(locale: :ru)
+  |
+  = link_to 'EN', url_for(locale: :en)
+  ||
   - if user_signed_in?
     = link_to current_user.email, edit_user_registration_path(current_user)
     |

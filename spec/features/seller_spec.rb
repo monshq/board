@@ -25,6 +25,13 @@ def sign_in_user(user)
     page.should have_text 'Вы успешно вошли в свою панель управления.'
 end
 
+feature 'Я хочу подать объявление на сайте' do
+  scenario 'Я захожу на сайт' do
+    visit root_path
+    current_path.should == "/#{I18n.locale}"
+  end
+end
+
 feature 'Чтобы управлять своими объявлениями, я регистрируюсь на сайте' do
   background do
     @user = FactoryGirl.attributes_for :user

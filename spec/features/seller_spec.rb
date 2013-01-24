@@ -106,6 +106,51 @@ feature 'Чтобы продать что либо, я подаю объявле
   end
 end
 
+feature 'Чтобы изменить объявление' do
+  background do
+    @user = FactoryGirl.create :user
+    sign_in_user @user
+
+    visit dashboard_items_path
+    click_link 'Новое объявление'
+
+    @item = FactoryGirl.attributes_for :item
+    @tags = ['Электроника', 'Компьютеры']
+
+    fill_in 'item_description',    with: @item[:description]
+    fill_in 'tags',             with: @tags.join(', ')
+    fill_in 'item_contact_info', with: @item[:contact_info]
+    click_button I18n.t('helpers.submit.item.create')
+    click_link I18n.t(:edit_item)
+  end
+
+  scenario 'я нажимаю на ссылку редактировать и изменяю аттрибуты правильно' do
+    descr = @item[:description] + 'updated'
+    tags = ['Компьютеры', 'Мониторы']
+    contact_info = @item[:contact_info] + 'updated'
+
+    fill_in 'item_description', with: descr
+    fill_in 'tags',             with: tags.join(', ')
+    fill_in 'item_contact_info', with: contact_info
+    click_button I18n.t('helpers.submit.item.update')
+
+    page.should have_text I18n.t(:item_updated)
+    page.should have_text descr
+    tags.concat(@tags).uniq!
+    tags.each {|t| page.should have_text t}
+    page.should have_text contact_info
+  end
+
+  context 'Когда форма редактирования заполнена неправильно' do
+    scenario 'Я стераю контактную информацию и получаю сообщение об ошибке' do
+      fill_in 'item_contact_info', with: ''
+      click_button I18n.t('helpers.submit.item.update')
+
+      page.should have_text 'Пожалуйста, укажите также контактную информацию.'
+    end
+  end
+end
+
 feature 'Чтобы меня не беспокоили после продажи, я хочу возможность снять товар с продажи' do
   scenario 'Я кликаю на ссылку редактировать, попадаю на страницу с формой редатирования и меняю статус на Продано', js: true do
     @item = FactoryGirl.create :item
@@ -114,7 +159,7 @@ feature 'Чтобы меня не беспокоили после продажи
 
     sign_in_user @user
     visit dashboard_items_path
-    click_link I18n.t :edit
+    click_link I18n.t :edit_item
 
     page.should have_text I18n.t :edit_item
     page.should have_field('item[description]', text: @descr)

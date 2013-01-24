@@ -2,8 +2,6 @@ class ItemPresenter < Keynote::Presenter
   presents :item
 
   def tags
-    item.tags.collect do |tag|
-      tag.name
-    end.join ', '
+    item.tags.pluck(:name).join ', '
   end
 end

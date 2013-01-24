@@ -35,12 +35,14 @@ describe Item do
     it "publishes an item" do
       @i.publish
       @i.should be_visible
+      @i.should be_visible_for_seller
       @i.state.should eq 'published'
     end
 
     it "hides an item" do
       @i.hide
       @i.should_not be_visible
+      @i.should be_visible_for_seller
       @i.state.should eq 'hidden'
     end
 
@@ -49,23 +51,30 @@ describe Item do
       @i.should be_visible
       @i.sell
       @i.should_not be_visible
+      @i.should be_visible_for_seller
       @i.state.should eq 'sold'
-      @i.sold_at == Time.new
     end
 
     it "sells a hidden item" do
       @i.sell
       @i.should_not be_visible
+      @i.should be_visible_for_seller
       @i.state.should eq 'sold'
-      @i.sold_at == Time.new
     end
 
     it "tries to publish a sold item" do
       @i.sell
       @i.publish
       @i.should_not be_visible
+      @i.should be_visible_for_seller
       @i.state.should eq 'sold'
-      @i.sold_at == Time.new
+    end
+
+    it "archivates an item and it becomes invisible for a seller and buyer" do
+      @i.archivate
+      @i.should_not be_visible
+      @i.should_not be_visible_for_seller
+      @i.state.should eq 'archived'
     end
   end
   

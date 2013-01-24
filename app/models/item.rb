@@ -10,7 +10,7 @@ class Item < ActiveRecord::Base
                            length: {in: 11..255}
                            
   state_machine :initial => :hidden do
-    after_transition any - :sold => :sold, :do => :set_sale_date_time
+    after_transition any - :archived => :sold, :do => :set_sale_date_time
 
     event :publish do
       transition :hidden => :published
@@ -25,7 +25,13 @@ class Item < ActiveRecord::Base
       transition :published => :hidden
     end
 
-    state :hidden, :sold do
+    event :archivate do
+      transition :hidden => :archived
+      transition :published => :archived
+      transition :sold => :archived
+    end
+
+    state :hidden, :sold, :archived do
       def visible?
         false
       end
@@ -36,7 +42,22 @@ class Item < ActiveRecord::Base
         true
       end
     end
+
+    state :archived do
+      def visible_for_seller?
+        false
+      end
+    end
+
+    state  :hidden, :sold, :published do
+      def visible_for_seller?
+        true
+      end
+    end
   end
+
+  scope :active, lambda { where("state <> ?", :archived) }
+  scope :archived, lambda { where("state = ?", :archived) }
 
   def set_tags(tags_s)
     tags_s.split(',').each do |t|

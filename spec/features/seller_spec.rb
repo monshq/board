@@ -27,7 +27,7 @@ end
 
 feature 'Я хочу подать объявление на сайте' do
   scenario 'Я захожу на сайт' do
-    visit root_path
+    visit '/'
     current_path.should == "/#{I18n.locale}"
   end
 end

@@ -44,7 +44,6 @@ class Item < ActiveRecord::Base
     end
   end
 
-  #sets item sale date
   def set_sale_date_time
     @sold_at = Time.new
   end

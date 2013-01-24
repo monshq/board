@@ -1,14 +1,14 @@
 class Dashboard::ItemsController < Dashboard::ApplicationController
   def index
-    @items = current_user.items
+    @items = current_user.items.active
   end
 
   def new
-    @item = current_user.items.build
+    @item = current_user.items.active.build
   end
 
   def create
-    @item = current_user.items.build params[:item]
+    @item = current_user.items.active.build params[:item]
 
     if @item.save
       @item.set_tags params[:tags]
@@ -19,10 +19,20 @@ class Dashboard::ItemsController < Dashboard::ApplicationController
     end
   end
 
-  def destroy
-    current_user.items.find(params[:id]).destroy
-
-    flash[:notice] = t :item_destroyed
-    redirect_to dashboard_items_path
+  def edit
+    @item = current_user.items.active.find(params[:id])
   end
+
+  def update
+    @item = current_user.items.active.find(params[:id])
+
+    if @item.update_attributes(params[:item])
+      @item.set_tags(params[:tags])
+
+      redirect_to dashboard_items_path, notice: t(:item_updated)
+    else
+      render action: "edit"
+    end
+  end
+
 end

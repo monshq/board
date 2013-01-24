@@ -25,6 +25,21 @@ def sign_in_user(user)
     page.should have_text 'Вы успешно вошли в свою панель управления.'
 end
 
+def add_item
+    sign_in_user(FactoryGirl.create(:user))
+
+    visit dashboard_items_path
+    click_link(I18n.t(:new_item))
+
+    @item = FactoryGirl.attributes_for :item
+    @tags = ['Электроника', 'Компьютеры']
+
+    fill_in 'item_description',    with: @item[:description]
+    fill_in 'tags',             with: @tags.join(', ')
+    fill_in 'item_contact_info', with: @item[:contact_info]
+    click_button I18n.t('helpers.submit.item.create')
+end
+
 feature 'Чтобы управлять своими объявлениями, я регистрируюсь на сайте' do
   background do
     @user = FactoryGirl.attributes_for :user
@@ -106,20 +121,70 @@ feature 'Чтобы продать что либо, я подаю объявле
   end
 end
 
-feature 'Чтобы меня не беспокоили после продажи, я хочу возможность снять товар с продажи' do
-  scenario 'Я нажимаю на ссылку "Удалить" рядом с ненужным объявлением и оно пропадает' do
-    @item = FactoryGirl.create :item
-    @user = @item.seller
-    @descr = @item.description
+feature 'Чтобы изменить объявление' do
+  background do
+    add_item
+  end
 
-    sign_in_user @user
-    click_link 'Удалить'
+  scenario 'я нажимаю на ссылку редактировать и изменяю аттрибуты правильно' do
+    click_link I18n.t(:edit_item)
 
-    page.should have_text 'Объявление успешно удалено.'
-    page.should_not have_text @descr
-    page.should_not have_link 'Удалить'
+    descr = @item[:description] + 'updated'
+    tags = ['Компьютеры', 'Мониторы']
+    contact_info = @item[:contact_info] + 'updated'
 
-    @user.should have(0).items
+    fill_in 'item_description', with: descr
+    fill_in 'tags',             with: tags.join(', ')
+    fill_in 'item_contact_info', with: contact_info
+    click_button I18n.t('helpers.submit.item.update')
+
+    page.should have_text I18n.t(:item_updated)
+    page.should have_text descr
+    tags.concat(@tags).uniq!
+    tags.each {|t| page.should have_text t}
+    page.should have_text contact_info
+  end
+
+  context 'Когда форма редактирования заполнена неправильно' do
+    scenario 'Я стераю контактную информацию и получаю сообщение об ошибке' do
+      click_link I18n.t(:edit_item)
+
+      fill_in 'item_contact_info', with: ''
+      click_button I18n.t('helpers.submit.item.update')
+
+      page.should have_text 'Пожалуйста, укажите также контактную информацию.'
+    end
+  end
+end
+
+feature 'Я хочу иметь возможность удалять сообщения' do
+  background do
+    add_item
+  end
+
+  scenario 'Я нажимаю на ссылку редактировать и меняю state на Удалить после этого объявление исчезает из списка, но не из базы' do
+    click_link I18n.t(:edit_item)
+    select('archived', from: 'item[state]')
+    click_button I18n.t('helpers.submit.item.update')
+
+    page.should_not have_text @item[:description]
+  end
+end
+
+feature 'Чтобы меня не беспокоили после продажи, я хочу иметь возможность снять товар с продажи' do
+  scenario 'Я кликаю на ссылку редактировать, попадаю на страницу с формой редатирования и меняю статус на Продано', js: true do
+    add_item
+
+    click_link I18n.t(:edit_item)
+
+    page.should have_text I18n.t(:edit_item)
+    page.should have_field('item[description]', text: @descr)
+    page.should have_select('item[state]', selected: 'hidden')
+
+    select('sold', from: 'item[state]')
+    click_button I18n.t('helpers.submit.item.update')
+
+    page.should have_text 'sold'  #I18n.t :sold
   end
 end
 

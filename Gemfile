@@ -41,3 +41,5 @@ gem 'devise'
 gem 'dynamic_form'
 gem 'carrierwave'
 gem 'keynote'
+
+gem 'state_machine'

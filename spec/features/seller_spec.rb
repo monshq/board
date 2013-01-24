@@ -30,6 +30,16 @@ feature 'Я хочу подать объявление на сайте' do
     visit '/'
     current_path.should == "/#{I18n.locale}"
   end
+
+  scenario 'Хочу поменять язык на русский, если это не текущий язык' do
+    visit '/'
+    unless (current_path == '/en')
+      click_link 'RU'
+    end
+
+    current_path.should == '/ru'
+  end
+
 end
 
 feature 'Чтобы управлять своими объявлениями, я регистрируюсь на сайте' do

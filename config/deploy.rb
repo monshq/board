@@ -37,9 +37,12 @@ require 'capistrano-unicorn'
 
 after 'deploy:update_code' do
   run "mkdir -p #{release_path}/config/unicorn/"
-  put """app_path = '/var/www/board1/current/public/'
-preload_app true
-  """, "#{release_path}/config/unicorn/production.rb"
+  put """# Unicorn configuration
+working_directory '#{release_path}/public'
+worker_processes 4
+pid '#{shared_path}/pids/unicorn.pid'
+stderr_path '#{shared_path}/log/unicorn.stderr.log'
+""", "#{release_path}/config/unicorn/production.rb"
 end
 
 after 'deploy:restart', 'unicorn:restart'

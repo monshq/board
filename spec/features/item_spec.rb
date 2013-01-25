@@ -1,0 +1,125 @@
+# encoding: UTF-8
+
+require 'spec_helper'
+
+# Продавец
+
+feature 'Чтобы продать что либо, я подаю объявление с описанием товара и контактными данными' do
+  background do
+    @user = FactoryGirl.create :user
+    sign_in_user @user
+
+    visit dashboard_items_path
+    click_link 'Новое объявление'
+
+    @item = FactoryGirl.attributes_for :item
+    @tags = ['Электроника', 'Компьютеры']
+  end
+
+  scenario 'Я заполняю форму создания объявления правильно и вижу его в списке' do
+    fill_in 'Текст объявления',      with: @item[:description]
+    fill_in 'Категории',             with: @tags.join(', ')
+    fill_in 'Контактная информация', with: @item[:contact_info]
+    click_button 'Подать это объявление'
+
+    page.should have_text 'Объявление успешно размещено.'
+    page.should have_text @item[:description]
+    @tags.each {|t| page.should have_text t}
+    page.should have_text @item[:contact_info]
+  end
+
+  context 'Когда форма заполнена неправильно' do
+    scenario 'Я не указываю контактную информацию и получаю сообщение об ошибке' do
+      fill_in 'Текст объявления',      with: @item[:description]
+      fill_in 'Категории',             with: @tags.join(', ')
+      click_button 'Подать это объявление'
+
+      page.should have_text 'Пожалуйста, укажите также контактную информацию.'
+    end
+
+    scenario 'Я ввожу слишком короткую контактную информацию и получаю сообщение об ошибке' do
+      fill_in 'Текст объявления',      with: @item[:description]
+      fill_in 'Категории',             with: @tags.join(', ')
+      fill_in 'Контактная информация', with: 'ЛОЛшто'
+      click_button 'Подать это объявление'
+
+      page.should have_text 'Пожалуйста, укажите более подробную контактную информацию.'
+    end
+
+    scenario 'Я ввожу слишком длинную контактную информацию и получаю сообщение об ошибке' do
+      fill_in 'Текст объявления',      with: @item[:description]
+      fill_in 'Категории',             with: @tags.join(', ')
+      fill_in 'Контактная информация', with: 'ЛОЛшто' * 99
+      click_button 'Подать это объявление'
+
+      page.should have_text 'Пожалуйста, укажите более короткую контактную информацию.'
+    end
+  end
+end
+
+feature 'Чтобы изменить объявление' do
+  background do
+    add_item
+  end
+
+  scenario 'я нажимаю на ссылку редактировать и изменяю аттрибуты правильно' do
+    click_link I18n.t(:edit_item)
+
+    descr = @item[:description] + 'updated'
+    tags = ['Компьютеры', 'Мониторы']
+    contact_info = @item[:contact_info] + 'updated'
+
+    fill_in 'item_description', with: descr
+    fill_in 'tags',             with: tags.join(', ')
+    fill_in 'item_contact_info', with: contact_info
+    click_button I18n.t('helpers.submit.item.update')
+
+    page.should have_text I18n.t(:item_updated)
+    page.should have_text descr
+    tags.concat(@tags).uniq!
+    tags.each {|t| page.should have_text t}
+    page.should have_text contact_info
+  end
+
+  context 'Когда форма редактирования заполнена неправильно' do
+    scenario 'Я стераю контактную информацию и получаю сообщение об ошибке' do
+      click_link I18n.t(:edit_item)
+
+      fill_in 'item_contact_info', with: ''
+      click_button I18n.t('helpers.submit.item.update')
+
+      page.should have_text 'Пожалуйста, укажите также контактную информацию.'
+    end
+  end
+end
+
+feature 'Я хочу иметь возможность удалять сообщения' do
+  background do
+    add_item
+  end
+
+  scenario 'Я нажимаю на ссылку редактировать и меняю state на Удалить после этого объявление исчезает из списка, но не из базы' do
+    click_link I18n.t(:edit_item)
+    select('archived', from: 'item[state]')
+    click_button I18n.t('helpers.submit.item.update')
+
+    page.should_not have_text @item[:description]
+  end
+end
+
+feature 'Чтобы меня не беспокоили после продажи, я хочу иметь возможность снять товар с продажи' do
+  scenario 'Я кликаю на ссылку редактировать, попадаю на страницу с формой редатирования и меняю статус на Продано', js: true do
+    add_item
+
+    click_link I18n.t(:edit_item)
+
+    page.should have_text I18n.t(:edit_item)
+    page.should have_field('item[description]', text: @descr)
+    page.should have_select('item[state]', selected: 'hidden')
+
+    select('sold', from: 'item[state]')
+    click_button I18n.t('helpers.submit.item.update')
+
+    page.should have_text 'sold'  #I18n.t :sold
+  end
+end

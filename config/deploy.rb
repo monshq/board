@@ -32,3 +32,14 @@ before 'deploy:assets:precompile' do
   database: board1_production
   """, "#{release_path}/config/database.yml"
 end
+
+require 'capistrano-unicorn'
+
+after 'deploy:update_code' do
+  run "mkdir -p #{release_path}/config/unicorn/"
+  put """app_path = '/var/www/board1/current/public/'
+preload_app true
+  """, "#{release_path}/config/unicorn/production.rb"
+end
+
+after 'deploy:restart', 'unicorn:restart'

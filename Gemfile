@@ -47,3 +47,4 @@ gem 'http_accept_language', git: 'git://github.com/zzet/http_accept_language.git
 gem 'capistrano'
 gem 'rvm-capistrano'
 gem 'unicorn'
+gem 'capistrano-unicorn', :require => false

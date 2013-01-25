@@ -1,1 +1,1 @@
-# Do I really have to put anything in here?
+pid "#{File.dirname(File.dirname(File.dirname(__FILE__)))}/tmp/pids/unicorn.pid"

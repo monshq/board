@@ -40,6 +40,21 @@ def add_item
     click_button I18n.t('helpers.submit.item.create')
 end
 
+feature 'Я хочу подать объявление на сайте' do
+  scenario 'Я захожу на сайт' do
+    visit '/'
+    current_path.should == "/#{I18n.locale}"
+  end
+
+  scenario 'Хочу поменять язык на русский, если это не текущий язык' do
+    I18n.locale = :en
+    visit '/'
+    click_link 'RU'
+
+    current_path.should == '/ru'
+  end
+end
+
 feature 'Чтобы управлять своими объявлениями, я регистрируюсь на сайте' do
   background do
     @user = FactoryGirl.attributes_for :user

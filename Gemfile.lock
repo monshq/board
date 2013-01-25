@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/zzet/http_accept_language.git
+  revision: b06cf2a35658702e54a54c16eee62aa19e729e9b
+  specs:
+    http_accept_language (2.0.1.pre)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -182,6 +188,8 @@ GEM
     ref (1.0.2)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    routing-filter (0.3.1)
+      actionpack
     rspec (2.12.0)
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
@@ -270,6 +278,7 @@ DEPENDENCIES
   guard-rspec
   haml-rails
   headless
+  http_accept_language!
   jquery-rails
   keynote
   launchy
@@ -279,6 +288,7 @@ DEPENDENCIES
   pry
   rails (~> 3.2.11)
   rb-inotify
+  routing-filter
   rspec-rails
   sass-rails
   simplecov

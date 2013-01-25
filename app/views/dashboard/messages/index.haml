@@ -1,0 +1,6 @@
+- for message in @messages
+  .message
+    .text= message.text
+    .sender= message.sender
+    .controls
+      = link_to t(:view_message), dashboard_message_path(message)

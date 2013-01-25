@@ -14,6 +14,9 @@ ru:
   add_photo: 'Добавить изображение'
   photo_label: 'Изображение %{i}'
   photo_added: 'Изображение успешно добавлено.'
+  messages: 'Сообщения'
+  message_list: 'Список Сообщений'
+  view_message: 'Посмотреть Сообщение'
   activerecord:
     attributes:
       user:

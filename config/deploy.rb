@@ -44,5 +44,3 @@ pid '#{shared_path}/pids/unicorn.pid'
 stderr_path '#{shared_path}/log/unicorn.stderr.log'
 """, "#{release_path}/config/unicorn/production.rb"
 end
-
-after 'deploy:restart', 'unicorn:restart'

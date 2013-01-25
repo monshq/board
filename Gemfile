@@ -41,5 +41,6 @@ gem 'devise'
 gem 'dynamic_form'
 gem 'carrierwave'
 gem 'keynote'
-
 gem 'state_machine'
+gem 'routing-filter'
+gem 'http_accept_language', git: 'git://github.com/zzet/http_accept_language.git'

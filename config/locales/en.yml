@@ -2,4 +2,57 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  hello: 'Hello'
+  welcome: 'Welcome!'
+  register: 'Register'
+  sign_in: 'Sign In'
+  sign_out: 'Sign Out'
+  new_item: 'New Item'
+  tags: 'Tags'
+  item_created: 'Item successfully created'
+  delete: 'Delete'
+  item_destroyed: 'Item successfully destroyed'
+  add_photo: 'Add photo'
+  photo_label: 'Photo %{i}'
+  photo_added: 'Photo successfully added'
+  activerecord:
+    attributes:
+      user:
+        email: 'Email'
+        password: 'Password'
+        password_confirmation: 'Password confirmation'
+      item:
+        description: 'Description'
+        contact_info: 'Contact info'
+    errors:
+      template:
+        header: 'Save error'
+        body: 'Unfortunately, there was an error during the save information.'
+      models:
+        item:
+          attributes:
+            contact_info:
+              blank: 'blank. Please, provide your contact information.'
+              too_short: 'too short. Please, provide more details'
+              too_long: 'too long. Please, provide shorter info.'
+  helpers:
+    submit:
+      item:
+        create: 'Create item'
+      photo:
+        create: 'Create photo'
+  devise:
+    registrations:
+      user:
+        signed_up_but_unconfirmed: 'Thank for your registration! A message with confirrmation link has been sent to your email address. Please, open the link to activate your account.'
+    mailer:
+      confirmation_instructions:
+        subject: 'Board confirmation instructions'
+        message: 'Please, click the link to confirm your registration.'
+        activate: 'Activate'
+    confirmations:
+      user:
+        confirmed: 'Your acctount activated. Also You automaticaly signed in to dashboard.'
+    sessions:
+      user:
+        signed_in: 'You successfully signed in your dashboard.'

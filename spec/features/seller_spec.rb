@@ -32,10 +32,9 @@ feature 'Я хочу подать объявление на сайте' do
   end
 
   scenario 'Хочу поменять язык на русский, если это не текущий язык' do
+    I18n.locale = :en
     visit '/'
-    unless (current_path == '/en')
-      click_link 'RU'
-    end
+    click_link 'RU'
 
     current_path.should == '/ru'
   end

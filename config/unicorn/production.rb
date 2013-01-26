@@ -1,1 +1,1 @@
-# capistrano-unicorn gem requires this file
+pid 'tmp/pids/unicorn.pid'

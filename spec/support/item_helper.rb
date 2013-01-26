@@ -9,8 +9,8 @@ def add_item
     @item = FactoryGirl.attributes_for :item
     @tags = ['Электроника', 'Компьютеры']
 
-    fill_in 'item_description',    with: @item[:description]
-    fill_in 'tags',             with: @tags.join(', ')
+    fill_in 'item_description',  with: @item[:description]
+    fill_in 'tags',              with: @tags.join(', ')
     fill_in 'item_contact_info', with: @item[:contact_info]
     click_button I18n.t('helpers.submit.item.create')
 end

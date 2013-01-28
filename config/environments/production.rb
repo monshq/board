@@ -51,7 +51,7 @@ Board::Application.configure do
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
-  config.action_mailer.default_url_options = { host: '79.132.120.78:8080' }
+  config.action_mailer.default_url_options = { host: '192.168.20.9:8080' }
   config.action_mailer.smtp_settings       = { port: 1025 }
 
   # Enable threaded mode

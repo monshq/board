@@ -10,6 +10,6 @@ after_success:
 env:
   global:
     # DEPLOYER_PASSWORD
-    secure: "Xbg/3YrfjF9B1RVxESVSJ8orre7YX7/K6EPyAR4bG7hQ58DJ5q0Mq1TxTv5R
-             tKuXov1/1J3VgXVwn7E8aGMG4rjjGzPgpJTT2fkJ4jRBmWCatrgJLkln/Yw0
-             qHpWLjok6edJ9bl919W6wasYIgNNNvYIKH0BdVbdOG8WmxP6Cuk="
+    secure: aYlHjPbRR/15kjozhbccf3vpW2XUCdLh5/NLuVkte5+bhVngWgvrASj+Ty0G
+            Z80eEgCfUtytSaPPp+wwwxlib8LVYF9ngpH2HhV8/NbxCE434rLGu3DCrUpe
+            k9YKbvfboyelCwOuYuAIrqyY8Zg1MI9uKz/PnNV56IEVSCUv6hA=

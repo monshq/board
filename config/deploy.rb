@@ -16,14 +16,11 @@ set :repository,  'https://github.com/vassilevsky/board.git'
 #set :branch,      'master'
 set :branch,      'feature-17-deployment'
 
-#server '192.168.20.9', :web, :app, :db, primary: true
-server '192.168.0.103', :web, :app, :db, primary: true
-#set :user, 'vassilevsky'
+server '192.168.20.9', :web, :app, :db, primary: true
 set :user, 'deployer'
+set :deploy_to, '/home/deployer'
 set :use_sudo, false
 default_run_options[:pty] = true
-#set :deploy_to, '/var/www/board1'
-set :deploy_to, '/home/deployer'
 
 set :deploy_via, :remote_cache
 

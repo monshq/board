@@ -1,3 +1,3 @@
-web: bundle exec unicorn_rails
+web: bundle exec unicorn
 mailcatcher: mailcatcher -f
 #resque: bundle exec rake resque:work QUEUE='*'

@@ -1,5 +1,8 @@
 class Item < ActiveRecord::Base
   resourcify
+
+  include Authority::Abilities
+
   attr_accessible :description, :contact_info, :state, :sold_at
 
   belongs_to :seller, class_name: 'User'

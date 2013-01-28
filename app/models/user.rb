@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
   rolify
+
+  include Authority::UserAbilities
+
   devise :database_authenticatable,
          :registerable,
          :recoverable,

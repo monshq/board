@@ -36,5 +36,8 @@ after 'deploy:update', 'deploy:migrate'
 require 'capistrano-unicorn'
 
 after 'deploy:restart' do
-  run 'bundle exec mailcatcher'
+  run <<-CMD.compact
+    cd -- #{latest_release.shellescape} &&
+    bundle exec mailcatcher
+  CMD
 end

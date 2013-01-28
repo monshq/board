@@ -36,5 +36,5 @@ after 'deploy:update', 'deploy:migrate'
 require 'capistrano-unicorn'
 
 after 'deploy:restart' do
-  run 'mailcatcher'
+  run 'bundle exec mailcatcher'
 end

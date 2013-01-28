@@ -6,7 +6,10 @@ before_script:
   - mv .travis.database.yml config/database.yml
   - bundle exec rake 'db:setup'
 after_success:
+  - echo $TRAVIS_BRANCH
+  - echo $TRAVIS_PULL_REQUEST
   - if [[ $TRAVIS_BRANCH == 'feature-17-deployment' && ! $TRAVIS_PULL_REQUEST ]]; then bundle exec cap deploy; fi
+  - bundle exec cap deploy
 env:
   global:
     # DEPLOYER_PASSWORD

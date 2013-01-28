@@ -38,6 +38,6 @@ require 'capistrano-unicorn'
 after 'deploy:restart' do
   run <<-CMD.compact
     cd -- #{latest_release.shellescape} &&
-    bundle exec mailcatcher
+    bundle exec mailcatcher --http-ip 192.168.20.9
   CMD
 end

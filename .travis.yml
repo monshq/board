@@ -5,3 +5,11 @@ rvm:
 before_script:
   - mv .travis.database.yml config/database.yml
   - bundle exec rake 'db:setup'
+after_success:
+  - if [ $TRAVIS_BRANCH == 'feature-17-deployment' && ! $TRAVIS_PULL_REQUEST ]; then bundle exec cap deploy; fi
+env:
+  global:
+    # DEPLOYER_PASSWORD
+    secure: "Xbg/3YrfjF9B1RVxESVSJ8orre7YX7/K6EPyAR4bG7hQ58DJ5q0Mq1TxTv5R
+             tKuXov1/1J3VgXVwn7E8aGMG4rjjGzPgpJTT2fkJ4jRBmWCatrgJLkln/Yw0
+             qHpWLjok6edJ9bl919W6wasYIgNNNvYIKH0BdVbdOG8WmxP6Cuk="

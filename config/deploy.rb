@@ -14,7 +14,14 @@ set :application, 'board'
 set :repository,  'https://github.com/vassilevsky/board.git'
 set :branch,      'feature-17-deployment'
 
-server '192.168.20.9', :web, :app, :db, primary: true
+if ENV['TRAVIS']
+  host = '79.132.120.78'
+  set :password, ENV['DEPLOYER_PASSWORD']
+else
+  host = '192.168.20.9'
+end
+
+server host, :web, :app, :db, primary: true
 set :user, 'deployer'
 set :deploy_to, '/home/deployer'
 set :use_sudo, false

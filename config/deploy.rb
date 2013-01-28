@@ -34,3 +34,7 @@ end
 after 'deploy:update', 'deploy:migrate'
 
 require 'capistrano-unicorn'
+
+after 'deploy:restart' do
+  run 'mailcatcher'
+end

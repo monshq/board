@@ -11,7 +11,6 @@ group :assets do
 end
 
 group :development do
-  gem 'mailcatcher'
   gem 'foreman'
   gem 'meta_request'
   gem 'capistrano'
@@ -48,3 +47,4 @@ gem 'state_machine'
 gem 'routing-filter'
 gem 'http_accept_language', git: 'git://github.com/zzet/http_accept_language.git'
 gem 'unicorn'
+gem 'mailcatcher'

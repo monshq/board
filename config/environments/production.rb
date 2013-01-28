@@ -52,6 +52,7 @@ Board::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.default_url_options = { host: '79.132.120.78:8080' }
+  config.action_mailer.smtp_settings       = { port: 1025 }
 
   # Enable threaded mode
   # config.threadsafe!

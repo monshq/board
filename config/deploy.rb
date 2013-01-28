@@ -31,4 +31,6 @@ before 'deploy:assets:precompile' do
   """, "#{release_path}/config/database.yml"
 end
 
+after 'deploy:update', 'deploy:migrate'
+
 require 'capistrano-unicorn'

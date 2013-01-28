@@ -1,5 +1,9 @@
 set :rvm_ruby_string, '1.9.3-p327'
 set :rvm_install_ruby_params, '--patch falcon'
+
+before 'deploy:setup', 'rvm:install_rvm'
+before 'deploy:setup', 'rvm:install_ruby'
+
 require 'rvm/capistrano'
 
 # default is '--deployment --quiet'
@@ -22,9 +26,6 @@ default_run_options[:pty] = true
 set :deploy_to, '/home/deployer'
 
 set :deploy_via, :remote_cache
-
-before 'deploy:setup', 'rvm:install_rvm'
-before 'deploy:setup', 'rvm:install_ruby'
 
 # after 'deploy:update_code' do
 # if executed this way ^^^, executes after all other callbacks

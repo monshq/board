@@ -58,6 +58,7 @@ class Item < ActiveRecord::Base
 
   scope :active, lambda { where("state <> ?", :archived) }
   scope :archived, lambda { where("state = ?", :archived) }
+  scope :has_messages, lambda { uniq.joins(:messages).group("items.id").merge(Message.group_by_sender) }
 
   def set_tags(tags_s)
     tags_s.split(',').each do |t|

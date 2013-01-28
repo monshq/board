@@ -7,20 +7,30 @@ require 'spec_helper'
 feature 'Чтобы иметь больше шансов продать товар, мне нужна обратная связь с покупателями - возможность переписки' do
   background do
     @user = FactoryGirl.create(:user)
-    @user.items.create(FactoryGirl.attributes_for(:item))
-    @user.items[0].messages.create(FactoryGirl.attributes_for(:message))
+
+    @item = FactoryGirl.create(:item, seller: @user)
+
+    @sender = FactoryGirl.create(:user)
+
+    message = FactoryGirl.build(:message)
+    message.post(sender: @sender, recipient: @user, item: @item)
+
     sign_in_user(@user)
 
     visit dashboard_items_path
   end
 
-  scenario 'Я нажимаю на ссылку Сообщения и вижу список сообщений', :focus => true do
+  scenario 'Я нажимаю на ссылку Сообщения и вижу список сообщений' do
     click_link I18n.t(:messages)
+    page.should have_text @user.received_messages[0].text
+  end
 
-    page.should have_text @user.items[0].messages[0].text
-    #page.should have_text @item[:description]
-    #@tags.each {|t| page.should have_text t}
-    #page.should have_text @item[:contact_info]
+  scenario 'На странице сообщений я нажимаю на ссылку Просмотр сообщения и вижу сообщение и форму для ввода ответа' do
+    click_link I18n.t(:messages)
+    click_link I18n.t(:view_message)
+
+    page.should have_text @user.received_messages[0].text
+    page.should have_field "Response"
   end
 
 end

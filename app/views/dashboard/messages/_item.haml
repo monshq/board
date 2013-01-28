@@ -1,0 +1,7 @@
+%li.item
+  %b
+    Item Description
+  = item.description
+  %ul.messages
+    - for message in item.messages
+      = render 'message', message: message

@@ -3,7 +3,7 @@ Board::Application.routes.draw do
   filter :locale
   devise_for :users
 
-  resources :tags
+  resources :tags, only: [:index]
 
   resources :items do
     resources :messages

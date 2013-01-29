@@ -1,0 +1,17 @@
+@import '../../../scaffy/config';
+
+.inbox {
+  border: 1px solid $pale;
+  background-color: $bare;
+  margin: 2px;
+  padding: 5px;
+  padding-bottom: 1px;
+}
+
+.inbox__item {
+  list-style-type: none;
+  border: 1px solid $pale;
+  background-color: $contrast;
+  margin-bottom: 5px;
+  padding: 5px;
+}

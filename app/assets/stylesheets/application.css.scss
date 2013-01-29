@@ -11,4 +11,5 @@
  *= require_self
  *= require_tree .
  */
-@import 'layouts/application'
+@import 'layouts/application';
+@import 'modules/dashboard/messages/inbox';

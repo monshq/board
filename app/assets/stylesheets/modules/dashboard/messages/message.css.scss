@@ -1,0 +1,22 @@
+@import '../../../scaffy/config';
+
+.message {
+  border: 1px solid $pale;
+  background-color: $bare;
+  margin: 2px;
+  padding: 4px;
+}
+
+.message__sender {
+  font-weight: bold;
+  float: left;
+  margin: $space-s;
+}
+
+.message__text {
+  margin: $space-s;
+}
+
+.message__controls {
+  margin: $space-s;
+}

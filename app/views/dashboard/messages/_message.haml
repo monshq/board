@@ -1,11 +1,8 @@
-%li
-  .sender
-    %b
-      Sender Email:
-    = message.sender.email
-  .text
-    %b
-      Message Text :
-    = message.text
-  .controls
-    = link_to t(:view_message), dashboard_message_path(message)
+%li.message_list__message
+  .message
+    .message__sender
+      = message.sender.email
+    .message__text
+      = message.text
+    .message__controls
+      = link_to t(:view_message), dashboard_message_path(message)

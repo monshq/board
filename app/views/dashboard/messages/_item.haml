@@ -1,7 +1,8 @@
-%li.item
-  %b
-    Item Description
-  = item.description
-  %ul.messages
+%li.inbox__item
+  .item
+    .item__image
+      - #Image goes here
+    .item__description= item.description
+  %ul.message_list
     - for message in item.messages
       = render 'message', message: message

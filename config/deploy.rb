@@ -15,7 +15,7 @@ set :repository,  'https://github.com/vassilevsky/board.git'
 set :branch,      'feature-17-deployment'
 
 if ENV['TRAVIS']
-  host = '79.132.120.78'
+  host = ENV['EXTERNAL_IP']
   set :password, ENV['DEPLOYER_PASSWORD']
 else
   host = '192.168.20.9'

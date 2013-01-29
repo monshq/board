@@ -9,7 +9,7 @@ after_success:
   - if [[ $TRAVIS_BRANCH == 'feature-17-deployment' && $TRAVIS_PULL_REQUEST == 'false' ]]; then bundle exec cap deploy; fi
 env:
   global:
-    # DEPLOYER_PASSWORD
-    secure: aYlHjPbRR/15kjozhbccf3vpW2XUCdLh5/NLuVkte5+bhVngWgvrASj+Ty0G
-            Z80eEgCfUtytSaPPp+wwwxlib8LVYF9ngpH2HhV8/NbxCE434rLGu3DCrUpe
-            k9YKbvfboyelCwOuYuAIrqyY8Zg1MI9uKz/PnNV56IEVSCUv6hA=
+    # DEPLOYER_PASSWORD EXTERNAL_IP
+    secure: HC6Cdz9KQxomOER80g0LaQoEljTIS238v24+MaJER60kawL7ZrRGLzAADeYM
+            hibgcIMwoqUzTsFMSxqZPPjr/MoKcslBQb0FFDZlZXFmV5Vg7Vbjg4o2ABVN
+            XFLnR9EAC+GhWNcu8INhdcheN6ToR/lW4mbdSSgaazQqOo0D9I0=

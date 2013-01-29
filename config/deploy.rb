@@ -24,10 +24,15 @@ end
 server host, :web, :app, :db, primary: true
 set :user, 'deployer'
 set :deploy_to, '/home/deployer'
+set :shared_children, %w(public/system public/uploads log tmp/pids)
 set :use_sudo, false
 default_run_options[:pty] = true
 
 set :deploy_via, :remote_cache
+
+after 'deploy:setup' do
+  run "mkdir -p #{shared_path}/uploads"
+end
 
 before 'deploy:assets:precompile' do
   put """production:

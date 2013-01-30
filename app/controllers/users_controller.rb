@@ -4,6 +4,6 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-    # authorize_action_for(User)
+    authorize_action_for(current_user)
   end
 end

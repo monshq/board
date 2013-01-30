@@ -1,12 +1,23 @@
 #auth_status
+  %span="User signed in: #{user_signed_in?}"
   = link_to 'RU', url_for(locale: :ru)
   |
   = link_to 'EN', url_for(locale: :en)
   ||
   - if user_signed_in?
+    %span=current_user
     = link_to current_user.email, edit_user_registration_path(current_user)
     |
     = link_to t(:sign_out), destroy_user_session_path, method: :delete
+    |
+    - if current_user.has_role? :admin
+      %span='Вы администратор'
+    - elsif current_user.has_role? :user
+      %span='Вы пользователь'
+    - elsif current_user.has_role? :guest
+      %span='Вы гость'
+    - else
+      %span='Вы не известно что'
   - else
     = link_to t(:sign_in), new_user_session_path
     |

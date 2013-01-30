@@ -1,0 +1,13 @@
+#uses_table
+  %table
+    %thead
+      %tr
+        %th='Email'
+        %th='Last sign in date'
+        %th
+    %tbody
+      - @users.each do |user|
+        %tr
+          %td= user.email
+          %td= user.last_sign_in_at
+          %td= link_to 'Become user', root_path if current_user.has_role? :admin

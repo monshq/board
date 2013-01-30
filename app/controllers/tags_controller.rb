@@ -9,7 +9,7 @@ class TagsController < ApplicationController
   end
 
   def show
-    @tag = Tag.find params[:id]
+    @selected_tags = Tag.find params[:id].split('+') # /tags/1+2
     @items = @tag.items
   end
 end

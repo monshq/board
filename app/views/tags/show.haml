@@ -1,6 +1,10 @@
-#tag
-  = @tag.name
 = render 'all'
+
+#selected_tags
+  - for tag in @selected_tags
+    .tag
+      = tag.name
+
 #items
   - for item in @items
     .item

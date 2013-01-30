@@ -1,6 +1,11 @@
 class TagsController < ApplicationController
+  before_filter :load_all_tags
+
+  def load_all_tags
+    @all_tags = Tag.all
+  end
+
   def index
-    @tags = Tag.all
   end
 
   def show

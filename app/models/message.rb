@@ -5,6 +5,16 @@ class Message < ActiveRecord::Base
   belongs_to :recipient, class_name: 'User'
   belongs_to :item
 
+  state_machine :read_state, :initial => :unread do
+    event :read do
+      transition :unread => :read
+    end
+
+    event :unread do
+      transition :read => :unread
+    end
+  end
+
   scope :group_by_sender, lambda { group("messages.sender_id") }
 
   def post(params)

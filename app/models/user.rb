@@ -16,4 +16,6 @@ class User < ActiveRecord::Base
 
   has_many :items,    dependent: :destroy, foreign_key: 'seller_id'
   has_many :messages, dependent: :destroy
+
+  self.authorizer_name = 'UsersAuthorizer'
 end

@@ -1,0 +1,2 @@
+class  HomeAuthorizer < ApplicationAuthorizer
+end

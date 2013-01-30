@@ -25,11 +25,11 @@ describe Message do
     end
 
     it 'Изменяет статус сообщения на "прочитаное/не прочитанное"' do
-      @message.read_state.should eq :unread.to_s
+      @message.should be_unread
       @message.read
-      @message.read_state.should eq :read.to_s
+      @message.should_not be_unread
       @message.unread
-      @message.read_state.should eq :unread.to_s
+      @message.should be_unread
     end
   end
 

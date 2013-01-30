@@ -5,18 +5,41 @@
   background-color: $bare;
   margin: 2px;
   padding: 4px;
+  min-height: 26px;
+}
+
+.message__created_at {
+  float: left;
+  margin: $space-x $space-m $space-x $space-m;
+  &.is-unread {
+    font-weight: bold;
+    margin: $space-m;
+  }
 }
 
 .message__sender {
-  font-weight: bold;
   float: left;
-  margin: $space-s;
-}
-
-.message__text {
-  margin: $space-s;
+  margin: $space-x $space-m $space-x $space-m;
+  &.is-unread {
+    font-weight: bold;
+    margin: $space-m;
+  }
 }
 
 .message__controls {
+  float: right;
+  margin: $space-x $space-m $space-x $space-m;
+  &.is-unread {
+    margin: $space-m;
+  }
+}
+
+.message__text {
+  clear: both;
   margin: $space-s;
+  display: none;
+  &.is-unread {
+    font-weight: bold;
+    display: block;
+  }
 }

@@ -13,6 +13,18 @@ class Message < ActiveRecord::Base
     event :unread do
       transition :read => :unread
     end
+
+    state :read do
+      def unread?
+        false
+      end
+    end
+
+    state :unread do
+      def unread?
+        true
+      end
+    end
   end
 
   scope :group_by_sender, lambda { group("messages.sender_id") }

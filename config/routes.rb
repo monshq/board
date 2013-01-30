@@ -16,4 +16,10 @@ Board::Application.routes.draw do
   end
 
   resources :users
+
+  scope module: :admin do
+    namespace :admin do
+      put 'become_user/:id', action: :become_user
+    end
+  end
 end

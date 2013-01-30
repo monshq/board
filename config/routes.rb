@@ -14,4 +14,6 @@ Board::Application.routes.draw do
       resources :photos
     end
   end
+
+  resources :users
 end

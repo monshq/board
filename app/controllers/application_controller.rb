@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
 
   def after_sign_in_path_for(user)
+    # TODO: найти метод, который проверяет наличие ролей у пользователя
+    unless user.has_role?(:admin) || user.has_role?(:user)
+      user.grant :user
+    end
     dashboard_items_path
   end
 

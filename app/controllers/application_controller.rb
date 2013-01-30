@@ -18,4 +18,11 @@ class ApplicationController < ActionController::Base
   def default_url_options(options={})
     { locale: I18n.locale, only_path: true }
   end
+
+  def user_signed_in?
+    if current_user
+      return !current_user.has_role?(:guest)
+    end
+    false
+  end
 end

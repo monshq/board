@@ -34,7 +34,7 @@ after 'deploy:setup' do
   run "mkdir -p #{shared_path}/uploads"
 end
 
-after 'deploy:symlink' do
+before 'deploy:assets:precompile' do
   db_config = "#{release_path}/config/database.yml"
   run "mv -f #{db_config}.production #{db_config}"
 end

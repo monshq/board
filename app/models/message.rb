@@ -27,7 +27,7 @@ class Message < ActiveRecord::Base
     end
   end
 
-  scope :group_by_sender, lambda { group("messages.sender_id") }
+  scope :unread, lambda { includes(:item,:sender).where('read_state = ?', :unread).order('created_at DESC', :item_id, :sender_id) }
 
   def post(params)
     self.assign_attributes(params, without_protection: true)

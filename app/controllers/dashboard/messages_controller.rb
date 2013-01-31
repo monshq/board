@@ -1,7 +1,9 @@
 class Dashboard::MessagesController < Dashboard::ApplicationController
   def index
-    @items = current_user.items.active.has_messages
-#    abort(@items.to_sql)
+    #@items = current_user.items.active.with_messages
+
+    @messages = current_user.received_messages.unread
+
   end
 
   def show

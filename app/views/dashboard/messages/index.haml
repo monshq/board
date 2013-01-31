@@ -1,3 +1,6 @@
 %ul.inbox
-  - for item in @items
-    = render 'item', item: item
+  - current_item_id = 0
+  - @messages.each_with_index do |message, index|
+    - if current_item_id != message.item_id
+      - current_item_id = message.item_id
+      = render 'item', {current_item_id: current_item_id, item: message.item, index: index, messages: @messages}

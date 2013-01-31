@@ -4,5 +4,7 @@
       - #Image goes here
     .item__description= item.description
   %ul.message_list
-    - for message in item.messages
-      = render 'message', message: message
+    - begin
+      = render 'message', message: messages[index]
+      - index += 1
+    - end while messages[index] && messages[index].item_id == current_item_id

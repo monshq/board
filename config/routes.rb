@@ -18,8 +18,6 @@ Board::Application.routes.draw do
   resources :users
 
   scope module: :admin do
-    namespace :admin do
-      put 'become_user/:id', action: :become_user
-    end
+    resource :admin, only: [:create]
   end
 end

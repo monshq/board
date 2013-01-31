@@ -1,4 +1,4 @@
 #all_tags
   - for tag in @all_tags
     .tag
-      = link_to tag.name, tag
+      = link_to tag.name, tag_path(@linked_ids[tag.id])

@@ -5,6 +5,8 @@ class Message < ActiveRecord::Base
   belongs_to :recipient, class_name: 'User'
   belongs_to :item
 
+  validates :text, presence: true, length: {in: 11..255}
+
   state_machine :read_state, :initial => :unread do
     event :read do
       transition :unread => :read
@@ -32,6 +34,10 @@ class Message < ActiveRecord::Base
   def post(params)
     self.assign_attributes(params, without_protection: true)
     self.save
+  end
+
+  def self.mark_messages_as_read(params)
+    self.update_all({:read_state => :read}, {item_id: params[:item_id], sender_id: params[:recipient_id]})
   end
 
 end

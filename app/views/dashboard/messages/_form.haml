@@ -1,0 +1,10 @@
+.reply_form
+  = form_for @reply, url: dashboard_messages_path do |f|
+    = f.error_messages
+    .reply_form__field
+      = f.hidden_field :item_id
+      = f.hidden_field :recipient_id
+      = f.hidden_field :sender_id
+      .input= f.text_area :text, {rows: 5, cols: 140}
+    .reply_form__field
+      .input= f.submit

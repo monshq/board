@@ -2,8 +2,6 @@
   .message{class: ('is-unread' if message.unread?)}
     .message__created_at
       = message.created_at
-    .message__sender
-      = message.sender.email
     .message__controls
       = link_to t(:view_message), dashboard_message_path(message)
     .message__text

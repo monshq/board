@@ -3,8 +3,6 @@
     .item__image
       - #Image goes here
     .item__description= item.description
-  %ul.message_list
-    - begin
-      = render 'message', message: messages[index]
-      - index += 1
-    - end while messages[index] && messages[index].item_id == current_item_id
+  %ul.sender_list
+    - get_senders_from_item_messages(messages).each do |sender, messages|
+      = render('sender', {sender: sender, messages: messages})

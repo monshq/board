@@ -1,0 +1,5 @@
+%li.sender_list__sender
+  .sender__email= sender.email
+  %ul.message_list
+    - for message in messages
+      = render('message', {message: message})

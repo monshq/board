@@ -1,7 +1,7 @@
 Board::Application.routes.draw do
   root to: 'home#index'
   filter :locale
-  devise_for :users
+  devise_for :users, controllers: {sessions: "sessions"}
 
   resources :tags, only: [:index, :show]
 

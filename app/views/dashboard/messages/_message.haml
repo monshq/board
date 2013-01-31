@@ -1,10 +1,10 @@
 %li.message_list__message
-  .message
-    .message__created_at{class: ('is-unread' if message.unread?)} 
+  .message{class: ('is-unread' if message.unread?)}
+    .message__created_at
       = message.created_at
-    .message__sender{class: ('is-unread' if message.unread?)}
+    .message__sender
       = message.sender.email
-    .message__controls{class: ('is-unread' if message.unread?)}
+    .message__controls
       = link_to t(:view_message), dashboard_message_path(message)
-    .message__text{class: ('is-unread' if message.unread?)}
+    .message__text
       = message.text

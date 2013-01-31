@@ -34,13 +34,9 @@ after 'deploy:setup' do
   run "mkdir -p #{shared_path}/uploads"
 end
 
-before 'deploy:assets:precompile' do
-  put """production:
-  adapter: postgresql
-  username: board1
-  password: board1
-  database: board1_production
-  """, "#{release_path}/config/database.yml"
+after 'deploy:symlink' do
+  db_config = "#{release_path}/config/database.yml"
+  run "mv -f #{db_config}.production #{db_config}"
 end
 
 after 'deploy:update', 'deploy:migrate'

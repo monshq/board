@@ -7,7 +7,7 @@ class UsersAuthorizer < ApplicationAuthorizer
     (user.has_role?(:admin) || user.has_role?(:user))
   end
 
-  def updateable_by?(user)
-    user.has_role? :admin
+  def becomable_by?(user)
+    (user.has_role?(:admin) && !resource.has_role?(:admin))
   end
 end

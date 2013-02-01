@@ -1,3 +1,6 @@
+# This file is renamed to database.yml
+# after each deployment to production
+
 production:
   adapter: postgresql
   username: board1

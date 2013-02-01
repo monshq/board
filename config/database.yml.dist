@@ -1,3 +1,6 @@
+# This is just a template.
+# Copy (not move) to database.yml
+
 common: &common
   adapter:  postgresql
   username: postgres

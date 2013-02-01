@@ -14,4 +14,15 @@ feature 'Чтобы лучше указать что мне нужно, я хо�
     page.should     have_text 'Продаётся велосипед'
     page.should_not have_text 'Продаётся телевизор'
   end
+
+  scenario 'Я ничего не ввожу в поле поиска и вижу все объявления' do
+    FactoryGirl.create :item, description: 'Продаётся велосипед'
+    FactoryGirl.create :item, description: 'Продаётся телевизор'
+
+    visit root_path
+    click_button I18n.t('search')
+
+    page.should have_text 'Продаётся велосипед'
+    page.should have_text 'Продаётся телевизор'
+  end
 end

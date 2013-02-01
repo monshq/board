@@ -1,4 +1,8 @@
 class UsersAuthorizer < ApplicationAuthorizer
+  def self.creatable_by?(user)
+    (user.has_role?(:admin))
+  end
+
   def self.readable_by?(user)
     (user.has_role?(:admin) || user.has_role?(:user))
   end

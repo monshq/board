@@ -21,7 +21,7 @@ feature 'Чтобы определиться с нужным мне товаро
     visit tags_path
     click_link 'Животные'
 
-    page.should have_text 'Продаются котята'
+    page.should     have_text 'Продаются котята'
     page.should_not have_text 'Продаётся кактус'
   end
 
@@ -34,9 +34,9 @@ feature 'Чтобы определиться с нужным мне товаро
     click_link 'Животные'
     click_link 'Растения'
 
+    page.should     have_text 'Продаётся террариум со змеями'
     page.should_not have_text 'Продаются котята'
     page.should_not have_text 'Продаётся кактус'
-    page.should have_text 'Продаётся террариум со змеями'
   end
 
   scenario 'Повторное нажатие на категорию отменяет её выбор' do
@@ -49,8 +49,8 @@ feature 'Чтобы определиться с нужным мне товаро
     click_link 'Растения'
     click_link 'Животные'
 
-    page.should have_text 'Продаётся кактус'
-    page.should have_text 'Продаётся террариум со змеями'
+    page.should     have_text 'Продаётся кактус'
+    page.should     have_text 'Продаётся террариум со змеями'
     page.should_not have_text 'Продаются котята'
   end
 end

@@ -38,4 +38,19 @@ feature 'Чтобы определиться с нужным мне товаро
     page.should_not have_text 'Продаётся кактус'
     page.should have_text 'Продаётся террариум со змеями'
   end
+
+  scenario 'Повторное нажатие на категорию отменяет её выбор' do
+    FactoryGirl.create(:item, description: 'Продаются котята').set_tags 'Животные'
+    FactoryGirl.create(:item, description: 'Продаётся кактус').set_tags 'Растения'
+    FactoryGirl.create(:item, description: 'Продаётся террариум со змеями').set_tags 'Растения, Животные'
+
+    visit tags_path
+    click_link 'Животные'
+    click_link 'Растения'
+    click_link 'Животные'
+
+    page.should have_text 'Продаётся кактус'
+    page.should have_text 'Продаётся террариум со змеями'
+    page.should_not have_text 'Продаются котята'
+  end
 end

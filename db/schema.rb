@@ -75,6 +75,17 @@ ActiveRecord::Schema.define(:version => 20130211064739) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "tags_hashes", :force => true do |t|
+    t.integer  "item_id"
+    t.string   "tags_hash"
+    t.integer  "relevance"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "tags_hashes", ["item_id"], :name => "index_tags_hashes_on_item_id"
+  add_index "tags_hashes", ["tags_hash"], :name => "index_tags_hashes_on_tags_hash"
+
   create_table "users", :force => true do |t|
     t.string   "email",                                :default => "", :null => false
     t.string   "encrypted_password",                   :default => "", :null => false

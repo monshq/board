@@ -26,7 +26,34 @@ describe Item do
       expect {@i.set_tags ''}.not_to change {@i.tags.count}
     end
   end
-  
+
+  describe '#set_tags_hashes' do
+    before(:each) do
+      @i = FactoryGirl.create :item
+      @tags = '1,5,7,2,8,4,0,2'
+      @i.set_tags @tags
+    end
+    
+    it 'adds hashes of all combinations of tags' do
+      @i.set_tags_hashes
+      @i.tags_hashes.length.should eq 127
+    end
+  end
+
+  describe '#find_by_tags' do
+    before(:each) do
+      @i = FactoryGirl.create :item
+      @tags = '1,5,7,2,8,4,0,2'
+      @i.set_tags @tags
+    end
+    
+    it '' do
+      @i.set_tags_hashes
+      @i.find_by_tags('1,5,7,2,8,4,0')
+      
+    end
+  end
+
   describe 'item state_machine' do
     before(:each) do
       @i = FactoryGirl.create :item

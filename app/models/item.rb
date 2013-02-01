@@ -12,6 +12,7 @@ class Item < ActiveRecord::Base
   has_and_belongs_to_many :tags, uniq: true
   has_many :photos,   dependent: :destroy
   has_many :messages, dependent: :destroy
+  has_many :tags_hashes, dependent: :destroy
 
   validates :contact_info, length: {in: 11..255}, allow_blank: true
   validates :contact_info, presence: true
@@ -99,6 +100,20 @@ class Item < ActiveRecord::Base
         Tag.new(name: t.strip)
       end
     end
+  end
+
+  def set_tags_hashes
+    tags = self.tags.pluck(:name)
+    hashes = TagsHash.get_hashes(tags)
+    hashes.each do |h|
+      self.tags_hashes << h
+    end
+    #self.tags_hashes.import hashes
+  end
+
+  def find_by_tags(tags)
+    items = Item.joins(:tags_hashes).where('tags_hashes.tags_hash = ?', TagsHash.get_hashes(tags))
+    p items.to_sql
   end
 
   def set_sale_date_time

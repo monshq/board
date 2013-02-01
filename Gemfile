@@ -11,9 +11,11 @@ group :assets do
 end
 
 group :development do
-  gem 'mailcatcher'
   gem 'foreman'
   gem 'meta_request'
+  gem 'capistrano'
+  gem 'rvm-capistrano'
+  gem 'capistrano-unicorn', require: false
 end
 
 group :development, :test do
@@ -44,3 +46,5 @@ gem 'keynote'
 gem 'state_machine'
 gem 'routing-filter'
 gem 'http_accept_language', git: 'git://github.com/zzet/http_accept_language.git'
+gem 'unicorn'
+gem 'mailcatcher'

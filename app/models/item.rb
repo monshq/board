@@ -59,6 +59,15 @@ class Item < ActiveRecord::Base
   scope :active, lambda { where("state <> ?", :archived) }
   scope :archived, lambda { where("state = ?", :archived) }
 
+  def self.tagged_with(tags)
+    inner_joins = tags.collect do |tag|
+      tt = "items_tags_for_tag_#{tag.id}"
+      "INNER JOIN items_tags AS #{tt} ON items.id = #{tt}.item_id AND #{tt}.tag_id = #{tag.id}"
+    end
+
+    joins inner_joins.join(' ')
+  end
+
   def set_tags(tags_s)
     tags_s.split(',').each do |t|
       self.tags << Tag.where(name: t.strip).first_or_create

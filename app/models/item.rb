@@ -3,6 +3,9 @@ class Item < ActiveRecord::Base
 
   include Authority::Abilities
 
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
+
   attr_accessible :description, :contact_info, :state, :sold_at
 
   belongs_to :seller, class_name: 'User'

@@ -12,7 +12,7 @@ require 'bundler/capistrano'
 
 set :application, 'board'
 set :repository,  'https://github.com/vassilevsky/board.git'
-set :branch,      'feature-17-deployment'
+set :branch,      'master'
 
 if ENV['TRAVIS']
   host = ENV['EXTERNAL_IP']

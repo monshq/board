@@ -1,7 +1,7 @@
 Board::Application.routes.draw do
   root to: 'home#index'
   filter :locale
-  devise_for :users
+  devise_for :users, controllers: {sessions: "sessions"}
 
   resources :tags, only: [:index, :show]
 
@@ -13,5 +13,11 @@ Board::Application.routes.draw do
     resources :items do
       resources :photos
     end
+  end
+
+  resources :users
+
+  scope module: :admin do
+    resource :admin, only: [:create]
   end
 end

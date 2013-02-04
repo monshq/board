@@ -1,4 +1,8 @@
 class Item < ActiveRecord::Base
+  resourcify
+
+  include Authority::Abilities
+
   attr_accessible :description, :contact_info, :state, :sold_at
 
   belongs_to :seller, class_name: 'User'
@@ -8,7 +12,7 @@ class Item < ActiveRecord::Base
 
   validates :contact_info, length: {in: 11..255}, allow_blank: true
   validates :contact_info, presence: true
-                           
+
   state_machine :initial => :hidden do
     after_transition any - :archived => :sold, :do => :set_sale_date_time
 

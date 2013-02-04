@@ -1,4 +1,7 @@
 class Tag < ActiveRecord::Base
+
+  include Authority::Abilities
+
   attr_accessible :name
 
   has_and_belongs_to_many :items, uniq: true

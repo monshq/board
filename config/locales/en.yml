@@ -15,6 +15,7 @@ en:
   add_photo: 'Add photo'
   photo_label: 'Photo %{i}'
   photo_added: 'Photo successfully added'
+  users: 'Users'
   activerecord:
     attributes:
       user:

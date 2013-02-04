@@ -65,7 +65,7 @@ class Item < ActiveRecord::Base
       "INNER JOIN items_tags AS #{tt} ON items.id = #{tt}.item_id AND #{tt}.tag_id = #{tag.id}"
     end
 
-    joins inner_joins.join(' ')
+    joins(inner_joins.join(' ')).uniq
   end
 
   def set_tags(tags_s)

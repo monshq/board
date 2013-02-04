@@ -20,6 +20,5 @@ class Dashboard::MessagesController < Dashboard::ApplicationController
       @reply = @message
       render action: 'index'
     end
-#abort(@reply.error.messages.inspect)
   end
 end

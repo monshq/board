@@ -34,12 +34,12 @@ describe TagsHash do
     end
 
     it 'мереет время генерации всех вариантов хешей' do
-      tags = [3,4,1,2,5,8,6,7,9,10,11,12,13,14,15,16,17]
+      tags = [3,4,1,2,5,8,6,7,9,10,11,12,13,14,15]
       #tags = [3,4,1,2]
 
       res = Benchmark.measure{ @hashes = TagsHash.get_hashes(tags) }
-      p @hashes.length
-      p res.inspect
+      time = res.to_s.split
+      time[0].to_f.should be < 10.0
     end
 
   end

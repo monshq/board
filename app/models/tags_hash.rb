@@ -30,17 +30,14 @@ class TagsHash < ActiveRecord::Base
 
   def self.get_hashes(tags, relevance=0, cache=nil)
     if cache == nil
-      #cache = HashCache.new
-      cache = {}
+      cache = HashCache.new
       self.sort_tags(tags)
     end
     hash = self.get_tags_hash(tags)
-    #if cache.include?(hash)
-    if cache.has_key?(hash)
+    if cache.include?(hash)
       return false
     end
-    #cache.add(hash)
-    cache[hash] = nil
+    cache.add(hash)
     hashes = [TagsHash.new({tags_hash: hash, relevance: relevance})]
     iter = tags.length - 1
     for i in 0..iter

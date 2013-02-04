@@ -111,9 +111,8 @@ class Item < ActiveRecord::Base
     #self.tags_hashes.import hashes
   end
 
-  def find_by_tags(tags)
-    items = Item.joins(:tags_hashes).where('tags_hashes.tags_hash = ?', TagsHash.get_hashes(tags))
-    p items.to_sql
+  def self.find_by_tags(tags)
+    items = Item.joins(:tags_hashes).where('tags_hashes.tags_hash = ?', TagsHash.get_tags_hash(tags))
   end
 
   def set_sale_date_time

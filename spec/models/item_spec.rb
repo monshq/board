@@ -47,10 +47,11 @@ describe Item do
       @i.set_tags @tags
     end
     
-    it '' do
+    it 'ищет объявление, у которого есть все перечисленные теги' do
       @i.set_tags_hashes
-      @i.find_by_tags('1,5,7,2,8,4,0')
+      items = Item.find_by_tags('5,2,1,8,4,0,7')
       
+      items[0].should eq @i
     end
   end
 

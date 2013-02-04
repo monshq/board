@@ -3,5 +3,5 @@
   %ul.message_list
     - for message in messages
       = render('message', {message: message})
-  - @reply.recipient_id = sender.id
-  = render 'form'
+  - reply.recipient_id = sender.id
+  = render('form', reply: reply)

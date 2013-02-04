@@ -18,4 +18,16 @@ module Dashboard::MessagesHelper
     senders
   end
 
+  def new_reply(params)
+    reply = Message.new
+    params.each do |attr, value|
+      reply.send(attr.to_s+'=', value)
+    end
+    reply
+  end
+
+  def new_message_html_object_id(html_object, id_postfix)
+    "new_message_"+html_object.to_s+"_"+id_postfix.join('_')
+  end
+
 end

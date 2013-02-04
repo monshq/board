@@ -27,7 +27,7 @@ feature 'Чтобы иметь больше шансов продать това
 
   scenario 'На странице сообщений я вижу поле для ввода ответа, я пишу ответ и нажимаю на Ответить' do
     click_link I18n.t(:messages)
-    fill_in 'message_text', with: 'Мой ответ на входящее сообщение ...'
+    fill_in 'new_message_text_'+@item.id.to_s+'_'+@sender.id.to_s, with: 'Мой ответ на входящее сообщение ...'
     click_button I18n.t('helpers.submit.message.create')
 
     page.should have_text I18n.t(:reply_sent)

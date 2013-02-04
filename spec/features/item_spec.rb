@@ -29,6 +29,13 @@ feature 'Чтобы продать что либо, я подаю объявле
   end
 
   context 'Когда форма заполнена неправильно' do
+    scenario 'Я не указываю контактную информацию и получаю сообщение об ошибке' do
+      fill_in 'Текст объявления',      with: @item[:description]
+      fill_in 'Категории',             with: @tags.join(', ')
+      click_button 'Подать это объявление'
+
+      page.should have_text 'Пожалуйста, укажите также контактную информацию.'
+    end
 
     scenario 'Я ввожу слишком короткую контактную информацию и получаю сообщение об ошибке' do
       fill_in 'Текст объявления',      with: @item[:description]
@@ -74,12 +81,18 @@ feature 'Чтобы изменить объявление' do
   end
 
   context 'Когда форма редактирования заполнена неправильно' do
+    scenario 'Я стираю контактную информацию и получаю сообщение об ошибке' do
+      fill_in 'item_contact_info', with: ''
+      click_button I18n.t('helpers.submit.item.update')
+
+      page.should have_text 'Пожалуйста, укажите также контактную информацию.'
+    end
 
     scenario 'Я ввожу слишком короткую контактную информацию и получаю сообщение об ошибке' do
       fill_in 'Текст объявления',      with: @item[:description]
       fill_in 'Категории',             with: @tags.join(', ')
       fill_in 'Контактная информация', with: 'ЛОЛшто'
-      click_button 'Сохранить изменения'
+      click_button I18n.t('helpers.submit.item.update')
 
       page.should have_text 'Пожалуйста, укажите более подробную контактную информацию.'
     end
@@ -88,8 +101,8 @@ feature 'Чтобы изменить объявление' do
       fill_in 'Текст объявления',      with: @item[:description]
       fill_in 'Категории',             with: @tags.join(', ')
       fill_in 'Контактная информация', with: 'ЛОЛшто' * 99
-      click_button 'Сохранить изменения'
-
+      click_button I18n.t('helpers.submit.item.update')
+      
       page.should have_text 'Пожалуйста, укажите более короткую контактную информацию.'
     end
   end

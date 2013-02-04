@@ -34,22 +34,20 @@ class TagsHash < ActiveRecord::Base
       self.sort_tags(tags)
     end
     hash = self.get_tags_hash(tags)
-    if cache.include?(hash)
-      return false
-    end
-    cache.add(hash)
-    hashes = [TagsHash.new({tags_hash: hash, relevance: relevance})]
-    iter = tags.length - 1
-    for i in 0..iter
-      _tags = Array.new(tags)
-      _tags.delete_at(i)
-      if _tags.length > 0
-        res = self.get_hashes(_tags, relevance+1, cache)
-        if res
-          hashes.concat(res)
+    unless cache.include?(hash)
+      cache.add(hash)
+      hashes = [TagsHash.new({tags_hash: hash, relevance: relevance})]
+      tags.length.times do |i|
+        tags_copy = Array.new(tags)
+        tags_copy.delete_at(i)
+        if tags_copy.length > 0
+          nested_hashes = self.get_hashes(tags_copy, relevance+1, cache)
+          hashes.concat(nested_hashes) if nested_hashes
         end
       end
+      hashes
+    else
+      false
     end
-    hashes
   end
 end

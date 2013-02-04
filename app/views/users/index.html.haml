@@ -10,4 +10,5 @@
         %tr
           %td= user.email
           %td= user.last_sign_in_at
-          %td= link_to 'Become user', admin_url(user_id: user.id), method: :post if current_user.can_become?(user)
+          - if current_user.can_become?(user)
+            %td= link_to 'Become user', admin_url(user_id: user.id), method: :post

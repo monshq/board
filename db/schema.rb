@@ -11,10 +11,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130123082045) do
+ActiveRecord::Schema.define(:version => 20130204055448) do
 
   create_table "items", :force => true do |t|
-    t.integer  "seller_id"
+    t.integer  "seller_id",    :null => false
     t.text     "description"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
@@ -24,21 +24,21 @@ ActiveRecord::Schema.define(:version => 20130123082045) do
   end
 
   create_table "items_tags", :id => false, :force => true do |t|
-    t.integer "item_id"
-    t.integer "tag_id"
+    t.integer "item_id", :null => false
+    t.integer "tag_id",  :null => false
   end
 
   create_table "messages", :force => true do |t|
-    t.integer  "sender_id"
-    t.integer  "recipient_id"
-    t.integer  "item_id"
+    t.integer  "sender_id",    :null => false
+    t.integer  "recipient_id", :null => false
+    t.integer  "item_id",      :null => false
     t.text     "text"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
 
   create_table "photos", :force => true do |t|
-    t.integer  "item_id"
+    t.integer  "item_id",    :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "file"

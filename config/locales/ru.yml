@@ -15,6 +15,7 @@ ru:
   add_photo: 'Добавить изображение'
   photo_label: 'Изображение %{i}'
   photo_added: 'Изображение успешно добавлено.'
+  users: 'Пользователи'
   activerecord:
     attributes:
       user:

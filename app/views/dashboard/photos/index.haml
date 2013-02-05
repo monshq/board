@@ -1,0 +1,5 @@
+- @photos.each do |p|
+  .image
+    = image_tag p.file, alt: nil
+    - unless p.is_main
+      = link_to t('make_main'), edit_dashboard_item_photo_path(@item, p)

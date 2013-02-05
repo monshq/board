@@ -3,7 +3,7 @@
     .description= item.description
     .state= item.state
     .photos
-      - for photo in item.photos
+      - item.photos.each do |photo|
         .photo
           = image_tag photo.file, alt: nil
     .tags=k(item).tags
@@ -11,3 +11,4 @@
     .controls
       = link_to t(:edit_item), edit_dashboard_item_path(item)
       = link_to t(:add_photo), new_dashboard_item_photo_path(item)
+      = link_to t(:edit_photos), dashboard_item_photos_path(item)

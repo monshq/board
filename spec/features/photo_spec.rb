@@ -7,7 +7,6 @@ require 'spec_helper'
 feature 'Чтобы лучше представить товар, я хочу загружать несколько фотографий' do
   scenario 'Я нажимаю на ссылку "Добавить изображение", указываю картинку, и вижу её на странице', js: true do
     @item = FactoryGirl.create :item
-
     sign_in_user @item.seller
 
     click_link 'Добавить изображение'
@@ -25,6 +24,26 @@ feature 'Чтобы лучше представить товар, я хочу з
 
     @item.should have(3).photos
   end
-end
 
-feature 'Чтобы мой товар выделялся в списках, я хочу выбрать заглавную фотографию'
+  scenario 'Я нажимаю на ссылку "Редактировать изображения" и получаю список всех изображений', js: true do
+    @item = FactoryGirl.create :item
+    sign_in_user @item.seller
+
+    click_link I18n.t(:add_photo)
+
+    attach_file 'Изображение 1', Rails.root.join('spec', 'support', 'test_image_1.jpg')
+    attach_file 'Изображение 2', Rails.root.join('spec', 'support', 'test_image_2.jpg')
+    attach_file 'Изображение 3', Rails.root.join('spec', 'support', 'test_image_3.jpg')
+    click_button 'Save changes'
+
+    current_path.should == dashboard_items_path
+    @item.should have(3).photos
+
+    click_link I18n.t(:edit_photos)
+
+    page.should have_css "img[src$='test_image_1.jpg']"
+    page.should have_css "img[src$='test_image_2.jpg']"
+    page.should have_css "img[src$='test_image_3.jpg']"
+  end
+
+end

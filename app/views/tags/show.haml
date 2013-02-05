@@ -8,7 +8,7 @@
 #tagged_items
   - for item in @tagged_items
     .item
-      - photo_url = item.photos[0].file if item.photos.any?
-      = image_tag photo_url, alt: nil
+      - if (photo_url = get_main_photo_url(item))
+        = image_tag photo_url, alt: nil
       .description
         = item.description

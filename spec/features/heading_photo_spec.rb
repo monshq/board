@@ -36,7 +36,7 @@ feature 'Чтобы мой товар выделялся в списках, я �
     @item.should have(2).photos
 
     visit dashboard_item_photos_path(@item)
-    find(:css, '.photos .image:first-child a').click
+    find(:css, '.photos .image:first-child .make_main').click
     current_path.should == dashboard_item_photos_path(@item)
     @item.reload
     
@@ -44,7 +44,7 @@ feature 'Чтобы мой товар выделялся в списках, я �
     initially_not_main = @item.photos.find { |p| !p.is_main }
 
     visit dashboard_item_photos_path(@item)
-    find(:css, '.photos .image:first-child a').click
+    find(:css, '.photos .image:first-child .make_main').click
     @item.reload
 
     current_path.should == dashboard_item_photos_path(@item)

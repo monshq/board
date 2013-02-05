@@ -21,8 +21,8 @@ class User < ActiveRecord::Base
   self.authorizer_name = 'UsersAuthorizer'
 
   state_machine :initial => :active do
-    after_transition :on => :ban,   :do => :set_state_change_date_time
     after_transition :on => :allow, :do => :set_state_change_date_time
+    after_transition :on => :ban, :do => :set_state_change_date_time
 
     event :ban do
       transition :active => :banned

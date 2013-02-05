@@ -20,6 +20,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'nyan-cat-formatter'
   gem 'database_cleaner'
   gem 'capybara'
   gem 'capybara-email'
@@ -48,3 +49,5 @@ gem 'routing-filter'
 gem 'http_accept_language', git: 'git://github.com/zzet/http_accept_language.git'
 gem 'unicorn'
 gem 'mailcatcher'
+gem 'authority'
+gem 'rolify'

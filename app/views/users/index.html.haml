@@ -1,0 +1,14 @@
+#users_table
+  %table
+    %thead
+      %tr
+        %th='Email'
+        %th='Last sign in date'
+        %th
+    %tbody
+      - @users.each do |user|
+        %tr
+          %td= user.email
+          %td= user.last_sign_in_at
+          - if current_user.can_become?(user)
+            %td= link_to 'Become user', admin_url(user_id: user.id), method: :post

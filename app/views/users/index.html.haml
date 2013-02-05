@@ -12,3 +12,5 @@
           %td= user.last_sign_in_at
           - if current_user.can_become?(user)
             %td= link_to 'Become user', admin_url(user_id: user.id), method: :post
+          - if current_user.can_manage?(user)
+            %td= link_to 'Ban user', root_path

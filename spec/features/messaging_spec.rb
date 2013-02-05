@@ -22,7 +22,7 @@ feature 'Чтобы иметь больше шансов продать това
 
   scenario 'Я нажимаю на ссылку Сообщения и вижу список сообщений' do
     click_link I18n.t(:messages)
-    page.should have_text @user.received_messages[0].text
+    page.should have_text @user.received_messages.first.text
   end
 
   scenario 'На странице сообщений я вижу поле для ввода ответа, я пишу ответ и нажимаю на Ответить' do
@@ -31,7 +31,7 @@ feature 'Чтобы иметь больше шансов продать това
     click_button I18n.t('helpers.submit.message.create')
 
     page.should have_text I18n.t(:reply_sent)
-    page.should_not have_text @user.received_messages[0].text
+    page.should_not have_text @user.received_messages.first.text
   end
 
   scenario 'На странице сообщений я вижу поле для ввода ответа, я не пишу ответ и нажимаю на Ответить' do
@@ -39,7 +39,7 @@ feature 'Чтобы иметь больше шансов продать това
     click_button I18n.t('helpers.submit.message.create')
 
     page.should have_text I18n.t('activerecord.errors.models.message.attributes.text.too_short')
-    page.should have_text @user.received_messages[0].text
+    page.should have_text @user.received_messages.first.text
   end
 
   scenario 'На странице сообщений я вижу сообщения от разных пользователей' do

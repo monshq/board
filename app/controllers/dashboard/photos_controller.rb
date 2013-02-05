@@ -15,10 +15,9 @@ class Dashboard::PhotosController < Dashboard::ApplicationController
 
   def index
     @item = current_user.items.find params[:item_id]
-    render
   end
 
-  def edit
+  def update
     item = current_user.items.find params[:item_id]
     photo = item.photos.find params[:id]
 

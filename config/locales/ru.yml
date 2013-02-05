@@ -28,6 +28,7 @@ ru:
   new_message_sent: 'Сообщение отправлено'
   users: 'Пользователи'
   write_message: 'Связаться'
+  items: 'Объявления'
   activerecord:
     attributes:
       user:

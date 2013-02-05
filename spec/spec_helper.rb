@@ -22,9 +22,16 @@ Spork.prefork do
 
   Spork.trap_class_method(FactoryGirl, :find_definitions)
 
+  # Prevent main application to eager_load in the prefork block (do not load files in autoload_paths)
+  # http://my.rails-royce.org/2012/01/14/reloading-models-in-rails-3-1-when-usign-spork-and-cache_classes-true/
+  Spork.trap_method(Rails::Application, :eager_load!)
+
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
+
+  # Load all railties files
+  Rails.application.railties.all { |r| r.eager_load! }
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.

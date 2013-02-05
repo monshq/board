@@ -18,4 +18,8 @@ class UsersAuthorizer < ApplicationAuthorizer
   def creatable_by?(user)
     (user.has_role?(:admin) && !resource.has_role?(:admin))
   end
+
+  def managable_by?(user)
+    (user.has_role?(:admin) && !resource.has_role?(:admin))
+  end
 end

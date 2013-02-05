@@ -7,11 +7,27 @@ Spork.prefork do
   # Loading more in this block will cause your tests to run faster. However,
   # if you change any configuration or code from libraries loaded here, you'll
   # need to restart spork for it take effect.
+
+  # Devise likes to load the User model. We want to avoid this.
+  # It does so in the routes file, when calling
+  # For more check this wiki:
+  #   https://github.com/sporkrb/spork/wiki/Spork.trap_method-Jujitsu
+  require "rails/application"
+  Spork.trap_method(Rails::Application::RoutesReloader, :reload!)
+
+  # Prevent FactoryGirl from loading factories as they load models
+  # FactoryGirl wants to know Rails version, let's load it
+  require 'rails/version' unless defined?(Rails::VERSION)
+  require 'factory_girl_rails'
+
+  Spork.trap_class_method(FactoryGirl, :find_definitions)
+
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
-  require 'rspec/autorun'
 
+  # Requires supporting ruby files with custom matchers and macros, etc,
+  # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
   RSpec.configure do |config|
@@ -27,6 +43,7 @@ end
 Spork.each_run do
   # This code will be run each time you run your specs.
   FactoryGirl.reload
+  I18n.backend.reload!
 end
 
 # --- Instructions ---

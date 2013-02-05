@@ -9,7 +9,6 @@ class TagsController < ApplicationController
   def show
     @selected_tags = Tag.find params[:id].split('+') # /tags/1+2
     @tagged_items = Item.tagged_with @selected_tags
-
     compose_linked_ids
   end
 

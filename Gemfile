@@ -15,8 +15,6 @@ group :development do
   gem 'meta_request'
   gem 'capistrano'
   gem 'rvm-capistrano'
-  gem 'better_errors'
-  gem "binding_of_caller"
   gem 'capistrano-unicorn', require: false
 end
 

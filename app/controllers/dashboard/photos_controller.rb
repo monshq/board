@@ -15,8 +15,6 @@ class Dashboard::PhotosController < Dashboard::ApplicationController
 
   def index
     @item = current_user.items.find params[:item_id]
-    @photos = @item.photos
-
     render
   end
 

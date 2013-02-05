@@ -25,7 +25,7 @@ feature 'Чтобы лучше представить товар, я хочу з
     @item.should have(3).photos
   end
 
-  scenario 'Я нажимаю на ссылку "Редактировать изображения" и получаю список всех изображений', js: true do
+  scenario 'Я нажимаю на ссылку "Редактировать изображения" и получаю список всех изображений с возможностью сделать их заглавными', js: true do
     @item = FactoryGirl.create :item
     sign_in_user @item.seller
 
@@ -44,6 +44,9 @@ feature 'Чтобы лучше представить товар, я хочу з
     page.should have_css "img[src$='test_image_1.jpg']"
     page.should have_css "img[src$='test_image_2.jpg']"
     page.should have_css "img[src$='test_image_3.jpg']"
+    page.should have_css "a[href$='#{edit_dashboard_item_photo_path(@item, @item.photos[0])}']"
+    page.should have_css "a[href$='#{edit_dashboard_item_photo_path(@item, @item.photos[1])}']"
+    page.should have_css "a[href$='#{edit_dashboard_item_photo_path(@item, @item.photos[2])}']"
   end
 
 end

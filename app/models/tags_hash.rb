@@ -1,53 +1,54 @@
 class TagsHash < ActiveRecord::Base
   require "digest"
-  
-  belongs_to :item
+
   attr_accessible :tags_hash, :relevance
+
+  belongs_to :item
 
   scope :archived, lambda { where("state = ?", :archived) }
 
-  def self.sort_tags(tags)
-    tags = self.convert_tags_string_to_sorted_array(tags)
-  end
-
-  def self.get_tags_hash(tags)
-    if tags.kind_of?(String)
-      tags = self.convert_tags_string_to_sorted_array(tags)
-    end
-    hash = Digest::MD5.hexdigest(tags.join)
-  end
-
-  def self.convert_tags_string_to_sorted_array(tags)
-    if tags.kind_of?(String)
-      _tags = []
-      tags.split(',').each do |t|
-        _tags << t.strip
+  class << self
+    def get_tags_hash(tags)
+      if tags.kind_of?(String)
+        tags = self.convert_tags_string_to_sorted_array_with_uniq_tags(tags)
       end
-      tags = _tags
+      hash = Digest::MD5.hexdigest(tags.join)
     end
-    tags.sort!
-  end
 
-  def self.get_hashes(tags, relevance=0, cache=nil)
-    if cache == nil
-      cache = HashCache.new
-      self.sort_tags(tags)
-    end
-    hash = self.get_tags_hash(tags)
-    unless cache.include?(hash)
-      cache.add(hash)
-      hashes = [TagsHash.new({tags_hash: hash, relevance: relevance})]
-      tags.length.times do |i|
-        tags_copy = Array.new(tags)
-        tags_copy.delete_at(i)
-        if tags_copy.length > 0
-          nested_hashes = self.get_hashes(tags_copy, relevance+1, cache)
-          hashes.concat(nested_hashes) if nested_hashes
+    def get_hashes(tags, relevance=0, calculated_hashes={})
+      # sort array only one time, when it is a first call of .get_hashes
+      if relevance == 0
+        tags = self.convert_tags_string_to_sorted_array_with_uniq_tags(tags)
+      end
+      hashes = []
+
+      hash = self.get_tags_hash(tags)
+      unless calculated_hashes.include?(hash)
+        calculated_hashes[hash] = nil
+        hashes << TagsHash.new(tags_hash: hash, relevance: relevance)
+        tags.length.times do |i|
+          tags_copy = Array.new(tags)
+          tags_copy.delete_at(i)
+          if tags_copy.length > 0
+            nested_hashes = self.get_hashes(tags_copy, relevance+1, calculated_hashes)
+            hashes.concat(nested_hashes)
+          end
         end
       end
       hashes
-    else
-      false
     end
   end
+
+private
+  class << self
+    def convert_tags_string_to_sorted_array_with_uniq_tags(tags)
+      if tags.kind_of?(String)
+        tags_array = []
+        tags.split(',').each { |t| tags_array << t.strip }
+        tags = tags_array
+      end
+      tags.uniq.sort
+    end
+  end
+
 end

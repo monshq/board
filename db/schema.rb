@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130204055448) do
+ActiveRecord::Schema.define(:version => 20130204135158) do
 
   create_table "items", :force => true do |t|
     t.integer  "seller_id",    :null => false
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(:version => 20130204055448) do
     t.integer "tag_id",  :null => false
   end
 
+  add_index "items_tags", ["item_id", "tag_id"], :name => "index_items_tags_on_item_id_and_tag_id", :unique => true
+
   create_table "messages", :force => true do |t|
     t.integer  "sender_id",    :null => false
     t.integer  "recipient_id", :null => false
@@ -35,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20130204055448) do
     t.text     "text"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.string   "read_state"
   end
 
   create_table "photos", :force => true do |t|
@@ -42,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20130204055448) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "file"
+    t.boolean  "is_main"
   end
 
   create_table "roles", :force => true do |t|

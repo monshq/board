@@ -7,7 +7,9 @@ class ItemsController < ApplicationController
       @items = Item.published
     end
   end
+
   def show
     @item = Item.find(params[:id])
   end
+
 end

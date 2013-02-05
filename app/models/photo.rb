@@ -1,4 +1,5 @@
 class Photo < ActiveRecord::Base
+  attr_accessible :file, :is_main
 
   include Authority::Abilities
 

@@ -15,6 +15,9 @@ en:
   add_photo: 'Add photo'
   photo_label: 'Photo %{i}'
   photo_added: 'Photo successfully added'
+  messages: 'Messages'
+  message_list: 'Message List'
+  reply_sent: 'Reply sent.'
   users: 'Users'
   activerecord:
     attributes:
@@ -25,6 +28,8 @@ en:
       item:
         description: 'Description'
         contact_info: 'Contact info'
+      message:
+        text: 'Text'
     errors:
       template:
         header: 'Save error'
@@ -36,12 +41,20 @@ en:
               blank: 'blank. Please, provide your contact information.'
               too_short: 'too short. Please, provide more details'
               too_long: 'too long. Please, provide shorter info.'
+        message:
+          attributes:
+            text:
+              too_short: 'too short.'
   helpers:
     submit:
       item:
         create: 'Create item'
       photo:
         create: 'Create photo'
+      reply:
+        create: 'Reply'
+      message:
+        create: 'Reply'
   devise:
     registrations:
       user:

@@ -1,0 +1,14 @@
+@import '../../../scaffy/config';
+
+.sender {
+  margin: $space-s;
+}
+
+.sender__email {
+  font-weight: bold;
+}
+
+.sender__reply_field {
+  width: 100%;
+  height: 50px;
+}

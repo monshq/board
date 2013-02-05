@@ -69,13 +69,17 @@ class Item < ActiveRecord::Base
       "INNER JOIN items_tags AS #{tt} ON items.id = #{tt}.item_id AND #{tt}.tag_id = #{tag.id}"
     end
 
-    joins(inner_joins.join(' ')).uniq
+    joins(inner_joins.join(' '))
   end
 
   def set_tags(tags_s)
-    tags_s.split(',').each do |t|
-      self.tags << Tag.where(name: t.strip).first_or_create
+    new_tags = tags_s.split(',').map do |t|
+      Tag.where(name: t.strip).first_or_create
     end
+    tags_to_add = new_tags - self.tags
+    tags_to_remove = self.tags - new_tags
+    self.tags += tags_to_add unless tags_to_add.empty?
+    self.tags -= tags_to_remove unless tags_to_remove.empty?
   end
 
   def set_sale_date_time

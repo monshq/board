@@ -75,7 +75,11 @@ class Item < ActiveRecord::Base
 
   def set_tags(tags_s)
     self.tags = tags_s.split(',').map{|t| t.strip}.uniq.map do |t|
-      Tag.where(name: t).first_or_create
+      unless self.id.nil?
+        Tag.where(name: t.strip).first_or_create
+      else
+        Tag.new(name: t.strip)
+      end
     end
   end
 

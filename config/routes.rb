@@ -25,4 +25,6 @@ Board::Application.routes.draw do
       post 'allow/:user_id' => 'admins#allow_user', as: :allow_user
     end
   end
+
+  resources :items, only: [:index]
 end

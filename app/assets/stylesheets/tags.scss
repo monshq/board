@@ -1,0 +1,21 @@
+.tag {
+  float: left;
+  padding: 5px;
+  margin: 5px;
+}
+
+#all_tags {
+  clear: both;
+
+  .selected {
+    background-color: silver;
+  }
+}
+
+#selected_tags {
+  clear: both;
+
+  .tag {
+    font-weight: bold;
+  }
+}

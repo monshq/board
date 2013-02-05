@@ -7,6 +7,7 @@ ru:
   edit_item: 'Редактирование объявления'
   item_updated: 'Объявление успешно изменено.'
   tags: 'Категории'
+  all_tags: 'Все категории'
   item_created: 'Объявление успешно размещено.'
   delete: 'Удалить'
   edit_item: 'Редактировать'
@@ -18,6 +19,7 @@ ru:
   message_list: 'Список Сообщений'
   view_message: 'Посмотреть Сообщение'
   reply_sent: 'Ваш ответ отправлен.'
+  users: 'Пользователи'
   activerecord:
     attributes:
       user:
@@ -44,6 +46,8 @@ ru:
           attributes:
             text:
               too_short: 'ответа слишком короткий.'
+      messages:
+        record_invalid: 'Ошибка при сохранении. Запись не действительна'
   helpers:
     submit:
       item:

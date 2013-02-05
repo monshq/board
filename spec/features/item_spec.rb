@@ -60,11 +60,10 @@ end
 feature 'Чтобы изменить объявление' do
   background do
     add_item
+    click_link I18n.t(:edit_item)
   end
 
   scenario 'я нажимаю на ссылку редактировать и изменяю аттрибуты правильно' do
-    click_link I18n.t(:edit_item)
-
     descr = @item[:description] + 'updated'
     tags = ['Компьютеры', 'Мониторы']
     contact_info = @item[:contact_info] + 'updated'
@@ -82,13 +81,29 @@ feature 'Чтобы изменить объявление' do
   end
 
   context 'Когда форма редактирования заполнена неправильно' do
-    scenario 'Я стераю контактную информацию и получаю сообщение об ошибке' do
-      click_link I18n.t(:edit_item)
-
+    scenario 'Я стираю контактную информацию и получаю сообщение об ошибке' do
       fill_in 'item_contact_info', with: ''
       click_button I18n.t('helpers.submit.item.update')
 
       page.should have_text 'Пожалуйста, укажите также контактную информацию.'
+    end
+
+    scenario 'Я ввожу слишком короткую контактную информацию и получаю сообщение об ошибке' do
+      fill_in 'Текст объявления',      with: @item[:description]
+      fill_in 'Категории',             with: @tags.join(', ')
+      fill_in 'Контактная информация', with: 'ЛОЛшто'
+      click_button I18n.t('helpers.submit.item.update')
+
+      page.should have_text 'Пожалуйста, укажите более подробную контактную информацию.'
+    end
+
+    scenario 'Я ввожу слишком длинную контактную информацию и получаю сообщение об ошибке' do
+      fill_in 'Текст объявления',      with: @item[:description]
+      fill_in 'Категории',             with: @tags.join(', ')
+      fill_in 'Контактная информация', with: 'ЛОЛшто' * 99
+      click_button I18n.t('helpers.submit.item.update')
+      
+      page.should have_text 'Пожалуйста, укажите более короткую контактную информацию.'
     end
   end
 end

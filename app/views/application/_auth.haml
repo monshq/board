@@ -8,6 +8,13 @@
     = link_to I18n.t(:messages), dashboard_messages_path
     |
     = link_to t(:sign_out), destroy_user_session_path, method: :delete
+    |
+    - if current_user.has_role? :admin
+      %span='Вы администратор'
+    - elsif current_user.has_role? :user
+      %span='Вы пользователь'
+    - else
+      %span='Вы гость'
   - else
     = link_to t(:sign_in), new_user_session_path
     |

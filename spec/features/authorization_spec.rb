@@ -30,4 +30,12 @@ feature 'Чтобы управлять своими объявлениями, я
 
     page.should have_text 'Ваша учётная запись активирована. Вы также автоматически вошли в панель управления.'
   end
+
+  scenario 'Я выхожу из учетной записи' do
+    test_user = FactoryGirl.create :user
+    sign_in_user(test_user)
+
+    click_link 'Выйти'
+    page.should have_link 'Войти'
+  end
 end

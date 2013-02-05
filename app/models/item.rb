@@ -62,6 +62,7 @@ class Item < ActiveRecord::Base
 
   scope :active, lambda { where("state <> ?", :archived) }
   scope :archived, lambda { where("state = ?", :archived) }
+  scope :with_messages, lambda { uniq.joins(:messages) }
 
   def self.tagged_with(tags)
     inner_joins = tags.collect do |tag|

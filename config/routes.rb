@@ -6,13 +6,15 @@ Board::Application.routes.draw do
   resources :tags, only: [:index, :show]
 
   resources :items do
-    resources :messages
+    resources :messages, :only => [:new, :create]
   end
 
   namespace :dashboard do
     resources :items do
       resources :photos
+      resources :messages
     end
+    resources :messages
   end
 
   resources :users

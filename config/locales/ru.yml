@@ -15,6 +15,10 @@ ru:
   add_photo: 'Добавить изображение'
   photo_label: 'Изображение %{i}'
   photo_added: 'Изображение успешно добавлено.'
+  messages: 'Сообщения'
+  message_list: 'Список Сообщений'
+  view_message: 'Посмотреть Сообщение'
+  reply_sent: 'Ваш ответ отправлен.'
   users: 'Пользователи'
   activerecord:
     attributes:
@@ -25,6 +29,8 @@ ru:
       item:
         description: 'Текст объявления'
         contact_info: 'Контактная информация'
+      message:
+        text: 'Текст'
     errors:
       template:
         header: 'Ошибка при сохранении'
@@ -36,6 +42,10 @@ ru:
               blank: 'отсутствует. Пожалуйста, укажите также контактную информацию.'
               too_short: 'слишком короткая. Пожалуйста, укажите более подробную контактную информацию.'
               too_long: 'слишком длинная. Пожалуйста, укажите более короткую контактную информацию.'
+        message:
+          attributes:
+            text:
+              too_short: 'ответа слишком короткий.'
       messages:
         record_invalid: 'Ошибка при сохранении. Запись не действительна'
   helpers:
@@ -45,6 +55,10 @@ ru:
         update: 'Сохранить изменения'
       photo:
         create: 'Добавить это изображение'
+      reply:
+        create: 'Ответить'
+      message:
+        create: 'Ответить'
   devise:
     registrations:
       user:

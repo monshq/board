@@ -1,0 +1,24 @@
+@import '../../../scaffy/config';
+
+.item {
+  border: 1px solid $pale;
+  background-color: $bare;
+  margin: 15px;
+  padding: 5px;
+  min-height: 80px;
+}
+
+.item__image {
+  margin: 2px;
+  width: 60px;
+  height: 60px;
+  border: 1px solid $pale;
+  float: left;
+}
+
+.item__description {
+  float: left;
+  margin: 5px;
+  left: 80px;
+  width: 90%;
+}

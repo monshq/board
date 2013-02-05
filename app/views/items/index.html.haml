@@ -1,0 +1,13 @@
+- @items.each do |item|
+  .item
+    .seller= link_to item.seller.email, users_path
+    .created_at= item.created_at
+    .description= item.description
+    .state= item.state
+    .photos
+      - item.photos.each do |photo|
+        .photo
+          = image_tag photo.file, alt: nil
+    .tags= k(item).tags
+    .contact_info= item.contact_info
+

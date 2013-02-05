@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20130204135158) do
     t.text     "text"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.string   "read_state"
   end
 
   create_table "photos", :force => true do |t|

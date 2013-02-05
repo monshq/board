@@ -1,0 +1,13 @@
+.reply_form
+  - id_postfix = [reply.item_id, reply.recipient_id]
+  - if reply.item_id == @reply.item_id && reply.recipient_id == @reply.recipient_id
+    - reply = @reply
+  = form_for reply, {url: dashboard_messages_path, html: {id: new_message_html_object_id(:form, id_postfix)}} do |f|
+    = f.error_messages
+    .reply_form__field
+      = f.hidden_field :item_id, id: new_message_html_object_id(:item, id_postfix)
+      = f.hidden_field :recipient_id, id: new_message_html_object_id(:recipient, id_postfix)
+      = f.hidden_field :sender_id, id: new_message_html_object_id(:sender, id_postfix)
+      .input= f.text_area :text, {rows: 5, cols: 140, id: new_message_html_object_id(:text, id_postfix)}
+    .reply_form__field
+      .input= f.submit

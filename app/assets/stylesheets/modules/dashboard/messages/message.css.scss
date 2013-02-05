@@ -1,0 +1,43 @@
+@import '../../../scaffy/config';
+
+.message {
+  list-style-type: none;
+  border: 1px solid $pale;
+  background-color: $bare;
+  margin: 2px;
+  padding: 4px;
+  min-height: 26px;
+  &.is-unread {
+    .message__created_at, .message__sender, .message__controls, .message__text {
+      font-weight: bold;
+      margin: $space-m;
+    }
+    .message__controls {
+      font-weight: normal;
+    }
+    .message__text {
+      display: block;
+    }
+  }
+}
+
+.message__created_at {
+  float: left;
+  margin: $space-x $space-m $space-x $space-m;
+}
+
+.message__sender {
+  float: left;
+  margin: $space-x $space-m $space-x $space-m;
+}
+
+.message__controls {
+  float: right;
+  margin: $space-x $space-m $space-x $space-m;
+}
+
+.message__text {
+  clear: both;
+  margin: $space-s;
+  display: none;
+}

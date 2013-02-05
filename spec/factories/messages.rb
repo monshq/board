@@ -4,6 +4,6 @@ FactoryGirl.define do
     recipient
     item
 
-    text Faker::Lorem.sentence
+    text {Faker::Lorem.sentence}
   end
 end

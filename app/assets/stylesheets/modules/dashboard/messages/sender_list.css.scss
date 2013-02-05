@@ -1,0 +1,9 @@
+@import '../../../scaffy/config';
+
+.sender_list {
+}
+
+.sender_list__sender {
+  list-style-type: none;
+  margin: $space-l, $space-x, $space-m, $space-m;
+}

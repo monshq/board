@@ -42,7 +42,8 @@ Authority.configure do |config|
     :read   => 'readable',
     :update => 'updatable',
     :delete => 'deletable',
-    :become => 'becomable'
+    :become => 'becomable',
+    :manage => 'managable'
   }
 
   # SECURITY_VIOLATION_HANDLER

@@ -4,8 +4,6 @@ require 'spec_helper'
 
 describe Message do
   describe '#post' do
-    before(:all) do
-    end
 
     before(:each) do
       add_message

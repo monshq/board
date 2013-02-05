@@ -20,6 +20,9 @@ Board::Application.routes.draw do
   resources :users
 
   scope module: :admin do
-    resource :admin, only: [:create]
+    resource :admin, only: [:create] do
+      post 'ban/:user_id' => 'admins#ban_user', as: :ban_user
+      post 'allow/:user_id' => 'admins#allow_user', as: :allow_user
+    end
   end
 end

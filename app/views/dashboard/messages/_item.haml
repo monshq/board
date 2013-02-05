@@ -3,7 +3,7 @@
     .item__image
       - #Image goes here
     .item__description= item.description
-    - reply = new_reply(sender_id: @reply.sender_id, item_id: item.id)
+    - reply = new_reply(item.id, @reply.sender_id)
   %ul.sender_list
     - get_senders_from_item_messages(messages).each do |sender, messages|
       = render('sender', {sender: sender, messages: messages, reply: reply})

@@ -5,7 +5,7 @@ class Message < ActiveRecord::Base
   belongs_to :recipient, class_name: 'User'
   belongs_to :item
 
-  validates :text, presence: true, length: {in: 11..255}
+  validates :text, presence: true, length: {in: 2..255}
 
   state_machine :read_state, :initial => :unread do
     event :read do
@@ -29,7 +29,10 @@ class Message < ActiveRecord::Base
     end
   end
 
-  scope :unread, lambda { includes(:item,:sender).where('read_state = ?', :unread).order('created_at DESC', :item_id, :sender_id) }
+  scope :unread, lambda { includes(:item,:sender).
+                          where('read_state = ?', :unread).
+                          order('created_at DESC', :item_id, :sender_id)
+                        }
 
   def post(params)
     self.assign_attributes(params, without_protection: true)
@@ -37,7 +40,7 @@ class Message < ActiveRecord::Base
   end
 
   def self.mark_messages_as_read(params)
-    self.update_all({:read_state => :read}, {item_id: params[:item_id], sender_id: params[:recipient_id]})
+    self.update_all({read_state: :read}, {item_id: params[:item_id], sender_id: params[:recipient_id]})
   end
 
 end

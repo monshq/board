@@ -4,10 +4,6 @@ class Dashboard::MessagesController < Dashboard::ApplicationController
     @reply = current_user.sent_messages.build
   end
 
-  def show
-    #@message = current_user.received_messages.find(params[:id])
-  end
-
   def create
     @message = current_user.sent_messages.build
 

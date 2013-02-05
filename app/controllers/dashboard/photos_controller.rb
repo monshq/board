@@ -32,9 +32,7 @@ class Dashboard::PhotosController < Dashboard::ApplicationController
     item = current_user.items.find params[:item_id]
     photo = item.photos.find params[:id]
 
-    photo.file.remove!
     photo.destroy
-
     redirect_to dashboard_item_photos_path(item)
   end
 

@@ -2,6 +2,8 @@ language: ruby
 rvm:
   - 1.9.3
   - 2.0.0
+services:
+  - elasticsearch
 before_script:
   - mv .travis.database.yml config/database.yml
   - bundle exec rake 'db:setup'

@@ -5,7 +5,7 @@ Board::Application.routes.draw do
 
   resources :tags, only: [:index, :show]
 
-  resources :items do
+  resources :items, only: [:index] do
     resources :messages, :only => [:new, :create]
   end
 

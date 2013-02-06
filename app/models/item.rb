@@ -3,6 +3,9 @@ class Item < ActiveRecord::Base
 
   include Authority::Abilities
 
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
+
   attr_accessible :description, :contact_info, :state, :sold_at
 
   belongs_to :seller, class_name: 'User'
@@ -12,6 +15,11 @@ class Item < ActiveRecord::Base
 
   validates :contact_info, length: {in: 11..255}, allow_blank: true
   validates :contact_info, presence: true
+
+  tire.mapping do
+    indexes :description
+    indexes :contact_info
+  end
 
   state_machine :initial => :hidden do
     after_transition any - :archived => :sold, :do => :set_sale_date_time

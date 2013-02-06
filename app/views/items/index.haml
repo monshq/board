@@ -1,5 +1,7 @@
-#items
+#items  
   - for item in @items
     .item
-      .description
-        = item.description
+      .description= link_to item.description, item_path(item)
+      .state= item.state
+      .tags=k(item).tags
+      .contact_info=item.contact_info

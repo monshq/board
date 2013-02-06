@@ -3,7 +3,10 @@ class ItemsController < ApplicationController
     unless params[:keywords].empty?
       @items = Item.search params[:keywords]
     else
-      @items = Item.all
+      @items = Item.published
     end
+  end
+  def show
+    @item = Item.find(params[:id])
   end
 end

@@ -74,10 +74,9 @@ class Item < ActiveRecord::Base
   end
 
   def set_tags(tags_s)
-    new_tags = tags_s.split(',').map do |t|
-      Tag.where(name: t.strip).first_or_create
+    self.tags = tags_s.split(',').map{|t| t.strip}.uniq.map do |t|
+      Tag.where(name: t).first_or_create
     end
-    self.tags = new_tags.uniq
   end
 
   def set_sale_date_time

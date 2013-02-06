@@ -75,10 +75,13 @@ feature 'Чтобы определиться с нужным мне товаро
   end
 
   scenario 'Теги можно удалять из объявления' do
-    item = FactoryGirl.create(:item)
-    item.set_tags 'Animal'
-    item.set_tags 'People'
-    item.tags.count.should eq 1
-    item.tags.first.name.should eq 'People'
+    user = FactoryGirl.create :user
+    sign_in_user user
+    item = FactoryGirl.create(:item, seller: user)
+
+    fill_item_with item, tags: 'animal'
+    fill_item_with item, tags: 'people'
+
+    find(".item .tags").text.should eq 'people'
   end
 end

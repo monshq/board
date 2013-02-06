@@ -76,6 +76,13 @@ describe Item do
       @i.should_not be_visible_for_seller
       @i.state.should eq 'archived'
     end
+
+    it "remove tags" do
+      item = FactoryGirl.create(:item)
+      item.set_tags 'Animal'
+      item.set_tags 'People'
+      item.tags.map(&:name).should eq ['People']
+    end
   end
   
 end

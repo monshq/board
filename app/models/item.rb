@@ -70,12 +70,12 @@ class Item < ActiveRecord::Base
       "INNER JOIN items_tags AS #{tt} ON items.id = #{tt}.item_id AND #{tt}.tag_id = #{tag.id}"
     end
 
-    joins(inner_joins.join(' ')).uniq
+    joins(inner_joins.join(' '))
   end
 
   def set_tags(tags_s)
-    tags_s.split(',').each do |t|
-      self.tags << Tag.where(name: t.strip).first_or_create
+    self.tags = tags_s.split(',').map{|t| t.strip}.uniq.map do |t|
+      Tag.where(name: t).first_or_create
     end
   end
 

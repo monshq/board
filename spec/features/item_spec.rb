@@ -75,7 +75,6 @@ feature 'Чтобы изменить объявление' do
 
     page.should have_text I18n.t(:item_updated)
     page.should have_text descr
-    tags.concat(@tags).uniq!
     tags.each {|t| page.should have_text t}
     page.should have_text contact_info
   end

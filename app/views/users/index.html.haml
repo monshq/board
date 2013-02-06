@@ -21,4 +21,3 @@
               %td= link_to 'Ban user', ban_user_admin_path(user_id: user.id), method: :post, confirm: 'Are you sure?'
             -else
               %td= link_to 'Allow user', allow_user_admin_path(user_id: user.id), method: :post, confirm: 'Are you sure?'
-

@@ -19,4 +19,5 @@ class Admin::AdminsController < Admin::ApplicationController
     @user.allow
     redirect_to users_path
   end
+
 end

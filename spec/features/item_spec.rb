@@ -10,7 +10,7 @@ feature 'Чтобы продать что либо, я подаю объявле
     sign_in_user @user
 
     visit dashboard_items_path
-    click_link 'Новое объявление'
+    click_link I18n.t(:new_item)
 
     @item = FactoryGirl.attributes_for :item
     @tags = ['Электроника', 'Компьютеры']
@@ -29,11 +29,13 @@ feature 'Чтобы продать что либо, я подаю объявле
   end
 
   context 'Когда форма заполнена неправильно' do
-    scenario 'Я не указываю контактную информацию и получаю сообщение об ошибке' do
+    scenario 'Я заполняю текст и тэги без контактной информации, получаю ошибку, и текст в полях остаётся' do
       fill_in 'Текст объявления',      with: @item[:description]
       fill_in 'Категории',             with: @tags.join(', ')
-      click_button 'Подать это объявление'
+      click_button I18n.t 'helpers.submit.item.create'
 
+      page.should have_content @item[:description]
+      page.should have_css "input[value=\"#{@tags.join(', ')}\"]"
       page.should have_text 'Пожалуйста, укажите также контактную информацию.'
     end
 

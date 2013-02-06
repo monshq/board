@@ -32,8 +32,10 @@ group :development, :test do
   gem 'ffaker'
   gem 'simplecov'
   gem 'coveralls', require: false
+  gem 'guard'
+  gem 'guard-spork'
   gem 'guard-rspec'
-  gem 'rb-inotify'
+  gem 'rb-inotify', '~> 0.8.8'
   gem 'pry'
 end
 

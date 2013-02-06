@@ -13,6 +13,7 @@ class Item < ActiveRecord::Base
   has_many :photos,   dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :tags_hashes, dependent: :destroy
+  has_many :admin_comments, as: :bannable
 
   validates :contact_info, length: {in: 11..255}, allow_blank: true
   validates :contact_info, presence: true

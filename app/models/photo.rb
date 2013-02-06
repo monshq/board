@@ -5,6 +5,7 @@ class Photo < ActiveRecord::Base
 
   attr_accessible :file
   belongs_to :item
+  has_many :admin_comments, as: :bannable
   mount_uploader :file, PhotoUploader
 
   state_machine :state, :initial => :active do

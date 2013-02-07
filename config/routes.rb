@@ -21,11 +21,11 @@ Board::Application.routes.draw do
 
   namespace :admin do
     resources :photos, only: [] do
-      resources :ban, only: [:new, :create, :destroy], controller: 'ban_photo'
+      resource :ban, only: [:new, :create, :destroy], controller: 'ban_photos'
     end
 
     resources :users, only: [] do
-      resources :ban, only: [:new, :create, :destroy], controller: 'ban_user'
+      resource :ban, only: [:new, :create, :destroy], controller: 'ban_users'
     end
 
     resource :sessions, only: [:create]

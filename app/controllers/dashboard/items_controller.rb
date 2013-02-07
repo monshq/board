@@ -29,6 +29,9 @@ class Dashboard::ItemsController < Dashboard::ApplicationController
     if @item.update_attributes(params[:item])
       @item.set_tags(params[:tags])
 
+      unless @item.visible_for_seller?
+        @item.archivate
+      end
       redirect_to dashboard_items_path, notice: t(:item_updated)
     else
       render action: "edit"

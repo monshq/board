@@ -14,6 +14,10 @@ class Item < ActiveRecord::Base
   validates :contact_info, presence: true
 
   state_machine :initial => :hidden do
+    before_transition :on => :archivate do |item|
+      item.messages.active.map(&:archivate)
+    end
+
     after_transition any - :archived => :sold, :do => :set_sale_date_time
 
     event :publish do
@@ -30,9 +34,7 @@ class Item < ActiveRecord::Base
     end
 
     event :archivate do
-      transition :hidden => :archived
-      transition :published => :archived
-      transition :sold => :archived
+      transition any => :archived
     end
 
     state :hidden, :sold, :archived do

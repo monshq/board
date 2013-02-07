@@ -108,7 +108,7 @@ feature 'Чтобы изменить объявление' do
   end
 end
 
-feature 'Я хочу иметь возможность удалять сообщения' do
+feature 'Я хочу иметь возможность удалять объявления' do
   background do
     add_item
   end
@@ -119,6 +119,24 @@ feature 'Я хочу иметь возможность удалять сообщ
     click_button I18n.t('helpers.submit.item.update')
 
     page.should_not have_text @item[:description]
+  end
+  
+  scenario 'После удаления объявления, связанные сущности(сообщения/фотографии) также должны быть удалены (помечены как archived)' do
+    @item = @user.items.first
+    5.times { add_message(@item, @user) }
+    3.times { add_photo(@item) }
+
+    visit edit_dashboard_item_path(@item)
+
+    select('archived', from: 'item[state]')
+    click_button I18n.t('helpers.submit.item.update')
+
+    page.should_not have_text @item[:description]
+
+    click_link I18n.t(:messages)
+    for message in @item.messages
+      page.should_not have_text message.text
+    end
   end
 end
 

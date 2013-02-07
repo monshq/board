@@ -14,3 +14,4 @@
 wget download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.20.4.deb
 sudo dpkg -i elasticsearch-0.20.4.deb
 ```
+

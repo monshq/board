@@ -11,7 +11,7 @@ set :bundle_flags, '--deployment'
 require 'bundler/capistrano'
 
 set :application, 'board'
-set :repository,  'https://github.com/vassilevsky/board.git'
+set :repository,  'https://github.com/monshq/board.git'
 set :branch,      'master'
 
 if ENV['TRAVIS']

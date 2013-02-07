@@ -3,6 +3,7 @@
   .state= @item.state
   .tags=k(@item).tags
   .contact_info=@item.contact_info
+  %span= link_to 'Contact', new_item_message_path(@item)
   .photos
     - @item.photos.each do |photo|
       .photo

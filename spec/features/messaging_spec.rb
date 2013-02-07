@@ -63,3 +63,14 @@ end
 
 
 feature 'Чтобы ответить на вопрос покупателя как можно скорее, я хочу получать уведомления по email и SMS'
+
+#Покупатель
+
+feature 'Чтобы отправить сообщение продавцу' do
+  scenario 'я хочу нажать связаться и заполнить сообщение' do
+    item = FactoryGirl.create(:item)
+    visit item_path(item)
+    click 'Связаться с продавцом'
+    fill_in
+  end
+end

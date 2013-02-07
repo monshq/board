@@ -20,11 +20,6 @@ Board::Application.routes.draw do
   resources :users
 
   namespace :admin do
-  # scope module: :admin do
-    #resource :admin, only: [:create] do
-      #post 'ban/:user_id' => 'admins#ban_user', as: :ban_user
-      #post 'allow/:user_id' => 'admins#allow_user', as: :allow_user
-    #end
     resources :photos, only: [] do
       resources :ban, only: [:new, :create, :destroy], controller: 'ban_photo'
     end

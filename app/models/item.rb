@@ -21,57 +21,59 @@ class Item < ActiveRecord::Base
     indexes :contact_info
   end
 
-  state_machine :initial => :hidden do
-    after_transition any - :archived => :sold, :do => :set_sale_date_time
-
-    event :publish do
-      transition :hidden => :published
-    end
-
-    event :sell do
-      transition :hidden => :sold
-      transition :published => :sold
-    end
-
-    event :hide do
-      transition :published => :hidden
-    end
-
-    event :archivate do
-      transition :hidden => :archived
-      transition :published => :archived
-      transition :sold => :archived
-    end
-
-    state :hidden, :sold, :archived do
-      def visible?
-        false
-      end
-    end
-
-    state :published do
-      def visible?
-        true
-      end
-    end
-
-    state :archived do
-      def visible_for_seller?
-        false
-      end
-    end
-
-    state  :hidden, :sold, :published do
-      def visible_for_seller?
-        true
-      end
-    end
-  end
-
   scope :published, lambda { where("state = ?", :published) }
   scope :active, lambda { where("state <> ?", :archived) }
   scope :archived, lambda { where("state = ?", :archived) }
   scope :with_messages, lambda { uniq.joins(:messages) }
+
+  def self.setup_state_machine
+    state_machine :initial => :hidden do
+      after_transition any - :archived => :sold, :do => :set_sale_date_time
+
+      event :publish do
+        transition :hidden => :published
+      end
+
+      event :sell do
+        transition :hidden => :sold
+        transition :published => :sold
+      end
+
+      event :hide do
+        transition :published => :hidden
+      end
+
+      event :archivate do
+        transition :hidden => :archived
+        transition :published => :archived
+        transition :sold => :archived
+      end
+
+      state :hidden, :sold, :archived do
+        def visible?
+          false
+        end
+      end
+
+      state :published do
+        def visible?
+          true
+        end
+      end
+
+      state :archived do
+        def visible_for_seller?
+          false
+        end
+      end
+
+      state  :hidden, :sold, :published do
+        def visible_for_seller?
+          true
+        end
+      end
+    end
+  end
 
   def self.tagged_with(tags)
     inner_joins = tags.collect do |tag|
@@ -95,5 +97,7 @@ class Item < ActiveRecord::Base
   def set_sale_date_time
     @sold_at = Time.new
   end
+
+  setup_state_machine
 
 end

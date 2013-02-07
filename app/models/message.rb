@@ -10,6 +10,12 @@ class Message < ActiveRecord::Base
 
   validates :text, presence: true, length: {in: 2..255}
 
+  state_machine :state, :initial => :active do
+    event :archivate do
+      transition :active => :archived
+    end
+  end
+
   state_machine :read_state, :initial => :unread do
     event :read do
       transition :unread => :read
@@ -36,6 +42,7 @@ class Message < ActiveRecord::Base
                           where('read_state = ?', :unread).
                           order('created_at DESC', :item_id, :sender_id)
                         }
+  scope :active, lambda { where("state <> ?", :archived) }
 
   def post(params)
     self.assign_attributes(params, without_protection: true)

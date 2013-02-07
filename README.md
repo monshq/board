@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/monshq/board.png?branch=master)](https://travis-ci.org/monshq/board)
+**Master**: [![Build Status Master](https://travis-ci.org/monshq/board.png?branch=master)](https://travis-ci.org/monshq/board)
+**Latest**: [![Build Status Latest Commit](https://travis-ci.org/monshq/board.png)](https://travis-ci.org/monshq/board)
 
 [![Dependency Status](https://gemnasium.com/monshq/board.png)](https://gemnasium.com/monshq/board)
 

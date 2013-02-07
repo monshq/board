@@ -4,8 +4,8 @@ require 'spec_helper'
 
 feature 'Чтобы лучше указать что мне нужно, я хочу воспользоваться формой поиска' do
   background do
-    FactoryGirl.create :item, description: 'Продаётся велосипед'
-    FactoryGirl.create :item, description: 'Продаётся телевизор'
+    FactoryGirl.create :item, description: 'Продаётся велосипед', state: 'published'
+    FactoryGirl.create :item, description: 'Продаётся телевизор', state: 'published'
 
     sleep 10 # Let ElasticSearch update its index
 

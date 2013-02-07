@@ -68,6 +68,7 @@ class Item < ActiveRecord::Base
     end
   end
 
+  scope :published, lambda { where("state = ?", :published) }
   scope :active, lambda { where("state <> ?", :archived) }
   scope :archived, lambda { where("state = ?", :archived) }
   scope :with_messages, lambda { uniq.joins(:messages) }

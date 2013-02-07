@@ -1,9 +1,13 @@
 class ItemsController < ApplicationController
   def index
-    unless params[:keywords].empty?
-      @items = Item.search params[:keywords]
+    keywords = params[:keywords]
+    unless keywords.nil? || keywords.empty?
+      @items = Item.search keywords
     else
-      @items = Item.all
+      @items = Item.published
     end
+  end
+  def show
+    @item = Item.find(params[:id])
   end
 end

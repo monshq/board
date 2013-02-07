@@ -139,3 +139,25 @@ feature 'Чтобы меня не беспокоили после продажи
     page.should have_text 'sold'  #I18n.t :sold
   end
 end
+
+#Покупатель
+feature 'Чтобы просмотреть опубликованные объявления' do
+  background do
+    states = Item.state_machine.states.map &:name
+    states.each do |state|
+      FactoryGirl.create(:item, state: state)
+    end
+  end
+
+  scenario 'Я перехожу на страницу просмотра всех объявлений' do
+    visit items_path
+    page.should have_selector('.item', count: 1)
+  end
+
+  scenario 'Я могу просмотреть отдельное объявление' do
+    visit items_path
+    find('.description a').click
+    page.status_code.should be 200
+  end
+end
+

@@ -15,9 +15,9 @@
           - if current_user.can_manage?(user)
             %td= user.state
           - if current_user.can_become?(user)
-            %td= link_to 'Become user', admin_url(user_id: user.id), method: :post
+            %td= link_to 'Become user', admin_sessions_path(user_id: user.id), method: :post
           - if current_user.can_manage?(user)
             - if user.active?
-              %td= link_to 'Ban user', ban_user_admin_path(user_id: user.id), method: :post, confirm: 'Are you sure?'
+              %td= link_to 'Ban user', new_admin_user_ban_path(user_id: user.id), method: :post, confirm: 'Are you sure?'
             -else
-              %td= link_to 'Allow user', allow_user_admin_path(user_id: user.id), method: :post, confirm: 'Are you sure?'
+              %td= link_to 'Allow user', admin_user_ban_path(user_id: user.id), method: :delete, confirm: 'Are you sure?'

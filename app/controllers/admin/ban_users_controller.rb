@@ -7,8 +7,16 @@ class Admin::BanUsersController < Admin::ApplicationController
 
   def create
     @user = User.find(params[:user_id])
-    @user.ban
-    redirect_to users_path
+
+    @user.admin_comments.build params[:admin_comment]
+
+    if @user.save
+      flash[:notice] = "User banned" # TODO: Добавить локализацию
+      @user.ban
+
+      redirect_to users_path
+    end
+
   end
 
   def destroy

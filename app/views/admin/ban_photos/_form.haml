@@ -1,0 +1,9 @@
+= form_for @admin_comment, url: admin_photo_ban_path(photo_id: @user.id) do |f|
+  = f.error_messages
+  .field
+    = f.hidden_field :action_type
+  .field
+    .label= f.label     :comment
+    .input= f.text_area :comment
+  .field
+    .input= f.submit

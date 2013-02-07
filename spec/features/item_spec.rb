@@ -148,10 +148,12 @@ feature 'Чтобы просмотреть опубликованные объя
       FactoryGirl.create(:item, state: state)
     end
   end
+
   scenario 'Я перехожу на страницу просмотра всех объявлений' do
     visit items_path
     page.should have_selector('.item', count: 1)
   end
+
   scenario 'Я могу просмотреть отдельное объявление' do
     visit items_path
     find('.description a').click

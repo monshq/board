@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   has_many :items, dependent: :destroy, foreign_key: 'seller_id'
   has_many :received_messages, class_name: 'Message', dependent: :destroy, foreign_key: 'recipient_id'
   has_many :sent_messages,     class_name: 'Message', dependent: :destroy, foreign_key: 'sender_id'
+  has_many :admin_comments, as: :bannable
 
   self.authorizer_name = 'UsersAuthorizer'
 

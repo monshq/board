@@ -1,7 +1,8 @@
 # encoding: UTF-8
 
 def add_item
-    sign_in_user(FactoryGirl.create(:user))
+    @user = FactoryGirl.create(:user)
+    sign_in_user(@user)
 
     visit dashboard_items_path
     click_link(I18n.t(:new_item))

@@ -27,6 +27,8 @@ Board::Application.routes.draw do
     resources :users, only: [] do
       resources :ban, only: [:new, :create, :destroy], controller: 'ban_user'
     end
+
+    resource :sessions, only: [:create]
   end
 
   resources :items, only: [:index]

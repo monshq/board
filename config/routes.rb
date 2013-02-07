@@ -26,16 +26,12 @@ Board::Application.routes.draw do
       #post 'allow/:user_id' => 'admins#allow_user', as: :allow_user
     #end
     resources :photos, only: [] do
-      resources :bans, only: [:new, :create, :destroy]
+      resources :ban, only: [:new, :create, :destroy], controller: 'ban_photo'
     end
 
     resources :users, only: [] do
-      resources :ban, only: [:new, :create, :destroy]
+      resources :ban, only: [:new, :create, :destroy], controller: 'ban_user'
     end
-    #resources :users do
-      #resources :ban, only: [:new, :create]
-      #resources :allow, only: [:create]
-    #end
   end
 
   resources :items, only: [:index]

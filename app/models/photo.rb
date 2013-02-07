@@ -3,7 +3,7 @@ class Photo < ActiveRecord::Base
 
   include Authority::Abilities
 
-  attr_accessible :file
+  attr_accessible :file, :state, :state_changed_at
   belongs_to :item
   has_many :admin_comments, as: :bannable
   mount_uploader :file, PhotoUploader

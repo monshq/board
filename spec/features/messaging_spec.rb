@@ -67,10 +67,18 @@ feature 'Чтобы ответить на вопрос покупателя ка
 #Покупатель
 
 feature 'Чтобы отправить сообщение продавцу' do
-  scenario 'я хочу нажать связаться и заполнить сообщение' do
+  background do
+    @user = FactoryGirl.create(:user)
+    sign_in_user(@user)
+  end
+
+  scenario 'я хочу нажать связаться и заполнить сообщение', focus: true do
     item = FactoryGirl.create(:item)
     visit item_path(item)
-    click 'Связаться с продавцом'
-    fill_in
+    click_link I18n.t(:write_message)
+    fill_in :message_text, with: 'message'
+    click_button I18n.t('helpers.submit.message.create')
+    item.messages.count.should eq 1
+    page.should have_content I18n.t(:new_message_sent)
   end
 end

@@ -11,9 +11,10 @@ class MessagesController < ApplicationController
     @message.item = item
     @message.recipient = item.seller
     if @message.save
+      flash[:notice] = t(:new_message_sent)
       redirect_to item_path(item)
     else
-      render new
+      redirect_to new_item_message_path(item)
     end
   end
 end

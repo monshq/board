@@ -1,4 +1,4 @@
-class Admin::PhotosController < Admin::ApplicationController
+class Admin::BanPhotosController < Admin::ApplicationController
 
   def new
     @photo = Photo.find(params[:photo_id])

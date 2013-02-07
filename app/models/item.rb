@@ -16,6 +16,7 @@ class Item < ActiveRecord::Base
   state_machine :initial => :hidden do
     before_transition :on => :archivate do |item|
       item.messages.active.map(&:archivate)
+      item.photos.active.map(&:archivate)
     end
 
     after_transition any - :archived => :sold, :do => :set_sale_date_time

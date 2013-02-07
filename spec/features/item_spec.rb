@@ -137,6 +137,9 @@ feature 'Я хочу иметь возможность удалять объяв
     for message in @item.messages
       page.should_not have_text message.text
     end
+
+    visit dashboard_item_photos_path(@item)
+    page.should_not have_css('img')
   end
 end
 

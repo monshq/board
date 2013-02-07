@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130207102109) do
+ActiveRecord::Schema.define(:version => 20130207122545) do
 
   create_table "items", :force => true do |t|
     t.integer  "seller_id",    :null => false
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20130207102109) do
     t.datetime "updated_at", :null => false
     t.string   "file"
     t.boolean  "is_main"
+    t.string   "state"
   end
 
   create_table "roles", :force => true do |t|

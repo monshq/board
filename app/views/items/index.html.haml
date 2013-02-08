@@ -7,7 +7,16 @@
     .photos
       - item.photos.each do |photo|
         .photo
-          = image_tag photo.file, alt: nil
+          - if photo.active?
+            = image_tag photo.file, alt: nil
+          - else
+            - if current_user.can_update?(photo)
+              = image_tag photo.file, alt: nil
+            .banned= "Current photo banned. Reason: #{photo.admin_comment.comment}"
+          - if current_user.can_manage?(photo)
+            - if photo.active?
+              = link_to "Ban photo", new_admin_photo_ban_path(photo_id: photo.id), confirm: "Are you sure?"
+            - else
+              = link_to "Allow photo", admin_photo_ban_path(photo_id: photo.id), method: :delete, confirm: "Are you sure?"
     .tags= k(item).tags
     .contact_info= item.contact_info
-

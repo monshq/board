@@ -4,7 +4,7 @@ class Photo < ActiveRecord::Base
   attr_accessible :file, :state, :state_changed_at, :is_main
 
   belongs_to :item
-  has_many :admin_comments, as: :bannable
+  has_one :admin_comment, as: :bannable
   mount_uploader :file, PhotoUploader
 
   self.authorizer_name = 'PhotosAuthorizer'

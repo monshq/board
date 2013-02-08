@@ -5,4 +5,9 @@ class BoardMailer < ActionMailer::Base
     options.stringify_keys!
     mail to: options["recipient_email"]
   end
+
+  def user_banned_email(user)
+    @user = user
+    mail(:to => user.email, :subject => I18n.t(''))
+  end
 end

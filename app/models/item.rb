@@ -3,6 +3,9 @@ class Item < ActiveRecord::Base
 
   include Authority::Abilities
 
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
+
   attr_accessible :description, :contact_info, :state, :sold_at
 
   belongs_to :seller, class_name: 'User'
@@ -12,6 +15,16 @@ class Item < ActiveRecord::Base
 
   validates :contact_info, length: {in: 11..255}, allow_blank: true
   validates :contact_info, presence: true
+
+  tire.mapping do
+    indexes :description
+    indexes :contact_info
+  end
+
+  scope :published, lambda { where("state = ?", :published) }
+  scope :active, lambda { where("state <> ?", :archived) }
+  scope :archived, lambda { where("state = ?", :archived) }
+  scope :with_messages, lambda { uniq.joins(:messages) }
 
   state_machine :initial => :hidden do
     before_transition :on => :archivate do |item|
@@ -25,6 +38,10 @@ class Item < ActiveRecord::Base
       transition :hidden => :published
     end
 
+    event :archivate do
+      transition any => :archived
+    end
+
     event :sell do
       transition :hidden => :sold
       transition :published => :sold
@@ -35,7 +52,9 @@ class Item < ActiveRecord::Base
     end
 
     event :archivate do
-      transition any => :archived
+      transition :hidden => :archived
+      transition :published => :archived
+      transition :sold => :archived
     end
 
     state :hidden, :sold, :archived do
@@ -63,22 +82,22 @@ class Item < ActiveRecord::Base
     end
   end
 
-  scope :active, lambda { where("state <> ?", :archived) }
-  scope :archived, lambda { where("state = ?", :archived) }
-  scope :with_messages, lambda { uniq.joins(:messages) }
-
   def self.tagged_with(tags)
     inner_joins = tags.collect do |tag|
       tt = "items_tags_for_tag_#{tag.id}"
       "INNER JOIN items_tags AS #{tt} ON items.id = #{tt}.item_id AND #{tt}.tag_id = #{tag.id}"
     end
 
-    joins(inner_joins.join(' ')).uniq
+    joins(inner_joins.join(' '))
   end
 
   def set_tags(tags_s)
-    tags_s.split(',').each do |t|
-      self.tags << Tag.where(name: t.strip).first_or_create
+    self.tags = tags_s.split(',').map{|t| t.strip}.uniq.map do |t|
+      unless self.id.nil?
+        Tag.where(name: t.strip).first_or_create
+      else
+        Tag.new(name: t.strip)
+      end
     end
   end
 

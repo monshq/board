@@ -1,0 +1,9 @@
+.item
+  .description=@item.description
+  .state= @item.state
+  .tags=k(@item).tags
+  .contact_info=@item.contact_info
+  .photos
+    - @item.photos.each do |photo|
+      .photo
+        = image_tag photo.file, alt: nil

@@ -10,7 +10,7 @@ feature 'Чтобы продать что либо, я подаю объявле
     sign_in_user @user
 
     visit dashboard_items_path
-    click_link 'Новое объявление'
+    click_link I18n.t(:new_item)
 
     @item = FactoryGirl.attributes_for :item
     @tags = ['Электроника', 'Компьютеры']
@@ -29,11 +29,13 @@ feature 'Чтобы продать что либо, я подаю объявле
   end
 
   context 'Когда форма заполнена неправильно' do
-    scenario 'Я не указываю контактную информацию и получаю сообщение об ошибке' do
+    scenario 'Я заполняю текст и тэги без контактной информации, получаю ошибку, и текст в полях остаётся' do
       fill_in 'Текст объявления',      with: @item[:description]
       fill_in 'Категории',             with: @tags.join(', ')
-      click_button 'Подать это объявление'
+      click_button I18n.t 'helpers.submit.item.create'
 
+      page.should have_content @item[:description]
+      page.should have_css "input[value=\"#{@tags.join(', ')}\"]"
       page.should have_text 'Пожалуйста, укажите также контактную информацию.'
     end
 
@@ -75,7 +77,6 @@ feature 'Чтобы изменить объявление' do
 
     page.should have_text I18n.t(:item_updated)
     page.should have_text descr
-    tags.concat(@tags).uniq!
     tags.each {|t| page.should have_text t}
     page.should have_text contact_info
   end
@@ -159,3 +160,25 @@ feature 'Чтобы меня не беспокоили после продажи
     page.should have_text 'sold'  #I18n.t :sold
   end
 end
+
+#Покупатель
+feature 'Чтобы просмотреть опубликованные объявления' do
+  background do
+    states = Item.state_machine.states.map &:name
+    states.each do |state|
+      FactoryGirl.create(:item, state: state)
+    end
+  end
+
+  scenario 'Я перехожу на страницу просмотра всех объявлений' do
+    visit items_path
+    page.should have_selector('.item', count: 1)
+  end
+
+  scenario 'Я могу просмотреть отдельное объявление' do
+    visit items_path
+    find('.description a').click
+    page.status_code.should be 200
+  end
+end
+

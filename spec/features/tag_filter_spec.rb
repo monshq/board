@@ -73,4 +73,15 @@ feature 'Чтобы определиться с нужным мне товаро
     click_link 'Животные'
     page.should     have_selector('#tagged_items .item', count: 1)
   end
+
+  scenario 'Теги можно удалять из объявления' do
+    user = FactoryGirl.create :user
+    sign_in_user user
+    item = FactoryGirl.create(:item, seller: user)
+
+    fill_item_with item, tags: 'animal'
+    fill_item_with item, tags: 'people'
+
+    find(".item .tags").text.should eq 'people'
+  end
 end

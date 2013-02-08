@@ -1,9 +1,17 @@
-[![Build Status](https://travis-ci.org/vassilevsky/board.png?branch=master)](https://travis-ci.org/vassilevsky/board)
+**Master**: [![Build Status Master](https://travis-ci.org/monshq/board.png?branch=master)](https://travis-ci.org/monshq/board)
+**Latest**: [![Build Status Latest Commit](https://travis-ci.org/monshq/board.png)](https://travis-ci.org/monshq/board)
 
-[![Dependency Status](https://gemnasium.com/vassilevsky/board.png)](https://gemnasium.com/vassilevsky/board)
+[![Dependency Status](https://gemnasium.com/monshq/board.png)](https://gemnasium.com/monshq/board)
 
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/vassilevsky/board)
+[![Code Climate](https://codeclimate.com/github/monshq/board.png)](https://codeclimate.com/github/monshq/board)
 
-[![Coveralls](https://coveralls.io/repos/vassilevsky/board/badge.png)](https://coveralls.io/r/vassilevsky/board)
+[![Coveralls](https://coveralls.io/repos/monshq/board/badge.png?branch=master)](https://coveralls.io/r/monshq/board)
 
-[![Githalytics](https://cruel-carlota.pagodabox.com/041a6411adaf6743fdea9f2e997d7b35)](http://githalytics.com/vassilevsky/board)
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/062fba682de7b0654f14a080676c3da1 "githalytics.com")](http://githalytics.com/monshq/board)
+
+Для работы полнотекстового поиска по объявлениям необходимо иметь запущенный ElasticSearch:
+
+```
+wget download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.20.4.deb
+sudo dpkg -i elasticsearch-0.20.4.deb
+```

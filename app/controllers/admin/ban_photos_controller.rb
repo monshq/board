@@ -6,7 +6,23 @@ class Admin::BanPhotosController < Admin::ApplicationController
   end
 
   def create
+    @photo = Photo.find(params[:photo_id])
 
+    @photo.build_admin_comment params[:admin_comment]
+
+    if @photo.save
+      flash[:notice] = "Photo banned" # TODO: Добавить локализацию
+
+      @photo.ban
+
+      redirect_to items_path
+    end
+  end
+
+  def destroy
+    @photo = Photo.find(params[:photo_id])
+    @photo.allow
+    redirect_to items_path
   end
 
 end

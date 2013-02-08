@@ -7,6 +7,8 @@ class Photo < ActiveRecord::Base
   has_many :admin_comments, as: :bannable
   mount_uploader :file, PhotoUploader
 
+  self.authorizer_name = 'PhotosAuthorizer'
+
   state_machine :state, :initial => :active do
     after_transition :on => :allow, :do => :set_state_change_date_time
     after_transition :on => :ban, :do => :set_state_change_date_time

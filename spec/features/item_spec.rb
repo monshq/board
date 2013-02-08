@@ -122,7 +122,7 @@ feature 'Я хочу иметь возможность удалять объяв
     page.should_not have_text @item[:description]
   end
   
-  scenario 'После удаления объявления, связанные сущности(сообщения/фотографии) также должны быть удалены (помечены как archived)' do
+  scenario 'После удаления объявления, связанные сущности(сообщения/фотографии) также удаляются (помечаются как archived)' do
     @item = @user.items.first
     5.times { add_message(@item, @user) }
     3.times { add_photo(@item) }
@@ -147,7 +147,6 @@ end
 feature 'Чтобы меня не беспокоили после продажи, я хочу иметь возможность снять товар с продажи' do
   scenario 'Я кликаю на ссылку редактировать, попадаю на страницу с формой редатирования и меняю статус на Продано', js: true do
     add_item
-
     click_link I18n.t(:edit_item)
 
     page.should have_text I18n.t(:edit_item)

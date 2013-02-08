@@ -109,7 +109,7 @@ feature 'Чтобы изменить объявление' do
   end
 end
 
-feature 'Я хочу иметь возможность удалять сообщения' do
+feature 'Я хочу иметь возможность удалять объявления' do
   background do
     add_item
   end
@@ -121,12 +121,32 @@ feature 'Я хочу иметь возможность удалять сообщ
 
     page.should_not have_text @item[:description]
   end
+  
+  scenario 'После удаления объявления, связанные сущности(сообщения/фотографии) также удаляются (помечаются как archived)' do
+    @item = @user.items.first
+    5.times { add_message(@item, @user) }
+    3.times { add_photo(@item) }
+
+    visit edit_dashboard_item_path(@item)
+
+    select('archived', from: 'item[state]')
+    click_button I18n.t('helpers.submit.item.update')
+
+    page.should_not have_text @item[:description]
+
+    click_link I18n.t(:messages)
+    for message in @item.messages
+      page.should_not have_text message.text
+    end
+
+    visit dashboard_item_photos_path(@item)
+    page.should_not have_css('img')
+  end
 end
 
 feature 'Чтобы меня не беспокоили после продажи, я хочу иметь возможность снять товар с продажи' do
   scenario 'Я кликаю на ссылку редактировать, попадаю на страницу с формой редатирования и меняю статус на Продано', js: true do
     add_item
-
     click_link I18n.t(:edit_item)
 
     page.should have_text I18n.t(:edit_item)

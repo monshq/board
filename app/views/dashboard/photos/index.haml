@@ -1,5 +1,5 @@
 .photos
-  - @item.photos.each do |p|
+  - @item.photos.active.each do |p|
     .image
       = image_tag p.file, alt: nil
       - unless p.is_main

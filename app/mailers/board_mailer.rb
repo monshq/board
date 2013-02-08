@@ -7,7 +7,11 @@ class BoardMailer < ActionMailer::Base
   end
 
   def user_banned_email(user)
-    @user = user
-    mail(:to => user.email, :subject => I18n.t(''))
+    mail(:to => user.email, :subject => I18n.t(:user_banned_title))
   end
+
+  def photo_banned_email(user)
+    mail(:to => user.email, :subject => I18n.t(:photo_banned_title))
+  end
+
 end

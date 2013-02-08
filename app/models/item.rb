@@ -28,6 +28,8 @@ class Item < ActiveRecord::Base
   scope :archived, lambda { where("state = ?", :archived) }
   scope :with_messages, lambda { uniq.joins(:messages) }
 
+  self.authorizer_name = 'ItemsAuthorizer'
+
   state_machine :initial => :hidden do
     before_transition :on => :archivate do |item|
       item.messages.active.map(&:archivate)

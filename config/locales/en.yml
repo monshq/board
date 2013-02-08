@@ -72,6 +72,12 @@ en:
       user:
         signed_in: 'You successfully signed in your dashboard.'
   board_mailer:
+    user_banned_email:
+      user_banned_title: 'Your account has been blocked'
+      user_banned_message: 'Your account has been blocked, please TODO: ...'
+    photo_banned_email:
+      photo_banned_title: 'One of your photos has been blocked'
+      photo_banned_message: 'One of your photos has been blocked, please TODO: ...'  board_mailer:
     notify_for_a_message:
       subject: 'New message on board'
       text: 'You have new message on board'

@@ -1,4 +1,4 @@
-= form_for @admin_comment, url: admin_photo_ban_path(photo_id: @user.id) do |f|
+= form_for @admin_comment, url: admin_photo_ban_path(photo_id: @photo.id) do |f|
   = f.error_messages
   .field
     = f.hidden_field :action_type

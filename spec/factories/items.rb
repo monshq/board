@@ -5,4 +5,8 @@ FactoryGirl.define do
     description Faker::Lorem.sentence
     contact_info Faker::Lorem.sentence
   end
+
+  factory :published_item, parent: :item do
+    state :published
+  end
 end

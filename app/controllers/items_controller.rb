@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+
   def index
     keywords = params[:keywords]
     unless keywords.nil? || keywords.empty?

@@ -93,7 +93,6 @@ ru:
       user_banned_message: 'Ваша учетная запись была блокирована, для разблокировки TODO: ...'
     photo_banned_email:
       photo_banned_title: 'Одна из ваших фотографий была блокирована'
-      photo_banned_message: 'Одна из ваших фотографий была блокирована, для разблокировки TODO: ...'
-    notify_for_a_message:
-      subject: 'Новое сообщение на доске объявлений'
-      text: 'У Вас новое сообщение'
+      photo_banned_message: 'Одна из ваших фотографий была блокирована.'
+      photo_banned_link: 'Ссылка на фотографию:'
+      photo_banned_reason: "Причина блокировки: %{reason}"

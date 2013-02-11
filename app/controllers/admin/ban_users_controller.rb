@@ -13,7 +13,7 @@ class Admin::BanUsersController < Admin::ApplicationController
     if @user.save
       flash[:notice] = "User banned" # TODO: Добавить локализацию
       @user.ban
-      BoardMailer.user_banned_email(@user).deliver
+      BoardMailer.user_banned_email(@user, params[:admin_comment][:comment]).deliver
 
       redirect_to users_path
     end

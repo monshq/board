@@ -33,3 +33,22 @@ def attach_photos_to_item(item, only_one = false)
 
   click_link I18n.t(:sign_out)
 end
+
+def new_ban_photo(item)
+  only_one = true
+  attach_photos_to_item(item, only_one)
+
+  sign_in_user @user
+
+  visit items_path
+
+  click_link 'Ban photo'
+end
+
+def ban_photo(item, comment)
+  new_ban_photo(item)
+
+  fill_in 'Comment', with: comment
+
+  click_button 'Create Admin comment'
+end

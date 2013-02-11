@@ -1,4 +1,6 @@
 class MessagesController < ApplicationController
+  before_filter :authenticate_user!
+
   def new
     item = Item.find(params[:item_id])
     @message = item.messages.build

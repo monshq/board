@@ -15,6 +15,7 @@ class Admin::BanPhotosController < Admin::ApplicationController
 
       @photo.ban
 
+      BoardMailer.photo_banned_email(request.protocol, request.host_with_port, @photo, params[:admin_comment][:comment]).deliver
       redirect_to items_path
     end
   end

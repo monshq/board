@@ -109,4 +109,15 @@ feature 'Чтобы ресурс оставался популярным, я х�
     current_path.should == users_path
     page.should have_link 'Ban user'
   end
+
+  scenario 'Я захожу на страницу объявлений и вижу ссылку "Ban photo"' do
+    item = FactoryGirl.create :published_item
+    attach_photos_to_item(item)
+
+    sign_in_user @user
+
+    visit items_path
+
+    page.should have_link 'Ban photo'
+  end
 end

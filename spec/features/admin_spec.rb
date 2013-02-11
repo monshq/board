@@ -120,4 +120,47 @@ feature 'Чтобы ресурс оставался популярным, я х�
 
     page.should have_link 'Ban photo'
   end
+
+  scenario 'Я нажимаю на ссылку "Ban photo" и перехожу на форму добавления комментария к бану фотографии' do
+    item = FactoryGirl.create :published_item
+    new_ban_photo(item)
+
+    current_path.should == new_admin_photo_ban_path(photo_id: item.photos.first.id)
+    page.should have_button 'Create Admin comment'
+  end
+
+  scenario 'Я заполняю поле комментария и нажимаю кнопку добавления комментария к бану фотографии' do
+    item = FactoryGirl.create :published_item
+    comment = Faker::Lorem.sentence
+
+    ban_photo(item, comment)
+
+    current_path.should == items_path
+    page.should have_text 'Allow photo'
+  end
+
+  scenario 'После бана фотографии пользователю отправляется письмо с сообщением, в котором указывается причина бана' do
+    item = FactoryGirl.create :published_item
+    comment = Faker::Lorem.sentence
+
+    ban_photo(item, comment)
+
+    message = ActionMailer::Base.deliveries.last
+
+    message.to.should include item.seller.email
+    message.body.should have_text comment
+    message.body.should have_link item.photos.first.file
+  end
+
+  scenario 'Я могу разбанить забаненную фотографию' do
+    item = FactoryGirl.create :published_item
+    comment = Faker::Lorem.sentence
+
+    ban_photo(item, comment)
+
+    click_link 'Allow photo'
+
+    current_path.should == items_path
+    page.should have_link 'Ban photo'
+  end
 end

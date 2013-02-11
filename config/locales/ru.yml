@@ -91,6 +91,7 @@ ru:
     user_banned_email:
       user_banned_title: 'Ваша учетная запись была блокирована'
       user_banned_message: 'Ваша учетная запись была блокирована, для разблокировки TODO: ...'
+      user_banned_reason: 'Причина блокировки: %{reason}'
     photo_banned_email:
       photo_banned_title: 'Одна из ваших фотографий была блокирована'
       photo_banned_message: 'Одна из ваших фотографий была блокирована.'

@@ -76,6 +76,7 @@ en:
     user_banned_email:
       user_banned_title: 'Your account has been blocked'
       user_banned_message: 'Your account has been blocked, please TODO: ...'
+      user_banned_reason: 'Ban reason: %{reason}'
     photo_banned_email:
       photo_banned_title: 'One of your photos has been blocked'
       photo_banned_message: 'One of your photos has been blocked.'

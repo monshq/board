@@ -7,7 +7,7 @@ services:
 - elasticsearch
 before_script:
 - mv .travis.database.yml config/database.yml
-- bundle exec rake 'db:setup'
+- bundle exec rake db:create db:migrate
 after_success:
 - if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then bundle
   exec cap deploy; fi

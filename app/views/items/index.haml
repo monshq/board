@@ -1,4 +1,28 @@
-#items  
-  - for item in @items
-    .item
-      .description= link_to item.description, item_path(item)
+- @items.each do |item|
+  .item
+    -#.seller= link_to item.seller.email, users_path
+    .created_at= item.created_at
+    .description= item.description
+    .state= item.state
+    .photos
+      - unless item.photos.nil?
+        - item.photos.each do |photo|
+          .photo
+            - if photo.active?
+              = image_tag photo.file, alt: nil
+            - else
+              - if current_user && current_user.can_update?(photo)
+                = image_tag photo.file, alt: nil
+              .banned= "Current photo banned. Reason: #{photo.admin_comment.comment}"
+            - if current_user && current_user.can_manage?(photo)
+              - if photo.active?
+                .ban=   link_to "Ban photo", new_admin_photo_ban_path(photo_id: photo.id), confirm: "Are you sure?"
+              - else
+                .allow= link_to "Allow photo", admin_photo_ban_path(photo_id: photo.id), method: :delete, confirm: "Are you sure?"
+    - if current_user &&  current_user.can_update?(item)
+      .edit= link_to "Edit item", edit_dashboard_item_path(item)
+    - if current_user && current_user.can_manage?(item)
+      .edit= link_to "Admin edit item", edit_admin_item_path(item)
+    .tags= k(item).tags unless item.tags.nil?
+    .contact_info= item.contact_info
+    .show=link_to "Show item", item_path(item)

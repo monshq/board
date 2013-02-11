@@ -33,5 +33,4 @@ Board::Application.routes.draw do
     resources :items, only: [:edit, :update]
   end
 
-  resources :items, only: [:index]
 end

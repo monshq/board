@@ -5,3 +5,6 @@
   %body
     %h1= I18n.t('board_mailer.photo_banned_email.photo_banned_title')
     %p= I18n.t('board_mailer.photo_banned_email.photo_banned_message')
+    %p= I18n.t('board_mailer.photo_banned_email.photo_banned_link')
+    = link_to(@params[:image_link], "#{@params[:protocol]}#{@params[:host]}/#{@params[:image_link]}")
+    %p= I18n.t('board_mailer.photo_banned_email.photo_banned_reason', reason: @params[:reason])

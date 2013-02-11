@@ -33,6 +33,7 @@ describe TagsHash do
     it 'генерация хешей всех возможных вариантов из 10 тегов не должна превышать 1 секунду' do
       tags = 10.times.map{ FactoryGirl.attributes_for(:tag)[:name] }
       res = Benchmark.measure{ TagsHash.get_hashes(tags) }
+      puts res
       time = res.to_s.split
       time.first.to_f.should be < 1.0
     end

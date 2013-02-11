@@ -6,7 +6,8 @@ class BoardMailer < ActionMailer::Base
     mail to: options["recipient_email"]
   end
 
-  def user_banned_email(user)
+  def user_banned_email(user, comment)
+    @params = {comment: comment}
     mail(:to => user.email, :subject => I18n.t('board_mailer.user_banned_email.user_banned_title'))
   end
 

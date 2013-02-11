@@ -23,7 +23,6 @@ ActiveRecord::Schema.define(:version => 20130211064739) do
   end
 
   add_index "admin_comments", ["bannable_id"], :name => "index_admin_comments_on_bannable_id"
->>>>>>> fc4da6b... Update schema after db:migrate
 
   create_table "items", :force => true do |t|
     t.integer  "seller_id",    :null => false

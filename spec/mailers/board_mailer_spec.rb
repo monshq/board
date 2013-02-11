@@ -21,12 +21,12 @@ describe BoardMailer do
       message = ActionMailer::Base.deliveries.last
 
       message.to.should include @user.email
-      message.subject.should have_text I18n.t(:user_banned_title)
-      message.body.should have_text I18n.t(:user_banned_title)
-      message.body.should have_text I18n.t(:user_banned_message)
+      message.subject.should have_text I18n.t('board_mailer.user_banned_email.user_banned_title')
+      message.body.should have_text I18n.t('board_mailer.user_banned_email.user_banned_title')
+      message.body.should have_text I18n.t('board_mailer.user_banned_email.user_banned_message')
     end
-
   end
+
 
   describe '#photo_banned_email' do
 
@@ -37,9 +37,9 @@ describe BoardMailer do
       message = ActionMailer::Base.deliveries.last
 
       message.to.should include @user.email
-      message.subject.should have_text I18n.t(:photo_banned_title)
-      message.body.should have_text I18n.t(:photo_banned_title)
-      message.body.should have_text I18n.t(:photo_banned_message)
+      message.subject.should have_text I18n.t('board_mailer.photo_banned_email.photo_banned_title')
+      message.body.should have_text I18n.t('board_mailer.photo_banned_email.photo_banned_title')
+      message.body.should have_text I18n.t('board_mailer.photo_banned_email.photo_banned_message')
     end
 
   end

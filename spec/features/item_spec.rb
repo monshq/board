@@ -176,7 +176,7 @@ feature 'Чтобы просмотреть опубликованные объя
 
   scenario 'Я могу просмотреть отдельное объявление' do
     visit items_path
-    find('.description a').click
+    find('.show a').click
     page.status_code.should be 200
   end
 end

@@ -163,4 +163,46 @@ feature 'Чтобы ресурс оставался популярным, я х�
     current_path.should == items_path
     page.should have_link 'Ban photo'
   end
+
+  scenario 'Я захожу на страницу объявлений и вижу ссылку "Admin edit item"' do
+    item = FactoryGirl.create :published_item
+    attach_photos_to_item(item)
+
+    sign_in_user @user
+
+    visit items_path
+
+    page.should have_link 'Admin edit item'
+  end
+
+  scenario 'Я нажимаю на ссылку "Admin edit item" и перехожу на форму редактирования объявления' do
+    item = FactoryGirl.create :published_item
+    attach_photos_to_item(item)
+
+    sign_in_user @user
+
+    visit items_path
+
+    click_link 'Admin edit item'
+    current_path.should == edit_admin_item_path(item)
+    page.should have_text item.description
+  end
+
+  scenario 'Я заполняю поле описания объявления и нажимаю кнопку редактирования' do
+    item = FactoryGirl.create :published_item
+    test_description = Faker::Lorem.sentence
+    attach_photos_to_item(item)
+
+    sign_in_user @user
+
+    visit items_path
+
+    click_link 'Admin edit item'
+
+    fill_in 'Текст объявления', with: test_description
+    click_button 'Сохранить изменения'
+
+    current_path.should == items_path
+    page.should have_text test_description
+  end
 end

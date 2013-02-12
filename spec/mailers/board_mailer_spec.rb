@@ -16,7 +16,9 @@ describe BoardMailer do
 
     it 'Отсылает письмо о том что пользователь заблокирован' do
       @user = FactoryGirl.create :user
-      BoardMailer.user_banned_email(@user).deliver
+      comment = Faker::Lorem.sentence
+
+      BoardMailer.user_banned_email(@user, comment).deliver
 
       message = ActionMailer::Base.deliveries.last
 
@@ -24,6 +26,7 @@ describe BoardMailer do
       message.subject.should have_text I18n.t('board_mailer.user_banned_email.user_banned_title')
       message.body.should have_text I18n.t('board_mailer.user_banned_email.user_banned_title')
       message.body.should have_text I18n.t('board_mailer.user_banned_email.user_banned_message')
+      message.body.should have_text comment
     end
   end
 

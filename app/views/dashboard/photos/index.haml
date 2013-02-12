@@ -1,7 +1,7 @@
 .photos
   - @item.photos.active.each do |p|
-    .image
-      = image_tag p.file, alt: nil
+    .image{class: p.is_main ? 'main_photo' : ''}
       - unless p.is_main
+        = image_tag p.file, alt: nil
         = link_to t('make_main'), dashboard_item_photo_path(@item, p), method: :put, class: 'make_main'
       = link_to t(:delete), dashboard_item_photo_path(@item, p), method: :delete, class: 'delete_photo'

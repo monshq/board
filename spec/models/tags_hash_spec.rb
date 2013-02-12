@@ -11,7 +11,7 @@ describe TagsHash do
     end
   end
 
-  describe '.get_hashes' do
+  describe '.get_hashes_with_relevance' do
     it 'генерирует хеши всех возможных вариантов тегов, отсортированных по алфавиту' do
       tags = Random.rand(5..10).times.map{ FactoryGirl.attributes_for(:tag)[:name] }
       tags.uniq!
@@ -25,6 +25,14 @@ describe TagsHash do
       res = Benchmark.measure{ TagsHash.get_hashes_with_relevance(tags) }
       time = res.to_s.split
       time.first.to_f.should be < 1.0
+    end
+
+    it 'утанавливает релевантность для каждой комбинации' do
+      tags = 5.times.map{ FactoryGirl.attributes_for(:tag)[:name] }
+      hashes = TagsHash.get_hashes_with_relevance(tags)
+      hashes.find{|h| h[:hash] == TagsHash.get_tags_hash(tags)}[:relevance].should eq 0
+      hashes.find{|h| h[:hash] == TagsHash.get_tags_hash(tags.take(3))}[:relevance].should eq 2
+      hashes.find{|h| h[:hash] == TagsHash.get_tags_hash(tags.take(1))}[:relevance].should eq 4
     end
   end
 

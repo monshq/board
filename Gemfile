@@ -16,6 +16,7 @@ group :development do
   gem 'capistrano'
   gem 'rvm-capistrano'
   gem 'capistrano-unicorn', require: false
+  gem 'lol_dba'
 end
 
 group :development, :test do

@@ -31,6 +31,13 @@ ru:
   users: 'Пользователи'
   write_message: 'Связаться'
   items: 'Объявления'
+  
+  card_data: 'Данные карты'
+  card_number: 'Номер карты'
+  card_cvc: 'CVC-код'
+  card_expiration: 'Дата окончания действия (ММ/ГГГГ)'
+  card_saved: 'Данные карты успешно сохранены'
+  
   activerecord:
     attributes:
       user:

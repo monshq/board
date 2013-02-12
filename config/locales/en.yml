@@ -21,6 +21,13 @@ en:
   users: 'Users'
   write_message: 'write message'
   items: 'Items'
+  
+  card_data: 'Card data'
+  card_number: 'Card number'
+  card_cvc: 'CVC'
+  card_expiration: 'Expiration (MM/YYYY)'
+  card_saved: 'Card saved'
+  
   activerecord:
     attributes:
       user:

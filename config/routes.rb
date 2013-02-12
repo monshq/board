@@ -15,6 +15,7 @@ Board::Application.routes.draw do
       resources :messages
     end
     resources :messages
+    resources :card, only: [:index, :create]
   end
 
   resources :users

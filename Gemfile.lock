@@ -211,7 +211,7 @@ GEM
       thor (>= 0.14.6, < 2.0)
     raindrops (0.10.0)
     rake (10.0.3)
-    rb-inotify (0.9.0)
+    rb-inotify (0.8.8)
       ffi (>= 0.5.0)
     rdoc (3.12.1)
       json (~> 1.4)
@@ -340,7 +340,7 @@ DEPENDENCIES
   pg
   pry
   rails (~> 3.2.11)
-  rb-inotify
+  rb-inotify (~> 0.8.8)
   rolify
   routing-filter
   rspec-rails

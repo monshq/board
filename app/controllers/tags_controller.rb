@@ -8,11 +8,11 @@ class TagsController < ApplicationController
 
   def show
     @selected_tags = Tag.find params[:id].split('+') # /tags/1+2
-    @tagged_items = Item.tagged_with @selected_tags
+    @tagged_items = Item.tagged_with @selected_tags.map{|t| t.name}
     compose_linked_ids
   end
 
-  private
+private
 
   def load_all_tags
     @all_tags = Tag.all

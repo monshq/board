@@ -12,30 +12,29 @@ describe Item do
       @i = FactoryGirl.create :item
     end
 
-    it 'Принимает строку с тэгами, разделенными запятыми' do
-      @i.set_tags @tags.join(', ')
+    it 'Принимает тэги' do
+      @i.set_tags @tags
       @i.tags.collect(&:name).sort.should == @tags
     end
 
     it 'Не создаёт дубликаты имеющихся тэгов' do
-      @i.set_tags 'Баден, Баден'
+      @i.set_tags %w'Баден Баден'
       @i.tags.collect(&:name).should == ['Баден']
     end
 
-    it 'Принимает пустую строку, но ничего не делает' do
-      expect {@i.set_tags ''}.not_to change {@i.tags.count}
+    it 'Принимает пустой массив, но ничего не делает' do
+      expect {@i.set_tags []}.not_to change {@i.tags.count}
     end
   end
 
   describe '#set_tags_hashes' do
     before(:each) do
       @i = FactoryGirl.create :item
-      @tags = '1,5,7,2,8,4,0,2'
+      @tags = %w'1 5 7 2 8 4 0 2'
       @i.set_tags @tags
     end
     
     it 'adds hashes of all combinations of tags' do
-      @i.set_tags_hashes
       @i.tags_hashes.length.should eq 127
     end
   end
@@ -43,14 +42,12 @@ describe Item do
   describe '#find_by_tags' do
     before(:each) do
       @i = FactoryGirl.create :item
-      @tags = '1,5,7,2,8,4,0,2'
+      @tags = %w'1 5 7 2 8 4 0 2'
       @i.set_tags @tags
     end
     
     it 'ищет объявление, у которого есть все перечисленные теги' do
-      @i.set_tags_hashes
-      items = Item.find_by_tags('5,2,1,8,4,0,7')
-      
+      items = Item.tagged_with %w'5 2 1 8 4 0 7'
       items[0].should eq @i
     end
   end
@@ -107,8 +104,8 @@ describe Item do
 
     it "remove tags" do
       item = FactoryGirl.create(:item)
-      item.set_tags 'Animal'
-      item.set_tags 'People'
+      item.set_tags %w'Animal'
+      item.set_tags %w'People'
       item.tags.map(&:name).should eq ['People']
     end
   end

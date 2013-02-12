@@ -83,36 +83,20 @@ class Item < ActiveRecord::Base
     end
   end
 
+  def set_tags(tags)
+    tags = tags.uniq
+
+    self.tags_hashes = TagsHash.get_hashes_with_relevance(tags).map do |t|
+      self.tags_hashes.where(tags_hash: t[:hash], relevance: t[:relevance]).first_or_initialize
+    end
+
+    self.tags = tags.map do |t|
+        Tag.where(name: t).first_or_initialize
+    end
+  end
+
   def self.tagged_with(tags)
-    inner_joins = tags.collect do |tag|
-      tt = "items_tags_for_tag_#{tag.id}"
-      "INNER JOIN items_tags AS #{tt} ON items.id = #{tt}.item_id AND #{tt}.tag_id = #{tag.id}"
-    end
-
-    joins(inner_joins.join(' '))
-  end
-
-  def set_tags(tags_s)
-    self.tags = tags_s.split(',').map{|t| t.strip}.uniq.map do |t|
-      unless self.id.nil?
-        Tag.where(name: t.strip).first_or_create
-      else
-        Tag.new(name: t.strip)
-      end
-    end
-  end
-
-  def set_tags_hashes
-    tags = self.tags.pluck(:name)
-    hashes = TagsHash.get_hashes(tags)
-    hashes.each do |h|
-      self.tags_hashes << h
-    end
-    #self.tags_hashes.import hashes
-  end
-
-  def self.find_by_tags(tags)
-    items = Item.joins(:tags_hashes).where('tags_hashes.tags_hash = ?', TagsHash.get_tags_hash(tags))
+    Item.joins(:tags_hashes).where('tags_hashes.tags_hash = ?', TagsHash.get_tags_hash(tags)).order('tags_hashes.relevance')
   end
 
   def set_sale_date_time

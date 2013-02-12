@@ -14,52 +14,12 @@ feature 'Чтобы определиться с нужным мне товаро
     end
   end
 
-  scenario 'Нажав на ссылку категории, я вижу только объявления из этой категории' do
-    FactoryGirl.create(:item, description: 'Продаются котята').set_tags 'Животные'
-    FactoryGirl.create(:item, description: 'Продаётся кактус').set_tags 'Растения'
-
-    visit tags_path
-    click_link 'Животные'
-
-    page.should     have_text 'Продаются котята'
-    page.should_not have_text 'Продаётся кактус'
-  end
-
-  scenario 'Нажав на несколько категорий, я вижу только объявления из обеих категорий' do
-    FactoryGirl.create(:item, description: 'Продаются котята').set_tags 'Животные'
-    FactoryGirl.create(:item, description: 'Продаётся кактус').set_tags 'Растения'
-    FactoryGirl.create(:item, description: 'Продаётся террариум со змеями').set_tags 'Растения, Животные'
-
-    visit tags_path
-    click_link 'Животные'
-    click_link 'Растения'
-
-    page.should     have_text 'Продаётся террариум со змеями'
-    page.should_not have_text 'Продаются котята'
-    page.should_not have_text 'Продаётся кактус'
-  end
-
-  scenario 'Повторное нажатие на категорию отменяет её выбор' do
-    FactoryGirl.create(:item, description: 'Продаются котята').set_tags 'Животные'
-    FactoryGirl.create(:item, description: 'Продаётся кактус').set_tags 'Растения'
-    FactoryGirl.create(:item, description: 'Продаётся террариум со змеями').set_tags 'Растения, Животные'
-
-    visit tags_path
-    click_link 'Животные'
-    click_link 'Растения'
-    click_link 'Животные'
-
-    page.should     have_text 'Продаётся кактус'
-    page.should     have_text 'Продаётся террариум со змеями'
-    page.should_not have_text 'Продаются котята'
-  end
-
   scenario 'Изменение item.contact_info не влияет на количество выбранных тэгов' do
     user = FactoryGirl.create :user
     sign_in_user user
 
     item = FactoryGirl.create(:item, description: 'Продаются котята', seller: user)
-    item.set_tags 'Животные'
+    item.set_tags %w'Животные'
 
     visit tags_path
     click_link 'Животные'
@@ -84,4 +44,50 @@ feature 'Чтобы определиться с нужным мне товаро
 
     find(".item .tags").text.should eq 'people'
   end
+
 end
+
+feature 'Поиск по тегам' do
+  background do
+    FactoryGirl.create(:item, description: 'Продаются котята').set_tags %w'Животные'
+    FactoryGirl.create(:item, description: 'Продаётся кактус').set_tags %w'Растения'
+    FactoryGirl.create(:item, description: 'Продаётся террариум со змеями').set_tags %w'Растения Животные'
+  end
+
+  scenario 'Нажав на ссылку категории, я вижу только объявления из этой категории' do
+    visit tags_path
+    click_link 'Животные'
+
+    page.should     have_text 'Продаются котята'
+    page.should_not have_text 'Продаётся кактус'
+  end
+
+  scenario 'Нажав на несколько категорий, я вижу только объявления из обеих категорий' do
+    visit tags_path
+    click_link 'Животные'
+    click_link 'Растения'
+
+    page.should     have_text 'Продаётся террариум со змеями'
+    page.should_not have_text 'Продаются котята'
+    page.should_not have_text 'Продаётся кактус'
+  end
+
+  scenario 'Отсортированные по релевантности' do
+    visit tags_path
+    click_link 'Растения'
+
+    page.text.should match /Продаётся кактус.*Продаётся террариум со змеями/
+  end
+
+  scenario 'Повторное нажатие на категорию отменяет её выбор' do
+    visit tags_path
+    click_link 'Животные'
+    click_link 'Растения'
+    click_link 'Животные'
+
+    page.should     have_text 'Продаётся кактус'
+    page.should     have_text 'Продаётся террариум со змеями'
+    page.should_not have_text 'Продаются котята'
+  end
+end
+

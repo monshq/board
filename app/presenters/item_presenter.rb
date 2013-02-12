@@ -4,4 +4,8 @@ class ItemPresenter < Keynote::Presenter
   def tags
     item.tags.map { |t| t.name }.join ', '
   end
+  
+  def price
+    sprintf("%#0.2f USD", item.price)
+  end
 end

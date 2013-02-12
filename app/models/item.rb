@@ -4,7 +4,7 @@ class Item < ActiveRecord::Base
   include Authority::Abilities
   #include ActiveModel::Observing
 
-  attr_accessible :description, :contact_info, :state, :sold_at
+  attr_accessible :description, :contact_info, :state, :price, :sold_at
 
   belongs_to :seller, class_name: 'User'
   has_and_belongs_to_many :tags, uniq: true
@@ -15,6 +15,7 @@ class Item < ActiveRecord::Base
 
   validates :contact_info, length: {in: 11..255}, allow_blank: true
   validates :contact_info, presence: true
+  validates :price, numericality: true, allow_blank: true
 
   scope :published, lambda { where("state = ?", :published) }
   scope :active, lambda { where("state <> ?", :archived) }
@@ -52,9 +53,14 @@ class Item < ActiveRecord::Base
       transition :hidden => :archived
       transition :published => :archived
       transition :sold => :archived
+      transition :reserved => :archived
+    end
+    
+    event :reserve do
+      transition :published => :reserved
     end
 
-    state :hidden, :sold, :archived do
+    state :hidden, :sold, :archived, :reserved do
       def visible?
         false
       end

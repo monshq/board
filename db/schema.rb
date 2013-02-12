@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130211064739) do
+ActiveRecord::Schema.define(:version => 20130212055916) do
 
   create_table "admin_comments", :force => true do |t|
     t.string   "action_type"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20130211064739) do
     t.string   "contact_info"
     t.string   "state"
     t.datetime "sold_at"
+    t.integer  "price"
   end
 
   add_index "items", ["seller_id"], :name => "index_items_on_seller_id"

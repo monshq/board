@@ -72,7 +72,7 @@ feature 'Чтобы отправить сообщение продавцу' do
     sign_in_user(@user)
   end
 
-  scenario 'я хочу нажать связаться и заполнить сообщение', focus: true do
+  scenario 'я хочу нажать связаться и заполнить сообщение' do
     item = FactoryGirl.create(:item)
     visit item_path(item)
     click_link I18n.t(:write_message)

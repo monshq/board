@@ -30,9 +30,9 @@ describe TagsHash do
     it 'утанавливает релевантность для каждой комбинации' do
       tags = 5.times.map{ FactoryGirl.attributes_for(:tag)[:name] }
       hashes = TagsHash.get_hashes_with_relevance(tags)
-      hashes.find{|h| h[:hash] == TagsHash.get_tags_hash(tags)}[:relevance].should eq 0
-      hashes.find{|h| h[:hash] == TagsHash.get_tags_hash(tags.take(3))}[:relevance].should eq 2
-      hashes.find{|h| h[:hash] == TagsHash.get_tags_hash(tags.take(1))}[:relevance].should eq 4
+      hashes.should include(hash: TagsHash.get_tags_hash(tags), relevance: 0)
+      hashes.should include(hash: TagsHash.get_tags_hash(tags.take(3)), relevance: 2)
+      hashes.should include(hash: TagsHash.get_tags_hash(tags.take(1)), relevance: 4)
     end
   end
 

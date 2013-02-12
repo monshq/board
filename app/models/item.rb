@@ -86,8 +86,10 @@ class Item < ActiveRecord::Base
   def set_tags(tags)
     tags = tags.uniq
 
+    item_tag_hashes = self.tags_hashes.to_a
     self.tags_hashes = TagsHash.get_hashes_with_relevance(tags).map do |t|
-      self.tags_hashes.where(tags_hash: t[:hash], relevance: t[:relevance]).first_or_initialize
+      item_tag_hashes.find{|h| h.tags_hash == t[:hash] && h.relevance == t[:relevance]} ||
+        TagsHash.new(tags_hash: t[:hash], relevance: t[:relevance])
     end
 
     self.tags = tags.map do |t|

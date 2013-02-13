@@ -13,8 +13,7 @@ class Dashboard::ItemsController < Dashboard::ApplicationController
     @item.set_tags parse_tags(params[:tags])
 
     if @item.save
-      flash[:notice] = t :item_created
-      redirect_to dashboard_items_path
+      redirect_to dashboard_items_path, notice: t(:item_created)
     else
       render action: 'new'
     end

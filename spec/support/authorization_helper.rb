@@ -11,6 +11,7 @@ def register_user(user)
 end
 
 def sign_in_user(user)
+    user.password.should_not be_empty
     visit root_path
     click_link 'Войти'
 

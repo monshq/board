@@ -28,10 +28,12 @@ GEM
       activesupport (= 3.2.12)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
-    activeresource (3.2.12)
-      activemodel (= 3.2.12)
-      activesupport (= 3.2.12)
-    activesupport (3.2.12)
+    activerecord-import (0.3.0)
+      activerecord (~> 3.0)
+    activeresource (3.2.11)
+      activemodel (= 3.2.11)
+      activesupport (= 3.2.11)
+    activesupport (3.2.11)
       i18n (~> 0.6)
       multi_json (~> 1.0)
     addressable (2.3.2)
@@ -209,7 +211,7 @@ GEM
       thor (>= 0.14.6, < 2.0)
     raindrops (0.10.0)
     rake (10.0.3)
-    rb-inotify (0.9.0)
+    rb-inotify (0.8.8)
       ffi (>= 0.5.0)
     rdoc (3.12.1)
       json (~> 1.4)
@@ -304,6 +306,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-import
   authority
   bcrypt-ruby
   capistrano
@@ -337,7 +340,7 @@ DEPENDENCIES
   pg
   pry
   rails (~> 3.2.11)
-  rb-inotify
+  rb-inotify (~> 0.8.8)
   rolify
   routing-filter
   rspec-rails

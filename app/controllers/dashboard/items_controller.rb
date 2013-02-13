@@ -9,7 +9,7 @@ class Dashboard::ItemsController < Dashboard::ApplicationController
 
   def create
     @item = current_user.items.active.build params[:item]
-    @item.set_tags params[:tags]
+    @item.set_tags parse_tags(params[:tags])
 
     if @item.save
       flash[:notice] = t :item_created
@@ -27,7 +27,7 @@ class Dashboard::ItemsController < Dashboard::ApplicationController
     @item = current_user.items.active.find(params[:id])
 
     if @item.update_attributes(params[:item])
-      @item.set_tags(params[:tags])
+      @item.set_tags parse_tags(params[:tags])
 
       unless @item.visible_for_seller?
         @item.archivate
@@ -38,4 +38,8 @@ class Dashboard::ItemsController < Dashboard::ApplicationController
     end
   end
 
+private
+  def parse_tags(tags_str)
+    tags_str.split(',').map{|t| t.strip}
+  end
 end

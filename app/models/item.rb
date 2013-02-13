@@ -12,6 +12,7 @@ class Item < ActiveRecord::Base
   has_and_belongs_to_many :tags, uniq: true
   has_many :photos,   dependent: :destroy
   has_many :messages, dependent: :destroy
+  has_many :tags_hashes, dependent: :destroy
 
   validates :contact_info, length: {in: 11..255}, allow_blank: true
   validates :contact_info, presence: true
@@ -82,23 +83,22 @@ class Item < ActiveRecord::Base
     end
   end
 
-  def self.tagged_with(tags)
-    inner_joins = tags.collect do |tag|
-      tt = "items_tags_for_tag_#{tag.id}"
-      "INNER JOIN items_tags AS #{tt} ON items.id = #{tt}.item_id AND #{tt}.tag_id = #{tag.id}"
+  def set_tags(tags)
+    tags = tags.uniq
+
+    item_tag_hashes = self.tags_hashes.to_a
+    self.tags_hashes = TagsHash.get_hashes_with_relevance(tags).map do |t|
+      item_tag_hashes.find{|h| h.tags_hash == t[:hash] && h.relevance == t[:relevance]} ||
+        TagsHash.new(tags_hash: t[:hash], relevance: t[:relevance])
     end
 
-    joins(inner_joins.join(' '))
+    self.tags = tags.map do |t|
+        Tag.where(name: t).first_or_initialize
+    end
   end
 
-  def set_tags(tags_s)
-    self.tags = tags_s.split(',').map{|t| t.strip}.uniq.map do |t|
-      unless self.id.nil?
-        Tag.where(name: t.strip).first_or_create
-      else
-        Tag.new(name: t.strip)
-      end
-    end
+  def self.tagged_with(tags)
+    Item.joins(:tags_hashes).where('tags_hashes.tags_hash = ?', TagsHash.get_tags_hash(tags)).order('tags_hashes.relevance')
   end
 
   def set_sale_date_time

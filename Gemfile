@@ -13,7 +13,6 @@ end
 group :development do
   gem 'foreman'
   gem 'better_errors'
-  gem 'binding_of_caller'
   gem 'meta_request'
   gem 'capistrano'
   gem 'rvm-capistrano'

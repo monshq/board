@@ -221,7 +221,15 @@ GEM
       ffi (>= 0.5.0)
     rdoc (3.12.1)
       json (~> 1.4)
+    redis (3.0.2)
+    redis-namespace (1.2.1)
+      redis (~> 3.0.0)
     ref (1.0.2)
+    resque (1.23.0)
+      multi_json (~> 1.0)
+      redis-namespace (~> 1.0)
+      sinatra (>= 0.9.2)
+      vegas (~> 0.1.2)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rolify (3.2.0)
@@ -304,6 +312,8 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    vegas (0.1.11)
+      rack (>= 1.0.0)
     warden (1.2.1)
       rack (>= 1.0)
     websocket (1.0.7)
@@ -350,6 +360,7 @@ DEPENDENCIES
   pry
   rails (~> 3.2.11)
   rb-inotify (~> 0.8.8)
+  resque
   rolify
   routing-filter
   rspec-rails

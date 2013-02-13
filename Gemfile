@@ -39,6 +39,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'rb-inotify', '~> 0.8.8'
   gem 'pry'
+  gem 'resque'
 end
 
 gem 'activerecord-import'

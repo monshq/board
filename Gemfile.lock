@@ -30,10 +30,10 @@ GEM
       tzinfo (~> 0.3.29)
     activerecord-import (0.3.0)
       activerecord (~> 3.0)
-    activeresource (3.2.11)
-      activemodel (= 3.2.11)
-      activesupport (= 3.2.11)
-    activesupport (3.2.11)
+    activeresource (3.2.12)
+      activemodel (= 3.2.12)
+      activesupport (= 3.2.12)
+    activesupport (3.2.12)
       i18n (~> 0.6)
       multi_json (~> 1.0)
     addressable (2.3.2)
@@ -41,6 +41,10 @@ GEM
     authority (2.3.2)
       rails (>= 3.0.0)
     bcrypt-ruby (3.0.1)
+    better_errors (0.5.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+    binding_of_caller (0.6.8)
     builder (3.0.4)
     capistrano (2.14.2)
       highline
@@ -79,7 +83,7 @@ GEM
       execjs
     coffee-script-source (1.4.0)
     colorize (0.5.8)
-    coveralls (0.5.5)
+    coveralls (0.5.6)
       colorize
       json
       rest-client
@@ -120,7 +124,7 @@ GEM
       childprocess (>= 0.2.3)
       guard (>= 1.1)
       spork (>= 0.8.4)
-    haml (3.1.7)
+    haml (3.1.8)
     haml-rails (0.3.5)
       actionpack (>= 3.1, < 4.1)
       activesupport (>= 3.1, < 4.1)
@@ -166,7 +170,7 @@ GEM
       rails
     method_source (0.8.1)
     mime-types (1.21)
-    multi_json (1.5.1)
+    multi_json (1.6.0)
     net-scp (1.1.0)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.1)
@@ -179,7 +183,7 @@ GEM
     orm_adapter (0.4.0)
     pg (0.14.1)
     polyglot (0.3.3)
-    pry (0.9.11.4)
+    pry (0.9.12)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
@@ -309,6 +313,8 @@ DEPENDENCIES
   activerecord-import
   authority
   bcrypt-ruby
+  better_errors
+  binding_of_caller
   capistrano
   capistrano-unicorn
   capybara

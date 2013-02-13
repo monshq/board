@@ -19,10 +19,13 @@ class Item < ActiveRecord::Base
   scope :archived, lambda { where("state = ?", :archived) }
   scope :with_messages, lambda { uniq.joins(:messages) }
 
+  after_commit :add_to_index,       if: :persisted?
+  after_commit :remove_from_index,  on: :destroy
+
   state_machine :initial => :hidden do
     before_transition :on => :archivate do |item|
-      item.messages.active.map(&:archivate)
-      item.photos.active.map(&:archivate)
+      item.messages.active.map { |i| i.archivate }
+      item.photos.active.map { |i| i.archivate }
     end
 
     after_transition any - :archived => :sold, :do => :set_sale_date_time
@@ -95,6 +98,28 @@ class Item < ActiveRecord::Base
 
   def set_sale_date_time
     @sold_at = Time.new
+  end
+
+  def add_to_index
+    Item.elastic_index.store(self)
+  rescue
+    logger.debug 'Cannot connect to ElasticSearch'
+  end
+
+  def remove_from_index
+    Item.elastic_index.remove(self)
+  rescue
+    logger.debug 'Cannot connect to ElasticSearch'
+  end
+
+  protected
+
+  def self.elastic_index
+    @elastic_index ||= IndexFactory.new.items
+  end
+
+  def self.elastic_search
+    @elastic_search ||= SearchFactory.new.items
   end
 
 end

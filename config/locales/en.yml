@@ -11,7 +11,7 @@ en:
   tags: 'Tags'
   item_created: 'Item successfully created'
   delete: 'Delete'
-  item_destroyed: 'Item successfully destroyed'
+  item_deleted: 'Item successfully deleted'
   add_photo: 'Add photo'
   photo_label: 'Photo %{i}'
   photo_added: 'Photo successfully added'

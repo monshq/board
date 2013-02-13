@@ -9,6 +9,7 @@
     .tags=k(item).tags
     .contact_info=item.contact_info
     .controls
+      = link_to t(:delete_item), dashboard_item_path(item), confirm: t(:really_delete?), method: :delete
       = link_to t(:edit_item), edit_dashboard_item_path(item)
       = link_to t(:add_photo), new_dashboard_item_photo_path(item)
       = link_to t(:edit_photos), dashboard_item_photos_path(item)

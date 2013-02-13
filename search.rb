@@ -1,6 +1,3 @@
-# require './lib/elastic_search/index_factory'
-# require './elastic_search/search_factory'
-
 puts "reindex #{Item.count} items"
 items_index = IndexFactory.new.items
 pp items_index.destroy
@@ -12,8 +9,7 @@ def search(params = {})
 
   puts "Search: #{params.inspect}"
   items_search = SearchFactory.new.items
-  result = items_search.search(params).raw
-  items = result.results
+  items = items_search.search(params).items
 
   puts "\nResult items:"
   items.each do |i|

@@ -1,5 +1,3 @@
-# require(Rails.root.to_s + '/lib/elastic_search/factories/index_factory.rb')
-# require './factories/index_factory'
 
 # module ElasticSearch
   class Index
@@ -20,20 +18,24 @@
       index.create(options) or raise Error.new(last_response.body)
     end
 
+    def create_if_not_exists
+      create unless index.exists?
+    end
+
     def import_in_batches(scope)
-      scope.find_in_batches{ |group| import(group) }
+      scope.find_in_batches { |group| import(group) }
     end
 
     def import(collection)
-      store_documents(collection.map{ |entity| presenter_for(entity) })
+      index.bulk_store(collection.map{ |entity| presenter_for(entity) })
     end
 
     def remove(entity)
       index.remove(presenter_for(entity))
     end
 
-    def store_documents(documents)
-      index.bulk_store(documents)
+    def store(item)
+      index.store(presenter_for(item))
     end
 
     def destroy

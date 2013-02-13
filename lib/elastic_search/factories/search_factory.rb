@@ -1,7 +1,7 @@
 # module ElasticSearch
   class SearchFactory
     def items
-      Search.new("items2", {
+      Search.new("items", {
         mapping: ItemMapping.new,
         query_builder_class: ItemsQueryBuilder,
         result_set_class: ItemsResultSet

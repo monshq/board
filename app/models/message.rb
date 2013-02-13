@@ -10,12 +10,6 @@ class Message < ActiveRecord::Base
 
   validates :text, presence: true, length: {in: 2..255}
 
-  after_create :send_notification
-
-  def send_notification
-    Resque.enqueue(SendMail, {})
-  end
-
   state_machine :state, :initial => :active do
     event :archivate do
       transition :active => :archived

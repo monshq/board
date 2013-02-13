@@ -20,6 +20,10 @@ group :development do
   gem 'lol_dba'
 end
 
+group :test do
+  gem 'resque_spec'
+end
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'nyan-cat-formatter'

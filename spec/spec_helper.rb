@@ -145,6 +145,9 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner.start
+
+    #http://blog.terriblelabs.com/blog/2012/07/11/optional-observers-with-rails-3-and-rspec/
+    ActiveRecord::Base.observers.disable :all
   end
 
   config.after(:each) do

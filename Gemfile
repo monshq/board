@@ -12,6 +12,7 @@ end
 
 group :development do
   gem 'foreman'
+  gem 'better_errors'
   gem 'meta_request'
   gem 'capistrano'
   gem 'rvm-capistrano'

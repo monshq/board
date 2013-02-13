@@ -27,7 +27,7 @@ describe TagsHash do
       time.first.to_f.should be < 1.0
     end
 
-    it 'утанавливает релевантность для каждой комбинации' do
+    it 'устанавливает релевантность для каждой комбинации' do
       tags = 5.times.map{ FactoryGirl.attributes_for(:tag)[:name] }
       hashes = TagsHash.get_hashes_with_relevance(tags)
       hashes.should include(hash: TagsHash.get_tags_hash(tags), relevance: 0)

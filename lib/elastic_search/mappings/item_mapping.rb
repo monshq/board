@@ -1,5 +1,4 @@
 # module ElasticSearch
-
   class ItemMapping
 
     def settings

@@ -24,6 +24,7 @@ class Item < ActiveRecord::Base
 
   state_machine :initial => :hidden do
     before_transition :on => :archivate do |item|
+      item.remove_from_index
       item.messages.active.map { |i| i.archivate }
       item.photos.active.map { |i| i.archivate }
     end
@@ -101,7 +102,7 @@ class Item < ActiveRecord::Base
   end
 
   def add_to_index
-    Item.elastic_index.store(self)
+    Item.elastic_index.store(self) if visible_for_seller?
   rescue
     logger.debug 'Cannot connect to ElasticSearch'
   end
@@ -119,6 +120,7 @@ class Item < ActiveRecord::Base
   end
 
   def self.elastic_search
+    Item.elastic_index
     @elastic_search ||= SearchFactory.new.items
   end
 

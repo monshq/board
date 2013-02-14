@@ -6,20 +6,16 @@
 
     attr_reader :name, :mapping
 
-    def initialize(name, mapping)
+    def initialize(name, mapping, index = nil)
       @name = name
       @mapping = mapping
       @settings = mapping.try(:settings) || {}
+      @index = index || Tire::Index.new
     end
 
     def create
-      raise Error.new("already exists") if index.exists?
       options = { mappings: @mapping.mappings, settings: @settings }
-      index.create(options) or raise Error.new(last_response.body)
-    end
-
-    def create_if_not_exists
-      create unless index.exists?
+      index.create options
     end
 
     def import_in_batches(scope)
@@ -42,14 +38,10 @@
       index.delete
     end
 
-    def last_response
-      index.response
-    end
-
     private
 
     def index
-      @index ||= Tire::Index.new(@name)
+      @index
     end
 
     def presenter_for(entity)

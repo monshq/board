@@ -1,5 +1,5 @@
 # module ElasticSearch
-  class ItemsQueryBuilder
+  class ItemQueryBuilder
 
     def initialize(options, mapping)
       @options = options
@@ -18,9 +18,6 @@
           if options[:q].present?
             # http://www.elasticsearch.org/guide/reference/query-dsl/query-string-query.html
             string options[:q], fields: mapping.full_text_search_fields, use_dis_max: false
-          else
-            # http://www.elasticsearch.org/guide/reference/query-dsl/match-all-query.html
-            all
           end
         end
 

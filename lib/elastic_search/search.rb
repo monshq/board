@@ -3,16 +3,16 @@
 
     attr_reader :indices, :options
 
-    def initialize(indices, options = {})
+    def initialize(indices, options = {}, search_class = Tire::Search::Search)
       @indices = [indices].flatten
       @options = options
       @mapping = options[:mapping]
       @query_builder_klass = options[:query_builder_class]
-      @result_set_klass = options[:result_set_class]
+      @search_class = search_class
     end
 
     def search(query_options)
-      @result_set_klass.new(build_search(query_options).results)
+      build_search(query_options).results.results
     end
 
     private
@@ -20,9 +20,7 @@
     def build_search(options)
       query_builder = @query_builder_klass.new(options, @mapping)
       if query_builder.respond_to?(:to_proc) 
-        Tire::Search::Search.new(@indices, &query_builder.to_proc)
-      else
-        raise RuntimeError.new("Invalid query builder. Should respond to #to_proc")
+        @search_class.new(@indices, &query_builder.to_proc)
       end
     end
 

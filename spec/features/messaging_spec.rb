@@ -38,7 +38,7 @@ feature 'Чтобы иметь больше шансов продать това
     click_link I18n.t(:messages)
     click_button I18n.t('helpers.submit.message.create')
 
-    page.should have_text I18n.t('activerecord.errors.models.message.attributes.text.too_short')
+    page.should have_text get_validation_error(:message, :text, :too_short)
     page.should have_text @user.received_messages.first.text
   end
 
@@ -70,15 +70,22 @@ feature 'Чтобы отправить сообщение продавцу' do
   background do
     @user = FactoryGirl.create(:user)
     sign_in_user(@user)
+    @item = FactoryGirl.create(:item)
+    visit item_path(@item)
+    click_link I18n.t(:write_message)
   end
 
   scenario 'я хочу нажать связаться и заполнить сообщение' do
-    item = FactoryGirl.create(:item)
-    visit item_path(item)
-    click_link I18n.t(:write_message)
     fill_in :message_text, with: 'message'
     click_button I18n.t('helpers.submit.message.create')
-    item.messages.count.should eq 1
+    @item.messages.count.should eq 1
     page.should have_content I18n.t(:new_message_sent)
   end
+
+  scenario 'я хочу получить сообщение об ошибке при попытке отправить слишком короткое сообщение' do
+    fill_in :message_text, with: 's'
+    click_button I18n.t('helpers.submit.message.create')
+    page.should have_content get_validation_error(:message, :text, :too_short)
+  end
+
 end

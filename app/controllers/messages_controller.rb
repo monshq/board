@@ -16,7 +16,7 @@ class MessagesController < ApplicationController
       flash[:notice] = t(:new_message_sent)
       redirect_to item_path(item)
     else
-      redirect_to new_item_message_path(item)
+      render :new
     end
   end
 end

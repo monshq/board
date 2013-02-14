@@ -3,7 +3,11 @@ class Dashboard::CardController < ApplicationController
   end
   
   def create
-    current_user.card_token = params[:stripeToken]
+    stripe_customer = Stripe::Customer.create(
+      :description => "Customer email #{current_user.email}",
+      :card => params[:stripeToken]
+    )
+    current_user.stripe_customer_id = stripe_customer.id
     current_user.save! #execption if errors on save
     flash[:notice] = t :card_saved
     render action: 'index'

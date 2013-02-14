@@ -40,4 +40,7 @@ Board::Application.configure do
 
   require 'pry'
   IRB = Pry
+  
+  require 'stripe'
+  Stripe.api_key = 'sk_test_hfcpM49o0sIvu2LPCt4UcERO'
 end

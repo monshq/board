@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130212064744) do
+ActiveRecord::Schema.define(:version => 20130214062515) do
 
   create_table "admin_comments", :force => true do |t|
     t.string   "action_type"
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(:version => 20130212064744) do
     t.datetime "confirmation_sent_at"
     t.string   "state"
     t.datetime "state_changed_at"
-    t.string   "card_token"
+    t.string   "stripe_customer_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

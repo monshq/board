@@ -1,3 +1,5 @@
+require 'resque/server'
+
 Board::Application.routes.draw do
   root to: 'home#index'
   filter :locale
@@ -33,5 +35,6 @@ Board::Application.routes.draw do
 
     resources :items, only: [:edit, :update]
   end
-
+  
+  mount Resque::Server, :at => "/resque"
 end

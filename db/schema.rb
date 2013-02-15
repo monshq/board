@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130214062515) do
+ActiveRecord::Schema.define(:version => 20130215063534) do
 
   create_table "admin_comments", :force => true do |t|
     t.string   "action_type"
@@ -98,6 +98,21 @@ ActiveRecord::Schema.define(:version => 20130214062515) do
 
   add_index "tags_hashes", ["item_id"], :name => "index_tags_hashes_on_item_id"
   add_index "tags_hashes", ["tags_hash"], :name => "index_tags_hashes_on_tags_hash"
+  
+  create_table "transactions", :force => true do |t|
+    t.integer  "user_id",                       :null => false
+    t.integer  "item_id",                       :null => false
+    t.float    "amount",                        :null => false
+    t.string   "state",                         :null => false
+    t.integer  "tries",         :default => 10, :null => false
+    t.string   "charge_id"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.string   "error_message"
+  end
+
+  add_index "transactions", ["item_id"], :name => "index_transactions_on_item_id"
+  add_index "transactions", ["user_id"], :name => "index_transactions_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                :default => "", :null => false

@@ -34,6 +34,7 @@ class Item < ActiveRecord::Base
 
     event :publish do
       transition :hidden => :published
+      transition :reserved => :published
     end
 
     event :archivate do
@@ -43,6 +44,7 @@ class Item < ActiveRecord::Base
     event :sell do
       transition :hidden => :sold
       transition :published => :sold
+      transition :reserved => :sold
     end
 
     event :hide do
@@ -106,5 +108,4 @@ class Item < ActiveRecord::Base
   def set_sale_date_time
     @sold_at = Time.new
   end
-
 end

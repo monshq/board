@@ -4,11 +4,11 @@ class Transaction < ActiveRecord::Base
   attr_accessible :amount, :state, :item
   
   state_machine :initial => :untreated do
-    before_transition :on => :accepted do |transaction|
-      transaction.item.sold
+    before_transition :to => :accepted do |transaction|
+      transaction.item.sell
     end
     
-    before_transition :on => [ :canceled, :rejected ] do |transaction|
+    before_transition :to => [ :canceled, :rejected ] do |transaction|
       transaction.item.publish
     end
     

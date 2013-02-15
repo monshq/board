@@ -6,7 +6,7 @@ Board::Application.routes.draw do
   devise_for :users, controllers: {sessions: "sessions"}
 
   resources :tags, only: [:index, :show]
-
+  
   resources :items, only: [:index, :show] do
     resources :messages, :only => [:new, :create]
   end
@@ -18,6 +18,8 @@ Board::Application.routes.draw do
     end
     resources :messages
     resources :card, only: [:index, :create]
+    resources :buying_item, only: [:show]
+    resources :transactions, only: [:index, :destroy]
   end
 
   resources :users

@@ -1,0 +1,9 @@
+- @transactions.each do |transaction|
+  .transaction
+    .transaction-created-at= transaction.created_at
+    .transaction-updated-at= transaction.updated_at
+    .tarnsaction-state= transaction.state
+    .transaction-amount= transaction.amount
+    .transaction-tries= transaction.tries
+  %hr
+    

@@ -7,7 +7,7 @@ feature 'Чтобы лучше указать что мне нужно, я хо�
     FactoryGirl.create :item, description: 'Продаётся велосипед', state: 'published'
     FactoryGirl.create :item, description: 'Продаётся телевизор', state: 'published'
 
-    sleep 10 # Let ElasticSearch update its index
+    sleep 3 # Let ElasticSearch update its index
 
     visit root_path
   end

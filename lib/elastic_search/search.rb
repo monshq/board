@@ -1,4 +1,4 @@
-# module ElasticSearch
+module ElasticSearch
   class Search
 
     attr_reader :indices, :options
@@ -25,4 +25,4 @@
     end
 
   end
-# end
+end

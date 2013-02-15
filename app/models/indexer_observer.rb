@@ -14,25 +14,21 @@ class IndexerObserver < ActiveRecord::Observer
   end
 
   def add_to_index(item)
-    IndexerObserver.elastic_index.store(item) if item.visible_for_seller?
+    elastic_index.store(item) if item.visible_for_seller?
   rescue
     Rails.logger.debug 'Cannot connect to ElasticSearch'
   end
 
   def remove_from_index(item)
-    IndexerObserver.elastic_index.remove(item)
+    elastic_index.remove(item)
   rescue
     Rails.logger.debug 'Cannot connect to ElasticSearch'
   end
 
-  protected
+  private
 
-  def self.elastic_index
-    @elastic_index ||= IndexFactory.items
+  def elastic_index
+    @index ||= ElasticSearch::Factories::IndexFactory.items
   end
 
-  def self.elastic_search
-    elastic_index
-    @elastic_search ||= SearchFactory.items
-  end
 end

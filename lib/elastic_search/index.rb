@@ -1,5 +1,5 @@
 
-# module ElasticSearch
+module ElasticSearch
   class Index
 
     class Error < RuntimeError; end
@@ -10,7 +10,7 @@
       @name = name
       @mapping = mapping
       @settings = mapping.try(:settings) || {}
-      @index = index || Tire::Index.new
+      @index = index || Tire::Index.new(@name)
     end
 
     def create
@@ -49,4 +49,4 @@
     end
 
   end
-# end
+end

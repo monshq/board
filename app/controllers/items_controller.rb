@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   def index
     keywords = params[:keywords]
     unless keywords.blank?
-      @items = SearchFactory.items.search(q: keywords)
+      @items = ElasticSearch::Factories::SearchFactory.items.search(q: keywords)
     else
       @items = Item.published
     end

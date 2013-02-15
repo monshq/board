@@ -1,4 +1,4 @@
-# module ElasticSearch
+module ElasticSearch
   class ModelPresenter
 
     def initialize(model, mapping)
@@ -19,4 +19,4 @@
     end
 
   end
-# end
+end

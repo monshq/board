@@ -22,4 +22,8 @@ class ApplicationController < ActionController::Base
     { locale: I18n.locale, only_path: true }
   end
 
+ def authenticate_user_and_return_to(path)
+    session[:user_return_to] = path
+    authenticate_user!
+ end
 end

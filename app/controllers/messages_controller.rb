@@ -16,8 +16,7 @@ class MessagesController < ApplicationController
       send_message
     else
       session[:message] = params[:message]
-      session[:user_return_to] = new_item_message_path(item, :return => true)
-      authenticate_user!
+      authenticate_user_and_return_to new_item_message_path(item, :return => true)
     end
   end
 

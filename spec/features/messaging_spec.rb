@@ -91,7 +91,7 @@ feature 'Чтобы отправить сообщение продавцу' do
   scenario 'я хочу получить оповещение на электронную почту о новом сообщении' do
     SendMail.perform(:notify_for_a_message, {recipient_email: "a@a.ru"})
     open_email "a@a.ru"
-    current_email.click_link "view_messages"
+    current_email.click_link I18n.t("view_message")
     current_path.should eq dashboard_messages_path
     page.status_code.should be 200
   end

@@ -27,6 +27,7 @@ en:
   card_cvc: 'CVC'
   card_expiration: 'Expiration (MM/YYYY)'
   card_saved: 'Card saved'
+  transactions: 'Transactions'
   
   activerecord:
     attributes:
@@ -37,6 +38,7 @@ en:
       item:
         description: 'Description'
         contact_info: 'Contact info'
+        price: 'Price'
       message:
         text: 'Text'
     errors:

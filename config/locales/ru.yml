@@ -37,6 +37,7 @@ ru:
   card_cvc: 'CVC-код'
   card_expiration: 'Дата окончания действия (ММ/ГГГГ)'
   card_saved: 'Данные карты успешно сохранены'
+  transactions: 'Транзакции'
   
   activerecord:
     attributes:
@@ -47,6 +48,7 @@ ru:
       item:
         description: 'Текст объявления'
         contact_info: 'Контактная информация'
+        price: 'Цена'
       message:
         text: 'Текст'
     errors:

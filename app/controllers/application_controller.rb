@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
     unless user.has_any_role?(:admin, :user)
       user.grant :user
     end
-    dashboard_items_path
+    session.delete(:user_return_to) || dashboard_items_path
   end
 
   def set_locale
@@ -22,4 +22,8 @@ class ApplicationController < ActionController::Base
     { locale: I18n.locale, only_path: true }
   end
 
+ def authenticate_user_and_return_to(path)
+    session[:user_return_to] = path
+    authenticate_user!
+ end
 end

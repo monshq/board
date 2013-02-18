@@ -87,5 +87,24 @@ feature 'Чтобы отправить сообщение продавцу' do
     click_button I18n.t('helpers.submit.message.create')
     page.should have_content get_validation_error(:message, :text, :too_short)
   end
+end
 
+feature 'Отправить сообщение продавцу без регистрации' do
+  background do
+    @item = FactoryGirl.create(:item)
+    visit new_item_message_path(@item)
+    fill_in :message_text, with: 'message'
+    click_button I18n.t('helpers.submit.message.create')
+    current_path.should eq new_user_session_path
+  end
+
+  scenario 'я хочу зарегистрироваться после написания сообщения' do
+    register_and_activate_user FactoryGirl.attributes_for(:user)
+    page.should have_content I18n.t(:new_message_sent)
+  end
+
+  scenario 'я хочу авторизоваться после написания сообщения' do
+    fill_auth_data_and_sign_in FactoryGirl.create :user
+    page.should have_content I18n.t(:new_message_sent)
+  end
 end

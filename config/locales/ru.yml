@@ -86,3 +86,6 @@ ru:
     failure:
       user:
         not_found_in_database: 'Неверный адрес электронной почты или пароль'
+board_mailer:
+  notify_for_a_message:
+    subject: 'Новое сообщение на доске объявлений'

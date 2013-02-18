@@ -71,3 +71,6 @@ en:
     sessions:
       user:
         signed_in: 'You successfully signed in your dashboard.'
+board_mailer:
+  notify_for_a_message:
+    subject: 'New message on board'

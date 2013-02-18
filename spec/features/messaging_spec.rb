@@ -87,6 +87,14 @@ feature 'Чтобы отправить сообщение продавцу' do
     click_button I18n.t('helpers.submit.message.create')
     page.should have_content get_validation_error(:message, :text, :too_short)
   end
+
+  scenario 'я хочу получить оповещение на электронную почту о новом сообщении' do
+    SendMail.perform(:notify_for_a_message, {recipient_email: "a@a.ru"})
+    open_email "a@a.ru"
+    current_email.click_link "view_messages"
+    current_path.should eq dashboard_messages_path
+    page.status_code.should be 200
+  end
 end
 
 feature 'Отправить сообщение продавцу без регистрации' do

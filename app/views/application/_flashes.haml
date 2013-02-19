@@ -1,3 +1,4 @@
-#flashes
-  - for type, message in flash
-    .flash(class="#{type}")= message
+- for type, message in flash
+  .alert
+    %button{type: "button", class: "close", "data-dismiss" => "alert"} &times;
+    = message

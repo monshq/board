@@ -82,3 +82,6 @@ en:
       photo_banned_message: 'One of your photos has been blocked.'
       photo_banned_link: 'Image link:'
       photo_banned_reason: "Reason: %{reason}"
+    notify_for_a_message:
+      subject: 'New message on board'
+      text: 'You have new message on board'

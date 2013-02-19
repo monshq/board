@@ -11,5 +11,6 @@
  *= require_self
  *= require_tree .
  */
+@import 'bootstrap';
 @import 'layouts/application';
 @import 'modules/dashboard/messages/inbox';

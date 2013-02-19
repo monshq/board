@@ -1,4 +1,2 @@
-= form_tag items_path, method: :get do
-  = label_tag :keywords, t('find')
-  = text_field_tag :keywords
-  = submit_tag t('search')
+= form_tag items_path, method: :get, class: "navbar-search pull-left" do
+  = text_field_tag :keywords, nil, class: "search-query", placeholder: "Search"

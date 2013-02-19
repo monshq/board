@@ -45,6 +45,8 @@ GEM
     better_errors (0.5.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
+    bootstrap-sass (2.3.0.0)
+      sass (~> 3.2)
     builder (3.0.4)
     capistrano (2.14.2)
       highline
@@ -331,6 +333,7 @@ DEPENDENCIES
   authority
   bcrypt-ruby
   better_errors
+  bootstrap-sass
   capistrano
   capistrano-unicorn
   capybara

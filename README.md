@@ -15,3 +15,7 @@
 wget download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.20.4.deb
 sudo dpkg -i elasticsearch-0.20.4.deb
 ```
+
+Для работы resque необходимо установить redis https://gist.github.com/brow/1315952
+Workers запускаются через foreman вместе с приложением. Для запуска
+front-end выполните resque-web в консоле

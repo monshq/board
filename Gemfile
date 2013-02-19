@@ -20,6 +20,10 @@ group :development do
   gem 'lol_dba'
 end
 
+group :test do
+  gem 'resque_spec'
+end
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'nyan-cat-formatter'
@@ -39,6 +43,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'rb-inotify', '~> 0.8.8'
   gem 'pry'
+  gem 'resque'
 end
 
 gem 'activerecord-import'

@@ -4,9 +4,12 @@
     %title Доска объявлений
     = render 'head'
   %body
-    = render 'auth'
-    = render 'nav'
-    = render 'flashes'
-    = render 'search'
-
-    = yield
+    .container
+      .navbar
+        .navbar-inner
+          %a.brand{href: root_path}= Board
+          = render 'auth'
+          = render 'search'
+      = render 'nav'
+      = render 'flashes'
+      = yield

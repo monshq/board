@@ -1,21 +1,24 @@
-#auth_status
-  = link_to 'RU', url_for(locale: :ru)
-  |
-  = link_to 'EN', url_for(locale: :en)
-  ||
+%ul.nav.pull-right
+  %li
+    = link_to 'RU', url_for(locale: :ru)
+  %li
+    = link_to 'EN', url_for(locale: :en)
+  %li.divider-vertical
   - if user_signed_in?
-    = link_to current_user.email, edit_user_registration_path(current_user)
-    = link_to I18n.t(:messages), dashboard_messages_path
-    |
-    = link_to t(:sign_out), destroy_user_session_path, method: :delete
-    |
-    - if current_user.has_role? :admin
-      %span='Вы администратор'
-    - elsif current_user.has_role? :user
-      %span='Вы пользователь'
-    - else
-      %span='Вы гость'
+    %li
+      - if current_user.has_role? :admin
+        -title = 'Вы администратор'
+      - elsif current_user.has_role? :user
+        -title = 'Вы пользователь'
+      - else
+        -title = 'Вы гость'
+      = link_to current_user.email, edit_user_registration_path(current_user), title: title
+    %li
+      = link_to I18n.t(:messages), dashboard_messages_path
+    %li
+      = link_to t(:sign_out), destroy_user_session_path, method: :delete
   - else
-    = link_to t(:sign_in), new_user_session_path
-    |
-    = link_to t(:register), new_user_registration_path
+    %li
+      = link_to t(:sign_in), new_user_session_path
+    %li
+      = link_to t(:register), new_user_registration_path

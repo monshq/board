@@ -4,9 +4,13 @@
     %title Панель управления
     = render 'head'
   %body
-    = render 'auth'
-    = render 'nav'
-    = render 'dashboard'
-    = render 'flashes'
-
-    = yield
+    .container
+      .navbar
+        .navbar-inner
+          %a.brand{href: root_path}= Board
+          = render 'auth'
+          = render 'search'
+      = render 'nav'
+      = render 'dashboard'
+      = render 'flashes'
+      = yield

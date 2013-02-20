@@ -6,6 +6,6 @@ class ItemPresenter < Keynote::Presenter
   end
   
   def price
-    sprintf("%#0.2f USD", item.price)
+    item.price.blank? ? '' : sprintf("%#0.2f USD", item.price)
   end
 end

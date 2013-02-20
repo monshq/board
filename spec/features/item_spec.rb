@@ -13,6 +13,9 @@ feature 'Чтобы продать что либо, я подаю объявле
     click_link I18n.t(:new_item)
 
     @item = FactoryGirl.attributes_for :item
+    
+    p @item
+    
     @tags = ['Электроника', 'Компьютеры']
   end
 
@@ -20,12 +23,14 @@ feature 'Чтобы продать что либо, я подаю объявле
     fill_in 'Текст объявления',      with: @item[:description]
     fill_in 'Категории',             with: @tags.join(', ')
     fill_in 'Контактная информация', with: @item[:contact_info]
+    fill_in I18n.t('activerecord.attributes.item.price'), with: @item[:price]
     click_button 'Подать это объявление'
 
     page.should have_text 'Объявление успешно размещено.'
     page.should have_text @item[:description]
     @tags.each {|t| page.should have_text t}
     page.should have_text @item[:contact_info]
+    page.should have_text @item[:price]
   end
 
   context 'Когда форма заполнена неправильно' do
@@ -55,6 +60,16 @@ feature 'Чтобы продать что либо, я подаю объявле
       click_button 'Подать это объявление'
 
       page.should have_text 'Пожалуйста, укажите более короткую контактную информацию.'
+    end
+    
+    scenario 'Я ввожу в поле цена строку, отличную от числа' do
+      fill_in I18n.t('activerecord.attributes.item.description'),  with: @item[:description]
+      fill_in I18n.t('tags'),                                      with: @tags.join(', ')
+      fill_in I18n.t('activerecord.attributes.item.contact_info'), with: @item[:contact_info]
+      fill_in I18n.t('activerecord.attributes.item.price'),        with: 'price'
+      click_button I18n.t 'helpers.submit.item.create'
+      
+      page.should have_text I18n.t('activerecord.errors.models.item.attributes.price.not_a_number')
     end
   end
 end

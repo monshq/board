@@ -13,7 +13,7 @@ class ProcessTransaction
     transaction.charge_id = charge.id
     transaction.accept
     
-  rescue Stripe::APIConnectionError
+  rescue Stripe::APIConnectionError => e
     transaction.error_message = e.json_body[:error][:message]
     if transaction.tries <= 0
       Resque.enqueue_in(self.process_transaction_delay(transaction), ProcessTransaction, transaction.id)

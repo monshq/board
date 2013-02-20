@@ -52,6 +52,8 @@ en:
               blank: 'blank. Please, provide your contact information.'
               too_short: 'too short. Please, provide more details'
               too_long: 'too long. Please, provide shorter info.'
+            price:
+              not_a_number: 'is not a number'
         message:
           attributes:
             text:

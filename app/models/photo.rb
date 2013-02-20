@@ -24,18 +24,6 @@ class Photo < ActiveRecord::Base
     event :allow do
       transition :banned => :active
     end
-
-    state :banned do
-      def visible?
-        false
-      end
-    end
-
-    state :active do
-      def visible?
-        true
-      end
-    end
   end
 
   scope :active, lambda { where("state <> ?", :archived) }

@@ -1,0 +1,4 @@
+
+elastic:
+  index:
+    name: 'items_test'

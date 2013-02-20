@@ -46,6 +46,7 @@ group :development, :test do
   gem 'resque'
 end
 
+gem 'rails_config'
 gem 'activerecord-import'
 gem 'jquery-rails'
 gem 'haml-rails'

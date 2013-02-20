@@ -33,7 +33,7 @@ describe Item do
       @tags = %w'1 5 7 2 8 4 0 2'
       @i.set_tags @tags
     end
-    
+
     it 'adds hashes of all combinations of tags' do
       @i.tags_hashes.length.should eq 127
     end
@@ -45,7 +45,7 @@ describe Item do
       @tags = %w'1 5 7 2 8 4 0 2'
       @i.set_tags @tags
     end
-    
+
     it 'ищет объявление, у которого есть все перечисленные теги' do
       items = Item.tagged_with %w'5 2 1 8 4 0 7'
       items[0].should eq @i
@@ -56,7 +56,7 @@ describe Item do
     before(:each) do
       @i = FactoryGirl.create :item
     end
-    
+
     it "publishes an item" do
       @i.publish
       @i.should be_visible
@@ -109,5 +109,5 @@ describe Item do
       item.tags.map(&:name).should eq ['People']
     end
   end
-  
+
 end

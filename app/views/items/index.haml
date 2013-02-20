@@ -1,7 +1,7 @@
-- @items.each do |item|
+- @items.each_with_index do |item, index|
   .item
     .created_at= item.created_at
-    .description= item.description
+    .description= link_to item.description, item_path(item)
     .state= item.state
     .photos
       - unless item.photos.nil?
@@ -14,3 +14,4 @@
     .tags= k(item).tags unless item.tags.nil?
     .contact_info= item.contact_info
     .show=link_to "Show item", item_path(item)
+    .index= index

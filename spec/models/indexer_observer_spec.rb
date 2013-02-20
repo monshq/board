@@ -8,7 +8,11 @@ describe IndexerObserver do
     it 'Вызывает ElasticSearch::Index.store' do
       item = FactoryGirl.create :item
       ElasticSearch::Index.any_instance.should_receive(:store)
-      expect { IndexerObserver.instance.add_to_index(item) }.not_to raise_error
+      IndexerObserver.instance.add_to_index(item)
+    end
+
+    it 'Не выбрасывает исключений при ошибке' do
+      expect { IndexerObserver.instance.add_to_index(nil) }.not_to raise_error
     end
   end
 
@@ -20,7 +24,6 @@ describe IndexerObserver do
     end
 
     it 'Не выбрасывает исключений при ошибке' do
-      item = FactoryGirl.create :item
       expect { IndexerObserver.instance.remove_from_index(nil) }.not_to raise_error
     end
   end

@@ -167,14 +167,12 @@ feature 'Чтобы просмотреть опубликованные объя
     states.each do |state|
       FactoryGirl.create(:item, state: state)
     end
-    sleep 3
+    sleep 3 # updating elastic index
   end
 
   scenario 'Я перехожу на страницу просмотра всех объявлений' do
     visit items_path
     page.should have_selector('.item', count: 1)
-    item = FactoryGirl.create :item
-    item.destroy
   end
 
   scenario 'Я могу просмотреть отдельное объявление' do

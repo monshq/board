@@ -1,0 +1,13 @@
+.photo
+  %a{name: "photo#{photo.id}"}
+  - if photo.active?
+    = image_tag photo.file, alt: nil
+  - else
+    - if current_user && current_user.can_update?(photo)
+      = image_tag photo.file, alt: nil
+    .banned= "Current photo banned. Reason: #{photo.admin_comment.comment}"
+  - if current_user && current_user.can_manage?(photo)
+    - if photo.active?
+      .ban=   link_to "Ban photo", new_admin_photo_ban_path(photo_id: photo.id), confirm: "Are you sure?"
+    - else
+      .allow= link_to "Allow photo", admin_photo_ban_path(photo_id: photo.id), method: :delete, confirm: "Are you sure?"

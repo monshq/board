@@ -36,10 +36,8 @@ describe BoardMailer do
     it 'Отсылает письмо о том что картинка заблокирована' do
       @photo = FactoryGirl.create :photo
       @comment = Faker::Lorem.sentence
-      PROTOCOL = 'http://'
-      HOST_WITH_PORT = 'localhost:3000/'
 
-      BoardMailer.photo_banned_email(PROTOCOL, HOST_WITH_PORT, @photo, @comment).deliver
+      BoardMailer.photo_banned_email(@photo, @comment).deliver
 
       message = ActionMailer::Base.deliveries.last
 
@@ -48,7 +46,7 @@ describe BoardMailer do
       message.body.should have_text I18n.t('board_mailer.photo_banned_email.photo_banned_title')
       message.body.should have_text I18n.t('board_mailer.photo_banned_email.photo_banned_message')
       message.body.should have_text I18n.t('board_mailer.photo_banned_email.photo_banned_link')
-      message.body.should have_link @photo.file
+      message.body.should have_link item_path(@photo.item)
       message.body.should have_text I18n.t('board_mailer.photo_banned_email.photo_banned_reason', reason: @comment)
       message.body.should have_text @comment
     end

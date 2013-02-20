@@ -6,5 +6,4 @@
   %span= link_to t(:write_message), new_item_message_path(@item)
   .photos
     - @item.photos.each do |photo|
-      .photo
-        = image_tag photo.file, alt: nil
+      = render partial: 'photo', locals: {photo: photo}

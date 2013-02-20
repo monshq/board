@@ -38,7 +38,7 @@ describe ElasticSearch::Index do
   describe 'remove' do
     it 'Вызывает Tire::Index.remove' do
       tire_index_mock = mock('TireIndex')
-      tire_index_mock.should_receive(:remove).and_return(true)
+      tire_index_mock.should_receive(:remove).at_least(:once).and_return(true)
       index = @index_class.new("test_index", @mapping_class.new, tire_index_mock)
       index.remove FactoryGirl.create(:item)
     end

@@ -6,20 +6,14 @@ module ElasticSearch
         {}
       end
 
-      def full_text_search_fields
-        %w{
-          description
-          contact_info
-        }
-      end
-
       def mappings
         {
           item: {
             properties: {
               id: { type: "integer", index: "not_analyzed" },
               contact_info: { type: "string", index: "analyzed" },
-              description: { type: "string", index: "analyzed" }
+              description: { type: "string", index: "analyzed" },
+              state: { type: "string", index: "not_analyzed" }
             }
           }
         }
@@ -31,7 +25,8 @@ module ElasticSearch
           id: model.id,
 
           contact_info: model.contact_info,
-          description: model.description
+          description: model.description,
+          state: model.state
         }
       end
 

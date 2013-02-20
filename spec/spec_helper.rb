@@ -151,6 +151,7 @@ RSpec.configure do |config|
   end
 
   config.after(:each) do
+    Item.destroy_all
     DatabaseCleaner.clean
   end
 end

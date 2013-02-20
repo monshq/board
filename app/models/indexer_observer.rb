@@ -9,12 +9,12 @@ class IndexerObserver < ActiveRecord::Observer
     add_to_index(item)
   end
 
-  def after_archivate(item, transition)
+  def after_destroy(item)
     remove_from_index(item)
   end
 
   def add_to_index(item)
-    elastic_index.store(item) if item.visible_for_seller?
+    elastic_index.store(item)
   rescue
     Rails.logger.debug 'Cannot connect to ElasticSearch'
   end

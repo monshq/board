@@ -2,7 +2,7 @@ class Item < ActiveRecord::Base
   resourcify
 
   include Authority::Abilities
-  include ActiveModel::Observing
+  #include ActiveModel::Observing
 
   attr_accessible :description, :contact_info, :state, :sold_at
 

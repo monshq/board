@@ -15,7 +15,7 @@ module ElasticSearch
 
     def create
       options = { mappings: @mapping.mappings, settings: @settings }
-      index.create options
+      @index.create options
     end
 
     def import_in_batches(scope)
@@ -23,26 +23,22 @@ module ElasticSearch
     end
 
     def import(collection)
-      index.bulk_store(collection.map{ |entity| presenter_for(entity) })
+      @index.bulk_store(collection.map{ |entity| presenter_for(entity) })
     end
 
     def remove(entity)
-      index.remove(presenter_for(entity))
+      @index.remove(presenter_for(entity))
     end
 
     def store(item)
-      index.store(presenter_for(item))
+      @index.store(presenter_for(item))
     end
 
     def destroy
-      index.delete
+      @index.delete
     end
 
     private
-
-    def index
-      @index
-    end
 
     def presenter_for(entity)
       ModelPresenter.new(entity, @mapping)

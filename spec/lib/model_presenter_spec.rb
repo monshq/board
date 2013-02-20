@@ -13,7 +13,7 @@ describe ElasticSearch::ModelPresenter do
       item = FactoryGirl.create :item, contact_info: '12345678901', description: 'N'
       presenter = @model_presenter_class.new(item, @item_mapping_class.new)
       presenter.to_indexed_json.should ==
-        "{\"_type\":\"item\",\"id\":1,\"contact_info\":\"12345678901\",\"description\":\"N\"}"
+        "{\"_type\":\"item\",\"id\":1,\"contact_info\":\"12345678901\",\"description\":\"N\",\"state\":\"hidden\"}"
     end
   end
 

@@ -1,4 +1,5 @@
-#items  
-  - for item in @items
+#items
+  - @items.each_with_index do |item, index|
     .item
       .description= link_to item.description, item_path(item)
+      .index= index

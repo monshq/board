@@ -44,13 +44,13 @@ describe ElasticSearch::Index do
     end
   end
 
-  describe 'import_in_batches' do
+  describe 'import' do
     it 'Вызывает Tire::Index.bulk_store' do
       tire_index_mock = mock('TireIndex')
-      tire_index_mock.should_receive(:bulk_store).and_return(true)
+      tire_index_mock.should_receive(:bulk_store).with([])
       index = @index_class.new("test_index", @mapping_class.new, tire_index_mock)
       3.times { FactoryGirl.create :item, state: :published }
-      index.import_in_batches Item.published
+      index.import []
     end
   end
 end

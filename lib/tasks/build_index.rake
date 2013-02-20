@@ -3,7 +3,7 @@ namespace :elastic do
 
   desc "Reindex elastic db"
   task reindex: :environment do
-    Item.index.import Item.all
+    ElasticSearch::Factories::IndexFactory.items.import Item.all
   end
 
 end

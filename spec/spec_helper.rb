@@ -147,10 +147,11 @@ RSpec.configure do |config|
     DatabaseCleaner.start
 
     #http://blog.terriblelabs.com/blog/2012/07/11/optional-observers-with-rails-3-and-rspec/
-    ActiveRecord::Base.observers.disable :all
+    ActiveRecord::Base.observers.disable :message_observer
   end
 
   config.after(:each) do
+    Item.destroy_all
     DatabaseCleaner.clean
   end
 end

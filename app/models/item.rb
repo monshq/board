@@ -2,9 +2,7 @@ class Item < ActiveRecord::Base
   resourcify
 
   include Authority::Abilities
-
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
+  #include ActiveModel::Observing
 
   attr_accessible :description, :contact_info, :state, :sold_at
 
@@ -17,11 +15,6 @@ class Item < ActiveRecord::Base
   validates :contact_info, length: {in: 11..255}, allow_blank: true
   validates :contact_info, presence: true
 
-  tire.mapping do
-    indexes :description
-    indexes :contact_info
-  end
-
   scope :published, lambda { where("state = ?", :published) }
   scope :active, lambda { where("state <> ?", :archived) }
   scope :archived, lambda { where("state = ?", :archived) }
@@ -29,8 +22,8 @@ class Item < ActiveRecord::Base
 
   state_machine :initial => :hidden do
     before_transition :on => :archivate do |item|
-      item.messages.active.map(&:archivate)
-      item.photos.active.map(&:archivate)
+      item.messages.active.map { |i| i.archivate }
+      item.photos.active.map { |i| i.archivate }
     end
 
     after_transition any - :archived => :sold, :do => :set_sale_date_time

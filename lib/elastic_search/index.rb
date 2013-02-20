@@ -18,10 +18,6 @@ module ElasticSearch
       @index.create options
     end
 
-    def import_in_batches(scope)
-      scope.find_in_batches { |group| import(group) }
-    end
-
     def import(collection)
       @index.bulk_store(collection.map{ |entity| presenter_for(entity) })
     end

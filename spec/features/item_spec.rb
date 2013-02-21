@@ -116,7 +116,7 @@ feature 'Я хочу иметь возможность удалять объяв
 
   scenario 'Я нажимаю на ссылку редактировать и меняю state на Удалить после этого объявление исчезает из списка, но не из базы' do
     click_link I18n.t(:edit_item)
-    select('archived', from: 'item[state]')
+    select('archivate', from: 'event')
     click_button I18n.t('helpers.submit.item.update')
 
     page.should_not have_text @item[:description]
@@ -129,7 +129,7 @@ feature 'Я хочу иметь возможность удалять объяв
 
     visit edit_dashboard_item_path(@item)
 
-    select('archived', from: 'item[state]')
+    select('archivate', from: 'event')
     click_button I18n.t('helpers.submit.item.update')
 
     page.should_not have_text @item[:description]
@@ -151,9 +151,8 @@ feature 'Чтобы меня не беспокоили после продажи
 
     page.should have_text I18n.t(:edit_item)
     page.should have_field('item[description]', text: @descr)
-    page.should have_select('item[state]', selected: 'hidden')
 
-    select('sold', from: 'item[state]')
+    select('sell', from: 'event')
     click_button I18n.t('helpers.submit.item.update')
 
     page.should have_text 'sold'  #I18n.t :sold

@@ -11,7 +11,6 @@
     .input= f.text_field :contact_info
   .field
     .label= f.label :state
-    -# item_state_select is a helper from app/helpers/items_helper.rb
-    .select= item_state_select f, @item
+    .select= select_tag :event, options_for_select([""] + @item.state_events)
   .field
     .input= f.submit

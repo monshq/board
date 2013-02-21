@@ -4,48 +4,65 @@ require 'spec_helper'
 
 # Администратор
 
-feature 'Чтобы эффективно решать проблемы пользователей, я хочу уметь залогиниться под любым пользователем' do
-  background do
-    @USERS_LIST_SIZE = 10
+feature 'Чтобы ресурс оставался популярным, я хочу постмодерировать объявления'
+feature 'Я хочу иметь возможность удалить объявление'
 
+feature 'Администратор может забанить фотографии' do
+  background do
     @user = FactoryGirl.create :user
     @user.grant :admin
 
     sign_in_user @user
+    @photo = FactoryGirl.create :photo
+    @photo.item.publish
   end
 
-  scenario 'Я захожу на страницу со списком пользователей и вижу ссылку "Become user"' do
-    users = FactoryGirl.create_list(:user, @USERS_LIST_SIZE)
-    visit users_path
-
-    page.should have_link 'Become user'
+  scenario 'Я захожу на страницу объявлений и вижу ссылку "Ban photo"' do
+    visit items_path
+    page.should have_link 'Ban photo'
   end
 
-  scenario 'Если пользователь админ, то я не вижу ссылку "Become user"' do
-    visit users_path
+  scenario 'Я нажимаю на ссылку "Ban photo" и перехожу на форму добавления комментария к бану фотографии' do
+    visit items_path
+    click_link 'Ban photo'
 
-    page.should_not have_link 'Become user'
+    current_path.should == new_admin_photo_ban_path(@photo)
+    page.should have_button 'Create Admin comment'
   end
 
-  scenario 'Я нажимаю на ссылку и становлюсь выбранным пользователем' do
-    test_user = FactoryGirl.create :user
+  scenario 'Я заполняю поле комментария и нажимаю кнопку добавления комментария к бану фотографии' do
+    visit new_admin_photo_ban_path(@photo)
+    fill_in 'Comment', with: Faker::Lorem.sentence
+    click_button 'Create Admin comment'
 
-    become_user(test_user)
-
-    page.should have_link test_user.email
+    current_path.should == items_path
+    page.should have_text 'Allow photo'
   end
 
-  scenario 'Я могу выйти из пользователя и снова стать администатором' do
-    test_user = FactoryGirl.create :user
+  scenario 'После бана фотографии пользователю отправляется письмо с сообщением, в котором указывается причина бана' do
+    visit new_admin_photo_ban_path(@photo)
+    comment = Faker::Lorem.sentence
+    fill_in 'Comment', with: comment
+    click_button 'Create Admin comment'
 
-    become_user(test_user)
+    message = ActionMailer::Base.deliveries.last
 
-    click_link 'Выйти'
-    page.should have_link @user.email
+    message.to.should include @photo.item.seller.email
+    message.body.should have_text comment
+    message.body.should have_link @photo.file
+  end
+
+  scenario 'Я могу разбанить забаненную фотографию' do
+    @photo.ban
+    visit items_path
+    click_link 'Allow photo'
+
+    current_path.should == items_path
+    page.should have_link 'Ban photo'
   end
 end
 
-feature 'Чтобы ресурс оставался популярным, я хочу постмодерировать объявления и фотографии с возможностью удалить объявление и/или забанить продавца' do
+feature 'Администратор может забанить пользователя' do
   background do
     @user = FactoryGirl.create :user
     @user.grant :admin
@@ -109,96 +126,33 @@ feature 'Чтобы ресурс оставался популярным, я х�
     current_path.should == users_path
     page.should have_link 'Ban user'
   end
+end
 
-  scenario 'Я захожу на страницу объявлений и вижу ссылку "Ban photo"' do
-    item = FactoryGirl.create :published_item
-    attach_photos_to_item(item)
-
+feature 'Админ может редактировать чужие объявления' do
+  background do
+    @user = FactoryGirl.create :user
+    @user.grant :admin
     sign_in_user @user
 
+    @item = FactoryGirl.create :published_item
+  end
+
+  scenario 'Есть ссылка "Admin edit Item" на странице со списком объявлений' do
     visit items_path
-
-    page.should have_link 'Ban photo'
-  end
-
-  scenario 'Я нажимаю на ссылку "Ban photo" и перехожу на форму добавления комментария к бану фотографии' do
-    item = FactoryGirl.create :published_item
-    new_ban_photo(item)
-
-    current_path.should == new_admin_photo_ban_path(photo_id: item.photos.first.id)
-    page.should have_button 'Create Admin comment'
-  end
-
-  scenario 'Я заполняю поле комментария и нажимаю кнопку добавления комментария к бану фотографии' do
-    item = FactoryGirl.create :published_item
-    comment = Faker::Lorem.sentence
-
-    ban_photo(item, comment)
-
-    current_path.should == items_path
-    page.should have_text 'Allow photo'
-  end
-
-  scenario 'После бана фотографии пользователю отправляется письмо с сообщением, в котором указывается причина бана' do
-    item = FactoryGirl.create :published_item
-    comment = Faker::Lorem.sentence
-
-    ban_photo(item, comment)
-
-    message = ActionMailer::Base.deliveries.last
-
-    message.to.should include item.seller.email
-    message.body.should have_text comment
-    message.body.should have_link item.photos.first.file
-  end
-
-  scenario 'Я могу разбанить забаненную фотографию' do
-    item = FactoryGirl.create :published_item
-    comment = Faker::Lorem.sentence
-
-    ban_photo(item, comment)
-
-    click_link 'Allow photo'
-
-    current_path.should == items_path
-    page.should have_link 'Ban photo'
-  end
-
-  scenario 'Я захожу на страницу объявлений и вижу ссылку "Admin edit item"' do
-    item = FactoryGirl.create :published_item
-    attach_photos_to_item(item)
-
-    sign_in_user @user
-
-    visit items_path
-
     page.should have_link 'Admin edit item'
   end
 
   scenario 'Я нажимаю на ссылку "Admin edit item" и перехожу на форму редактирования объявления' do
-    item = FactoryGirl.create :published_item
-    attach_photos_to_item(item)
-
-    sign_in_user @user
-
     visit items_path
-
     click_link 'Admin edit item'
-    current_path.should == edit_admin_item_path(item)
-    page.should have_text item.description
+    current_path.should == edit_admin_item_path(@item)
+    page.should have_text @item.description
   end
 
   scenario 'Я заполняю поле описания объявления и нажимаю кнопку редактирования' do
-    item = FactoryGirl.create :published_item
     test_description = Faker::Lorem.sentence
-    attach_photos_to_item(item)
 
-    sign_in_user @user
-
-    visit items_path
-
-    click_link 'Admin edit item'
-
+    visit edit_admin_item_path(@item)
     fill_in 'Текст объявления', with: test_description
     click_button 'Сохранить изменения'
 

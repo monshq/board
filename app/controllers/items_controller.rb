@@ -1,7 +1,11 @@
 class ItemsController < ApplicationController
 
   def index
-    @items = ItemSearch.search(keywords: params[:keywords], state: 'published').entities
+    if params[:keywords].present?
+      @items = ItemSearch.search(keywords: params[:keywords], state: 'published').entities
+    else
+      @items = Item.published
+    end
   end
 
   def show

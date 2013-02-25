@@ -2,9 +2,8 @@
 
 FactoryGirl.define do
   factory :transaction do
-    user nil
-    item nil
-    amount 1.5
-    status "MyString"
+    item
+    user
+    amount { sprintf('%#0.2f', rand(0.00..1000.00)).to_f }
   end
 end

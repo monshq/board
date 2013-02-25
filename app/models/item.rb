@@ -80,7 +80,7 @@ class Item < ActiveRecord::Base
       end
     end
 
-    state  :hidden, :sold, :published do
+    state  :hidden, :sold, :published, :reserved do
       def visible_for_seller?
         true
       end

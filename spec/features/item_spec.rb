@@ -119,6 +119,16 @@ feature 'Чтобы изменить объявление' do
       
       page.should have_text 'Пожалуйста, укажите более короткую контактную информацию.'
     end
+    
+    scenario 'Я ввожу в поле цена строку, отличную от числа' do
+      fill_in I18n.t('activerecord.attributes.item.description'),  with: @item[:description]
+      fill_in I18n.t('tags'),                                      with: @tags.join(', ')
+      fill_in I18n.t('activerecord.attributes.item.contact_info'), with: @item[:contact_info]
+      fill_in I18n.t('activerecord.attributes.item.price'),        with: 'price'
+      click_button I18n.t 'helpers.submit.item.create'
+      
+      page.should have_text I18n.t('activerecord.errors.models.item.attributes.price.not_a_number')
+    end
   end
 end
 

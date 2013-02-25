@@ -14,8 +14,6 @@ feature 'Чтобы продать что либо, я подаю объявле
 
     @item = FactoryGirl.attributes_for :item
     
-    p @item
-    
     @tags = ['Электроника', 'Компьютеры']
   end
 

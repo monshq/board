@@ -108,4 +108,6 @@ class Item < ActiveRecord::Base
   def set_sale_date_time
     @sold_at = Time.new
   end
+  
+  alias back_from_reserved_sate publish
 end

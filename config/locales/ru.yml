@@ -38,6 +38,7 @@ ru:
   card_expiration: 'Дата окончания действия (ММ/ГГГГ)'
   card_saved: 'Данные карты успешно сохранены'
   transactions: 'Транзакции'
+  buy: 'Купить'
   
   activerecord:
     attributes:

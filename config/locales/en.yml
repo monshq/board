@@ -28,6 +28,7 @@ en:
   card_expiration: 'Expiration (MM/YYYY)'
   card_saved: 'Card saved'
   transactions: 'Transactions'
+  buy: 'Buy'
   
   activerecord:
     attributes:

@@ -8,12 +8,8 @@ class Transaction < ActiveRecord::Base
       transaction.item.sell
     end
     
-    before_transition :to => [ :canceled, :rejected ] do |transaction|
-      transaction.item.publish
-    end
-    
-    event :cancel do
-      transition :untreated => :canceled
+    before_transition :to => :rejected do |transaction|
+      transaction.item.back_from_reserved_sate
     end
     
     event :accept do

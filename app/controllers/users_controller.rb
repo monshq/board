@@ -6,10 +6,4 @@ class UsersController < ApplicationController
     @users = User.all
     authorize_action_for(current_user)
   end
-  
-  def card
-  end
-  
-  def update_card
-  end
 end

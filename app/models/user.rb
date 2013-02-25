@@ -52,6 +52,5 @@ class User < ActiveRecord::Base
     Resque.enqueue(ProcessTransaction, transaction.id)
     item.reserve
     transaction.id
->>>>>>> 0b81c8c... add item buy transaction process with resque and resque-scheduler
   end
 end

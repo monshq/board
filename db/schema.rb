@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130215063534) do
+ActiveRecord::Schema.define(:version => 20130221074039) do
 
   create_table "admin_comments", :force => true do |t|
     t.string   "action_type"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(:version => 20130215063534) do
     t.string   "contact_info"
     t.string   "state"
     t.datetime "sold_at"
-    t.integer  "price"
+    t.float    "price"
   end
 
   add_index "items", ["seller_id"], :name => "index_items_on_seller_id"
@@ -98,7 +98,7 @@ ActiveRecord::Schema.define(:version => 20130215063534) do
 
   add_index "tags_hashes", ["item_id"], :name => "index_tags_hashes_on_item_id"
   add_index "tags_hashes", ["tags_hash"], :name => "index_tags_hashes_on_tags_hash"
-  
+
   create_table "transactions", :force => true do |t|
     t.integer  "user_id",                       :null => false
     t.integer  "item_id",                       :null => false

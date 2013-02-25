@@ -20,6 +20,7 @@ en:
   reply_sent: 'Reply sent.'
   users: 'Users'
   write_message: 'write message'
+  items: 'Items'
   activerecord:
     attributes:
       user:
@@ -72,6 +73,15 @@ en:
       user:
         signed_in: 'You successfully signed in your dashboard.'
   board_mailer:
+    user_banned_email:
+      user_banned_title: 'Your account has been blocked'
+      user_banned_message: 'Your account has been blocked, please TODO: ...'
+      user_banned_reason: 'Ban reason: %{reason}'
+    photo_banned_email:
+      photo_banned_title: 'One of your photos has been blocked'
+      photo_banned_message: 'One of your photos has been blocked.'
+      photo_banned_link: 'Image link:'
+      photo_banned_reason: "Reason: %{reason}"
     notify_for_a_message:
       subject: 'New message on board'
       text: 'You have new message on board'

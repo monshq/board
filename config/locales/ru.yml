@@ -30,6 +30,7 @@ ru:
   new_message_sent: 'Сообщение отправлено'
   users: 'Пользователи'
   write_message: 'Связаться'
+  items: 'Объявления'
   activerecord:
     attributes:
       user:
@@ -89,6 +90,15 @@ ru:
       user:
         not_found_in_database: 'Неверный адрес электронной почты или пароль'
   board_mailer:
+    user_banned_email:
+      user_banned_title: 'Ваша учетная запись была блокирована'
+      user_banned_message: 'Ваша учетная запись была блокирована, для разблокировки TODO: ...'
+      user_banned_reason: 'Причина блокировки: %{reason}'
+    photo_banned_email:
+      photo_banned_title: 'Одна из ваших фотографий была блокирована'
+      photo_banned_message: 'Одна из ваших фотографий была блокирована.'
+      photo_banned_link: 'Ссылка на фотографию:'
+      photo_banned_reason: "Причина блокировки: %{reason}"
     notify_for_a_message:
       subject: 'Новое сообщение на доске объявлений'
       text: 'У Вас новое сообщение'

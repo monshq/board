@@ -19,7 +19,18 @@ Board::Application.routes.draw do
 
   resources :users
 
-  scope module: :admin do
-    resource :admin, only: [:create]
+  namespace :admin do
+    resources :photos, only: [] do
+      resource :ban, only: [:new, :create, :destroy], controller: 'ban_photos'
+    end
+
+    resources :users, only: [] do
+      resource :ban, only: [:new, :create, :destroy], controller: 'ban_users'
+    end
+
+    resource :sessions, only: [:create]
+
+    resources :items, only: [:edit, :update]
   end
+
 end

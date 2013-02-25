@@ -1,0 +1,11 @@
+!!!
+%html
+  %head
+    %meta(content="text/html; charset=UTF-8" http-equiv="Content-Type")
+  %body
+    %h1= I18n.t('board_mailer.photo_banned_email.photo_banned_title')
+    %p= I18n.t('board_mailer.photo_banned_email.photo_banned_message')
+    %p= I18n.t('board_mailer.photo_banned_email.photo_banned_link')
+    - path = item_path(@params[:item], only_path: false, anchor: "photo#{@params[:photo_id]}")
+    = link_to path, path
+    %p= I18n.t('board_mailer.photo_banned_email.photo_banned_reason', reason: @params[:reason])

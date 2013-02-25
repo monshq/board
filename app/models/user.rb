@@ -12,11 +12,32 @@ class User < ActiveRecord::Base
          :validatable,
          :confirmable
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :state, :state_changed_at
 
   has_many :items, dependent: :destroy, foreign_key: 'seller_id'
   has_many :received_messages, class_name: 'Message', dependent: :destroy, foreign_key: 'recipient_id'
   has_many :sent_messages,     class_name: 'Message', dependent: :destroy, foreign_key: 'sender_id'
+  has_one  :admin_comment, as: :bannable
 
   self.authorizer_name = 'UsersAuthorizer'
+
+  state_machine :state, :initial => :active do
+    after_transition :on => :allow, :do => :set_state_change_date_time
+    after_transition :on => :ban, :do => :set_state_change_date_time
+
+    event :ban do
+      transition :active => :banned
+    end
+
+    event :allow do
+      transition :banned => :active
+    end
+  end
+
+  scope :active, lambda { where("state = ?", :active) }
+  scope :banned, lambda { where("state = ?", :banned) }
+
+  def set_state_change_date_time
+    @state_changed_at = Time.new
+  end
 end

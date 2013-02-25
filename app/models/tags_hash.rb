@@ -11,8 +11,9 @@ class TagsHash < ActiveRecord::Base
     end
 
     def get_hashes_with_relevance(tags)
+      tags_len = tags.length
       get_tags_combinations(tags.uniq.sort).map do |combination|
-        {hash: Digest::MD5.hexdigest(combination.join), relevance: tags.length - combination.length}
+        {hash: Digest::MD5.hexdigest(combination.join), relevance: tags_len - combination.length}
       end
     end
   end

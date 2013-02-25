@@ -1,0 +1,17 @@
+= form_for @item, url: admin_item_path(@item) do |f|
+  = f.error_messages
+  .field
+    .label= f.label      :description
+    .input= f.text_area  :description
+  .field
+    .label= label_tag      'tags', t(:tags)
+    .input= text_field_tag 'tags', k(@item).tags
+  .field
+    .label= f.label      :contact_info
+    .input= f.text_field :contact_info
+  .field
+    .label= f.label :state
+    -# item_state_select is a helper from app/helpers/items_helper.rb
+    .select= item_state_select f, @item
+  .field
+    .input= f.submit

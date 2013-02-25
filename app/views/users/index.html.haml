@@ -4,11 +4,20 @@
       %tr
         %th='Email'
         %th='Last sign in date'
+        - if current_user.can_manage?(User)
+          %th='User status'
         %th
     %tbody
       - @users.each do |user|
         %tr
           %td= user.email
           %td= user.last_sign_in_at
+          - if current_user.can_manage?(user)
+            %td= user.state
           - if current_user.can_become?(user)
-            %td= link_to 'Become user', admin_url(user_id: user.id), method: :post
+            %td= link_to 'Become user', admin_sessions_path(user_id: user.id), method: :post
+          - if current_user.can_manage?(user)
+            - if user.active?
+              %td= link_to 'Ban user', new_admin_user_ban_path(user_id: user.id), confirm: 'Are you sure?'
+            -else
+              %td= link_to 'Allow user', admin_user_ban_path(user_id: user.id), method: :delete, confirm: 'Are you sure?'

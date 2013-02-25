@@ -39,7 +39,7 @@ feature 'Чтобы мой товар выделялся в списках, я �
     find(:css, '.photos .image:first-child .make_main').click
     current_path.should == dashboard_item_photos_path(@item)
     @item.reload
-    
+
     initially_main = @item.photos.find { |p| p.is_main }
     initially_not_main = @item.photos.find { |p| !p.is_main }
 

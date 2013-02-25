@@ -13,6 +13,17 @@
 
 ActiveRecord::Schema.define(:version => 20130211064739) do
 
+  create_table "admin_comments", :force => true do |t|
+    t.string   "action_type"
+    t.text     "comment"
+    t.integer  "bannable_id"
+    t.string   "bannable_type"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "admin_comments", ["bannable_id"], :name => "index_admin_comments_on_bannable_id"
+
   create_table "items", :force => true do |t|
     t.integer  "seller_id",    :null => false
     t.text     "description"
@@ -48,12 +59,13 @@ ActiveRecord::Schema.define(:version => 20130211064739) do
   add_index "messages", ["sender_id"], :name => "index_messages_on_sender_id"
 
   create_table "photos", :force => true do |t|
-    t.integer  "item_id",    :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "item_id",          :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.string   "file"
     t.boolean  "is_main"
     t.string   "state"
+    t.datetime "state_changed_at"
   end
 
   add_index "photos", ["item_id"], :name => "index_photos_on_item_id"
@@ -104,6 +116,8 @@ ActiveRecord::Schema.define(:version => 20130211064739) do
     t.string   "unconfirmed_email"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.string   "state"
+    t.datetime "state_changed_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -11,6 +11,7 @@ class Item < ActiveRecord::Base
   has_many :photos,   dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :tags_hashes, dependent: :destroy
+  has_one :admin_comment, as: :bannable
 
   validates :contact_info, length: {in: 11..255}, allow_blank: true
   validates :contact_info, presence: true
@@ -19,6 +20,8 @@ class Item < ActiveRecord::Base
   scope :active, lambda { where("state <> ?", :archived) }
   scope :archived, lambda { where("state = ?", :archived) }
   scope :with_messages, lambda { uniq.joins(:messages) }
+
+  self.authorizer_name = 'ItemsAuthorizer'
 
   state_machine :initial => :hidden do
     before_transition :on => :archivate do |item|

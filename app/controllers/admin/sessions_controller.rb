@@ -1,5 +1,4 @@
-class Admin::AdminsController < Admin::ApplicationController
-  before_filter :authenticate_user!
+class Admin::SessionsController < Admin::ApplicationController
 
   def create
     @user = User.find(params[:user_id])
@@ -7,4 +6,5 @@ class Admin::AdminsController < Admin::ApplicationController
     sign_in(@user, bypass: true)
     redirect_to after_sign_in_path_for(@user)
   end
+
 end

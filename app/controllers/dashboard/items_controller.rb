@@ -13,6 +13,7 @@ class Dashboard::ItemsController < Dashboard::ApplicationController
     @item.set_tags parse_tags(params[:tags])
 
     if @item.save
+      @item.fire_state_event(params[:event]) if params[:event].present?
       redirect_to dashboard_items_path, notice: t(:item_created)
     else
       render action: 'new'
@@ -28,6 +29,7 @@ class Dashboard::ItemsController < Dashboard::ApplicationController
 
     if @item.update_attributes(params[:item])
       @item.set_tags parse_tags(params[:tags])
+      @item.fire_state_event(params[:event]) if params[:event].present?
 
       unless @item.visible_for_seller?
         @item.archivate

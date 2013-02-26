@@ -10,6 +10,9 @@
     .label= f.label      :contact_info
     .input= f.text_field :contact_info
   .field
+    .label= f.label      :price
+    .input= f.text_field(:price, :size => 5) + " USD"
+  .field
     .label= f.label :state
     .select= select_tag :event, options_for_select(@item.state_events), {:include_blank => true}
   .field

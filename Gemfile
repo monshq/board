@@ -18,6 +18,7 @@ group :development do
   gem 'rvm-capistrano'
   gem 'capistrano-unicorn', require: false
   gem 'lol_dba'
+  gem 'binding_of_caller'
 end
 
 group :test do
@@ -64,3 +65,6 @@ gem 'authority'
 gem 'rolify'
 gem 'tire'
 gem 'bootstrap-sass'
+gem 'stripe'
+gem 'resque'
+gem 'resque-scheduler', :require => 'resque_scheduler'

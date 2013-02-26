@@ -1,0 +1,22 @@
+- content_for :stripe do
+  - javascript_include_tag "https://js.stripe.com/v1/"
+%h2= t(:card_data)
+
+.payment-errors
+= form_tag dashboard_card_index_path, :id => 'payment-form' do
+  .form-row
+    %lable
+      %span= t(:card_number)
+      = text_field_tag 'card-number', nil, :class => 'card-number', :size => '20', :name => nil
+  .form-row
+    %lable
+      %span= t(:card_cvc)
+      = text_field_tag 'card-cvc', nil, :class => 'card-cvc', :size => 4, :name => nil
+  .form-row
+    %lable
+      %span= t(:card_expiration)
+      = text_field_tag 'card-expiry-month', nil, :class => 'card-expiry-month', :size => 2, :name => nil
+      %span /
+      = text_field_tag 'card-expiry-year', nil, :class => 'card-expiry-year', :size => 2, :name => nil
+  .form-row
+    = submit_tag t(:card_save) , :class => 'submit-button'

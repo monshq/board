@@ -7,3 +7,8 @@
     = link_to t('dashboard'), dashboard_items_path
   %li
     = link_to t('users'), users_path
+  - if user_signed_in?
+    %li
+      = link_to t('card_data'), dashboard_card_index_path
+    %li
+      = link_to t('transactions'), dashboard_transactions_path

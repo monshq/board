@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
   has_many :sent_messages,     class_name: 'Message', dependent: :destroy, foreign_key: 'sender_id'
   has_one  :admin_comment, as: :bannable
 
+  has_many :transactions
+
   self.authorizer_name = 'UsersAuthorizer'
 
   state_machine :state, :initial => :active do
@@ -40,4 +42,6 @@ class User < ActiveRecord::Base
   def set_state_change_date_time
     @state_changed_at = Time.new
   end
+
+  self.authorizer_name = 'UsersAuthorizer'
 end

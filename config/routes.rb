@@ -1,10 +1,12 @@
+require 'resque/server'
+
 Board::Application.routes.draw do
   root to: 'home#index'
   filter :locale
   devise_for :users, controllers: {sessions: "sessions"}
 
   resources :tags, only: [:index, :show]
-
+  
   resources :items, only: [:index, :show] do
     resources :messages, :only => [:new, :create]
   end
@@ -13,8 +15,11 @@ Board::Application.routes.draw do
     resources :items do
       resources :photos
       resources :messages
+      resources :purchase, only: [:create]
     end
     resources :messages
+    resources :card, only: [:index, :create]
+    resources :transactions, only: [:index, :destroy]
   end
 
   resources :users
@@ -32,5 +37,6 @@ Board::Application.routes.draw do
 
     resources :items, only: [:edit, :update]
   end
-
+  
+  mount Resque::Server, :at => "/resque"
 end

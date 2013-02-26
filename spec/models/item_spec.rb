@@ -70,6 +70,14 @@ describe Item do
       @i.should be_visible_for_seller
       @i.state.should eq 'hidden'
     end
+    
+    it "reserves an item" do
+      @i.publish
+      @i.reserve
+      @i.should_not be_visible
+      @i.should be_visible_for_seller
+      @i.state.should eq 'reserved'
+    end
 
     it "sells a published item" do
       @i.publish

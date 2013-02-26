@@ -6,8 +6,9 @@
       - item.photos.each do |photo|
         .photo
           = image_tag photo.file, alt: nil
-    .tags=k(item).tags
-    .contact_info=item.contact_info
+    .price= k(item).price  
+    .tags= k(item).tags
+    .contact_info= item.contact_info
     .controls
       = link_to t(:edit_item), edit_dashboard_item_path(item)
       = link_to t(:add_photo), new_dashboard_item_photo_path(item)

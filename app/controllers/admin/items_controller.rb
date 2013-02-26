@@ -16,6 +16,17 @@ class Admin::ItemsController < Admin::ApplicationController
     end
   end
 
+  def on_moderation
+    @items = Item.on_moderation
+  end
+
+  def moderate
+    @item = Item.find(params[:id])
+    if @item.moderate
+      flash[:notice] = "Item check moderated"
+    end
+  end
+
 private
   def parse_tags(tags_str)
     tags_str.split(',').map{|t| t.strip}

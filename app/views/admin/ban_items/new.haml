@@ -1,0 +1,7 @@
+= form_for @admin_comment, url: admin_item_ban_path(@item) do |f|
+  = f.error_messages
+  .field
+    .label= f.label     :comment
+    .input= f.text_area :comment
+  .field
+    .input= f.submit "Ban item"

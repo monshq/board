@@ -35,7 +35,15 @@ Board::Application.routes.draw do
 
     resource :sessions, only: [:create]
 
-    resources :items, only: [:edit, :update]
+    resources :items, only: [:edit, :update] do
+      resource :ban, only: [:new, :create, :destroy], controller: 'ban_items'
+      collection do
+        get :on_moderation
+      end
+      member do
+        put :moderate
+      end
+    end
   end
   
   mount Resque::Server, :at => "/resque"

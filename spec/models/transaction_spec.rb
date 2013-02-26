@@ -16,7 +16,7 @@ describe Transaction do
     
     it "При переходе в состояние 'принято' объявление должно быть продано" do
       @t.accept
-      @t.item.state.should == 'sold'
+      @t.item.state.should eq 'sold'
     end
     
     it "При переходе в состояние 'отвергнуто' объявление возвращается к опубликованным" do
@@ -31,7 +31,7 @@ describe Transaction do
     
     it "Переходов из состояния 'отвергнуто' нет" do
       @t.reject
-      @t.state_transitions.length.should == 0
+      @t.state_transitions.should be_empty
     end
   end
 end

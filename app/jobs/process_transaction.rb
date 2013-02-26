@@ -30,7 +30,7 @@ class ProcessTransaction
   private
 
   def self.process_transaction_delay(transaction)
-    # некий алгоритм определения задержки обработки тарнзакции в случае ошибки
+    # некий алгоритм определения задержки обработки транзакции в случае ошибки
     if transaction.tries >=5
       return 2.seconds
     elsif transaction.tries >= 2

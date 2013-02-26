@@ -1,4 +1,4 @@
-module Buy
+module PurchasesService
   def self.create_payment_transaction(user, item)
     transaction = user.transactions.create(
       :amount => item.price,

@@ -15,10 +15,10 @@ Board::Application.routes.draw do
     resources :items do
       resources :photos
       resources :messages
+      resources :purchase, only: [:create]
     end
     resources :messages
     resources :card, only: [:index, :create]
-    resources :buying_item, only: [:show]
     resources :transactions, only: [:index, :destroy]
   end
 

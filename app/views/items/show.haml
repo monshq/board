@@ -6,7 +6,7 @@
   %span= link_to t(:write_message), new_item_message_path(@item)
   -unless @item.price.blank?
     .price=k(@item).price
-    = link_to t(:buy), dashboard_buying_item_path(@item)
+    = link_to t(:buy), dashboard_item_purchase_index_path(@item), :method => :post
   .photos
     - @item.photos.each do |photo|
       = render partial: 'photo', locals: {photo: photo}

@@ -1,6 +1,6 @@
-class Dashboard::BuyingItemController < ApplicationController
-  def show
-    item = Item.find(params[:id])
+class Dashboard::PurchaseController < ApplicationController
+  def create
+    item = Item.find(params[:item_id])
     
     if item.price.blank?
       raise ActiveRecord::RecordNotFound

@@ -33,7 +33,7 @@ feature "Покупка" do
   scenario "При отсутсвии цены у объявления получаем 404 страницу" do
     @item.price = nil
     @item.save
-    visit dashboard_buying_item_path(@item)
+    visit dashboard_item_purchase_index_path(@item)
     page.status_code.should == 404
     ProcessTransaction.should have_queue_size_of(0)
   end

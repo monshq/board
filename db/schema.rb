@@ -132,9 +132,9 @@ ActiveRecord::Schema.define(:version => 20130221074039) do
     t.string   "unconfirmed_email"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.string   "stripe_customer_id"
     t.string   "state"
     t.datetime "state_changed_at"
-    t.string   "stripe_customer_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

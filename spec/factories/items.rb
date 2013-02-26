@@ -10,3 +10,4 @@ FactoryGirl.define do
   factory :published_item, parent: :item do
     state :published
   end
+end

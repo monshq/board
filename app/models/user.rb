@@ -41,6 +41,7 @@ class User < ActiveRecord::Base
 
   def set_state_change_date_time
     @state_changed_at = Time.new
+  end
 
   self.authorizer_name = 'UsersAuthorizer'
   

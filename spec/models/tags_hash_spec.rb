@@ -30,6 +30,7 @@ describe TagsHash do
     it 'устанавливает релевантность для каждой комбинации' do
       tags = 5.times.map{ FactoryGirl.attributes_for(:tag)[:name] }
       hashes = TagsHash.get_hashes_with_relevance(tags)
+      hashes.length.should eq 2**5 - 1
       hashes.should include(hash: TagsHash.get_tags_hash(tags), relevance: 0)
       hashes.should include(hash: TagsHash.get_tags_hash(tags.take(3)), relevance: 2)
       hashes.should include(hash: TagsHash.get_tags_hash(tags.take(1)), relevance: 4)

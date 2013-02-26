@@ -125,7 +125,7 @@ feature 'Чтобы изменить объявление' do
       fill_in I18n.t('tags'),                                      with: @tags.join(', ')
       fill_in I18n.t('activerecord.attributes.item.contact_info'), with: @item[:contact_info]
       fill_in I18n.t('activerecord.attributes.item.price'),        with: 'price'
-      click_button I18n.t 'helpers.submit.item.create'
+      click_button I18n.t 'helpers.submit.item.update'
       
       page.should have_text I18n.t('activerecord.errors.models.item.attributes.price.not_a_number')
     end

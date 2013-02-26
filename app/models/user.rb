@@ -44,14 +44,4 @@ class User < ActiveRecord::Base
   end
 
   self.authorizer_name = 'UsersAuthorizer'
-  
-  def pay_for_item(item)
-    transaction = self.transactions.create(
-      :amount => item.price,
-      :item => item,
-      :state => :untreated)
-    Resque.enqueue(ProcessTransaction, transaction.id)
-    item.reserve
-    transaction.id
-  end
 end

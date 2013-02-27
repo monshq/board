@@ -1,0 +1,9 @@
+- @items.each do |item|
+  .item
+    .created_at= item.created_at
+    .description= link_to item.description, item_path(item)
+    .tags= k(item).tags unless item.tags.nil?
+    .contact_info= item.contact_info
+    .edit= link_to "Admin edit item", edit_admin_item_path(item)
+    .ban= link_to "Ban", new_admin_item_ban_path(item)
+    .moderate= link_to "Moderate", moderate_admin_item_path(item), method: :put, confirm: "Are you sure?"

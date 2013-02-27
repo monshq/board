@@ -31,6 +31,7 @@ ru:
   users: 'Пользователи'
   write_message: 'Связаться'
   items: 'Объявления'
+  ban_comment: 'Причина'
   
   card_data: 'Данные карты'
   card_number: 'Номер карты'

@@ -28,6 +28,7 @@ class Dashboard::ItemsController < Dashboard::ApplicationController
     @item = current_user.items.active.find(params[:id])
 
     if @item.update_attributes(params[:item])
+      @item.enqueue_to_moderate
       @item.set_tags parse_tags(params[:tags])
       @item.fire_state_event(params[:event]) if params[:event].present?
 

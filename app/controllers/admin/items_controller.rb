@@ -25,6 +25,7 @@ class Admin::ItemsController < Admin::ApplicationController
     if @item.moderate
       flash[:notice] = "Item check moderated"
     end
+    redirect_to on_moderation_admin_items_path
   end
 
 private

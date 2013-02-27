@@ -1,7 +1,13 @@
 - for item in @items
   .item
     .description= item.description
-    .state= item.state
+    - if item.state == 'published'
+      .state
+        = item.moderated
+        - if item.moderated == 'banned'
+          %span= "Reason: #{item.admin_comment.comment}"
+    - else
+      .state= item.state
     .photos
       - item.photos.each do |photo|
         .photo

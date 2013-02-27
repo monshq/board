@@ -17,12 +17,27 @@ class Item < ActiveRecord::Base
   validates :contact_info, presence: true
   validates :price, numericality: true, allow_blank: true
 
-  scope :published, lambda { where("state = ?", :published) }
+  scope :published, lambda { where("state = ? AND moderated <> ?", :published, :banned) }
   scope :active, lambda { where("state <> ?", :archived) }
   scope :archived, lambda { where("state = ?", :archived) }
   scope :with_messages, lambda { uniq.joins(:messages) }
+  scope :on_moderation, lambda { where("state = ? AND moderated = ?", :published, :queued) }
 
   self.authorizer_name = 'ItemsAuthorizer'
+
+  after_save :enqueue_to_moderate
+
+  state_machine :moderated, :initial => :queued do
+    event :moderate do
+      transition :queued => :ready
+    end
+    event :enqueue_to_moderate do
+      transition :ready => :queued, :banned => :queued
+    end
+    event :ban do
+      transition :queued => :banned, :ready => :banned
+    end
+  end
 
   state_machine :initial => :hidden do
     before_transition :on => :archivate do |item|

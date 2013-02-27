@@ -54,4 +54,11 @@ feature 'Я хочу видеть список сообщений на меде�
     visit on_moderation_admin_items_path
     page.should have_text @item.description
   end
+
+  scenario 'Я пытаюсь сделать бан для уже забаненного item' do
+    @item.ban
+    visit new_admin_item_ban_path(@item)
+    click_button "Ban"
+    page.should have_text "already banned"
+  end
 end

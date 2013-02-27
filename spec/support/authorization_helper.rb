@@ -37,5 +37,5 @@ def sign_in_as_admin
 end
 
 def sign_out
- click_link 'Выйти'
+ click_link I18n.t('sign_out')
 end

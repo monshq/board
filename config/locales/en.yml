@@ -21,6 +21,7 @@ en:
   users: 'Users'
   write_message: 'write message'
   items: 'Items'
+  ban_comment: 'Reason'
   
   card_data: 'Card data'
   card_number: 'Card number'

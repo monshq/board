@@ -25,8 +25,6 @@ class Item < ActiveRecord::Base
 
   self.authorizer_name = 'ItemsAuthorizer'
 
-  after_save :enqueue_to_moderate
-
   state_machine :moderated, :initial => :queued do
     event :moderate do
       transition :queued => :ready

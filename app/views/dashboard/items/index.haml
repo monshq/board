@@ -5,7 +5,7 @@
       .state
         = item.moderated
         - if item.moderated == 'banned'
-          %span= "Reason: #{item.admin_comment.comment}"
+          %span= "Reason: #{item.admin_comment && item.admin_comment.comment}"
     - else
       .state= item.state
     .photos

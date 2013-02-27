@@ -29,3 +29,13 @@ def register_and_activate_user(user)
   open_email user[:email]
   current_email.click_link 'Активировать'
 end
+
+def sign_in_as_admin
+  user = FactoryGirl.create :user
+  user.grant :admin
+  sign_in_user user
+end
+
+def sign_out
+ click_link 'Выйти'
+end

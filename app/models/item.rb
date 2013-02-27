@@ -30,10 +30,10 @@ class Item < ActiveRecord::Base
       transition :queued => :ready
     end
     event :enqueue_to_moderate do
-      transition :ready => :queued, :banned => :queued
+      transition [:ready, :banned] => :queued
     end
     event :ban do
-      transition :queued => :banned, :ready => :banned
+      transition [:queued, :ready] => :banned
     end
   end
 
@@ -46,8 +46,7 @@ class Item < ActiveRecord::Base
     after_transition any - :archived => :sold, :do => :set_sale_date_time
 
     event :publish do
-      transition :hidden => :published
-      transition :reserved => :published
+      transition [:hidden, :reserved] => :published
     end
 
     event :archivate do
@@ -55,9 +54,7 @@ class Item < ActiveRecord::Base
     end
 
     event :sell do
-      transition :hidden => :sold
-      transition :published => :sold
-      transition :reserved => :sold
+      transition [:hidden, :published, :reserved] => :sold
     end
 
     event :hide do
@@ -65,10 +62,7 @@ class Item < ActiveRecord::Base
     end
 
     event :archivate do
-      transition :hidden => :archived
-      transition :published => :archived
-      transition :sold => :archived
-      transition :reserved => :archived
+      transition [:hidden, :published, :sold, :reserved] => :archived
     end
     
     event :reserve do

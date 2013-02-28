@@ -3,6 +3,7 @@
 
 en:
   hello: 'Hello'
+  locale_not_support: Sorry, %{wrong_locale} locale is not supported, you will be redirected to your default supported locale
   welcome: 'Welcome!'
   register: 'Register'
   sign_in: 'Sign In'

@@ -1,8 +1,7 @@
 %ul.nav.pull-right
-  %li
-    = link_to 'RU', url_for(locale: :ru)
-  %li
-    = link_to 'EN', url_for(locale: :en)
+  - I18n.available_locales.each do |l|
+    %li
+      = link_to_if I18n.locale != l, l.upcase, url_for(locale: l)
   %li.divider-vertical
   - if user_signed_in?
     %li

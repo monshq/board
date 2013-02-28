@@ -10,9 +10,16 @@ feature 'Я хочу подать объявление на сайте на ру
 
   scenario 'Хочу поменять язык на русский, если это не текущий язык' do
     I18n.locale = :en
-    visit '/'
+    visit '/en'
     click_link 'RU'
 
     current_path.should == '/ru'
+  end
+  
+  scenario 'Я пытаюсь поменять язык на неподдерживаемый, переход на первый поддерживаемый или дефолтный' do
+    visit '/zz'
+    
+    current_path.should_not == '/zz'
+    current_path.should == "/#{I18n.locale}"
   end
 end

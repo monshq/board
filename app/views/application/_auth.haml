@@ -1,7 +1,7 @@
 %ul.nav.pull-right
   - I18n.available_locales.each do |l|
-    %li
-      = link_to_if I18n.locale != l, l.upcase, url_for(locale: l)
+    %li{:class => [I18n.locale == l && 'active']}
+      = link_to l.upcase, url_for(locale: l)
   %li.divider-vertical
   - if user_signed_in?
     %li

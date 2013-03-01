@@ -9,7 +9,6 @@ feature 'Я хочу подать объявление на сайте на ру
   end
 
   scenario 'Хочу поменять язык на русский, если это не текущий язык' do
-    I18n.locale = :en
     visit '/en'
     click_link 'RU'
 

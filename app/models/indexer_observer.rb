@@ -2,11 +2,17 @@ class IndexerObserver < ActiveRecord::Observer
   observe :item
 
   def after_update(item)
-    add_to_index(item)
+    if (item.visible?)
+      add_to_index(item)
+    else
+      remove_from_index(item)
+    end
   end
 
   def after_create(item)
-    add_to_index(item)
+    if (item.visible?)
+      add_to_index(item)
+    end
   end
 
   def after_destroy(item)

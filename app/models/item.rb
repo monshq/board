@@ -69,18 +69,6 @@ class Item < ActiveRecord::Base
       transition :published => :reserved
     end
 
-    state :hidden, :sold, :archived, :reserved do
-      def visible?
-        false
-      end
-    end
-
-    state :published do
-      def visible?
-        true
-      end
-    end
-
     state :archived do
       def visible_for_seller?
         false
@@ -92,6 +80,10 @@ class Item < ActiveRecord::Base
         true
       end
     end
+  end
+
+  def visible?
+    state == "published" && moderated != "banned"
   end
 
   def set_tags(tags)

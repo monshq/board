@@ -2,7 +2,7 @@ require 'resque/server'
 
 Board::Application.routes.draw do
   root to: 'home#index'
-  filter :locale
+  filter :board_locale
   devise_for :users, controllers: {sessions: "sessions"}
 
   resources :tags, only: [:index, :show]

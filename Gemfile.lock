@@ -5,7 +5,7 @@ GIT
     http_accept_language (2.0.1.pre)
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     actionmailer (3.2.12)
       actionpack (= 3.2.12)
